@@ -10,7 +10,7 @@
   //   LEFT *************************************************************************************
 
   .left-outer-div {
-    background-image: url(./../../assets/Login/pink-shadow-sign-in.png);
+    // background-image: url(./../../assets/Login/pink-shadow-sign-in.png);
     background-repeat: no-repeat;
     min-height: 100vh;
     .inner-left-div {
@@ -118,6 +118,37 @@
       color: #909090;
     }
   }
+}
+.sign-in-gas-app{
+  color: #000;
+font-family: Nunito;
+font-size: 40px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+.login-button-gas-app{
+  color: #FFF;
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background-color:#D1372D ;
+  stroke-width: 1px;
+stroke: #F5F5F5;
+}
+.or-text{
+  color: #000;
+font-family: Nunito;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+text-align: center;
+}
+.sign-in-agree{
+  font-size: 12px;
 }
 // :where(.css-dev-only-do-not-override-1sg6b5s).ant-input {
 //     box-sizing: border-box;

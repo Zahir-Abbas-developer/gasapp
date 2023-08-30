@@ -178,14 +178,14 @@ const Login = () => {
           <div className="inner-left-div">
             <div>
               <h1 className="heading-1">
-                <span className="pink-color" style={{color:"#e76f51"}}>
+                <span  style={{color:"#D1372D"}}>
                   {location?.pathname === "/login"
                     ? "Sign In" 
                     : location?.pathname === "/sign-up"? "Sign Up": "Change Password"}
                 </span>
                 <span > to</span>
               </h1>
-              <h3 className="heading-3" >Solace Leather</h3>
+              <h3 className="heading-3" >Gas App</h3>
             </div>
             {/* <div>
               <p className="p-tag-description-1">If you don't have an account register</p>
@@ -195,11 +195,11 @@ const Login = () => {
                 <span> here!</span>
               </p>
             </div> */}
-            <div className="demo-wrap">
+            {/* <div className="demo-wrap">
               <div className="demo-content">
                 <img src={LazyIcon} alt="care-library-icon" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </Col>
@@ -207,18 +207,12 @@ const Login = () => {
       {location?.pathname === "/login" && (
         <Col xs={24} sm={24} lg={12} xl={10}>
           <div className="right-outer-div">
-            <div className="img-div" style={{textAlign:"center"}}>
-              <img
-                src={CareLibraryIcon}
-                alt="care-library-icon"
-                style={{width:"100px",height:"100px",borderRadius:"50%"}}
-              />
-            </div>
+           
             <div>
-              <h2 className="Sign-in-heading">Sign In</h2>
+              <h2 className="sign-in-gas-app" >Sign In</h2>
               <Form name="emailOrUsername" onFinish={onFinish}>
                 <Form.Item
-                  name="emailOrUsername"
+                  name="mobilenumber"
                   rules={[
                     {
                       required: true,
@@ -227,48 +221,43 @@ const Login = () => {
                     { validator: validateEmail },
                   ]}
                 >
-                  <Input placeholder="Username" className="input-style" />
+                  <Input placeholder="Mobile Number" className="input-style" />
                 </Form.Item>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  {/* <Input.Password placeholder="Password" /> */}
-                  <Input.Password
-                    placeholder="Password"
-                    className="input-style"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                  />
-                </Form.Item>
+               
                 <p style={{ color: "red" }}>{errorMessage}</p>
 
-                <div style={{ textAlign: "end", margin: "10px 0px 20px 0px" }}>
+                {/* <div style={{ textAlign: "end", margin: "10px 0px 20px 0px" }}>
                   <Link to="/forget-password" className="forgot-password-style">
                     Forget Password?
                   </Link>
-                </div>
+                </div> */}
                 <Form.Item>
                   <Button
                     type="primary"
                     htmlType="submit"
                     loading={isLoading}
-                    className=" btn-signin fw-600 "
+                    className=" login-button-gas-app "
                     block
                   >
                     Sign In
                   </Button>
-                  <div style={{ textAlign: "end", margin: "10px 0px 20px 0px" }}>
+                  <Col sm={24} className="text-center">
+                  <p>OR</p>
+                  </Col>
+               <Link to="/sign-up">   <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={isLoading}
+                    className=" login-button-gas-app "
+                    block
+                  >
+                    Sign up
+                  </Button></Link>
+                  {/* <div style={{ textAlign: "end", margin: "10px 0px 20px 0px" }}>
                   <Link to="/sign-up" className="forgot-password-style">
                   New to Solace Leather? <span style={{textDecoration:"revert"}}>Sign Up</span>
                   </Link>
-                </div>
+                </div> */}
                 </Form.Item>
               </Form>
          
@@ -371,15 +360,6 @@ const Login = () => {
        {location?.pathname === "/sign-up" && (
         <Col xs={24} sm={24} lg={12} xl={10}>
           <div className="right-outer-div">
-            <div className="img-div" style={{textAlign:"center"}}>
-              <img
-                src={CareLibraryIcon}
-                alt="care-library-icon"
-                width={100}
-                height={100}
-                style={{borderRadius:"50%"}}
-              />
-            </div>
             <div>
               <h2 className="Sign-in-heading" style={{textDecoration:"revert" }}>Sign Up</h2>
               <Form name="currentPassword" onFinish={onFinishSignUp}>
@@ -394,7 +374,7 @@ const Login = () => {
                 >
                   <Input
                   style={{color:"white"}}
-                    placeholder="Username"
+                    placeholder="Full Name"
                     className="input-style"
                   />
                 </Form.Item>
@@ -408,10 +388,10 @@ const Login = () => {
                     { validator: validateEmail },
                   ]}
                 >
-                  <Input placeholder="Useremail" className="input-style" />
+                  <Input placeholder="Email" className="input-style" />
                 </Form.Item>
                 <Form.Item
-                  name="password"
+                  name="address"
                   rules={[
                     {
                       required: true,
@@ -419,47 +399,24 @@ const Login = () => {
                     },
                   ]}
                 >
-                  {/* <Input.Password placeholder="Password" /> */}
-                  <Input.Password
-                    placeholder="Password"
+                  <Input
+                  style={{color:"white"}}
+                    placeholder="Address"
                     className="input-style"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="confirmPassword"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  {/* <Input.Password placeholder="Password" /> */}
-                  <Input.Password
-                    placeholder="Confirm  Password"
-                    className="input-style"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
                   />
                 </Form.Item>
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <p style={{ color: "red" }}>{changePasswordErrorMessage}</p>
-
-                <Form.Item>
-                  <Button
+                 <p className="fs-12">By Signing up, I agree to Term of use</p>
+                <Link to="/sign-up">   <Button
                     type="primary"
                     htmlType="submit"
                     loading={isLoading}
-                    className=" btn-signin fw-600 "
+                    className=" login-button-gas-app "
                     block
                   >
-                    Save 
-                  </Button>
-                </Form.Item>
+                    Sign up
+                  </Button></Link>
               </Form>
             
               {/* <p className="fs-15-n-gray">

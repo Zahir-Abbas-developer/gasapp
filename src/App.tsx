@@ -14,7 +14,7 @@ function App() {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <div className="App">
           <Helmet>
-            <title>Solace Leather</title>
+            <title>Gas App</title>
             <meta name="description" content="Your website description" />
             {/* Other common meta tags */}
           </Helmet>
