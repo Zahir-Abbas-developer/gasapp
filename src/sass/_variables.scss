@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+$font-family-Roboto: "Roboto", "sans-serif";
+
+//colors
+$black-color: #000000;
+$white-color: #ffffff;
+$primary-color: #FE5C36;
+$secondary-color: #E76F51;
+$title-color: #264653;
+$selected-tab-color: #323131;
+$orange-color: #E9C46A;
+$greyScale-color:#4E6073;
+$error-color: #FF4D4F;
+$Orange-color: #FF6A6C;
+$bgLight-color: #FFF4F1;
+$bgDark-color: #FFC6B8;
+$successLight-color: #52C41A;
+$successDark-color: #409D12;
+$placeholder-color: #A5AEB5;
+$grey-color: #3B4D60;
+$innerProgress-color: #C7C7C7;
+$progress-color: #2A9D8F;
+$progressLight: #C0DDD9;
+$heading-color: #0E0E0E;
+$border-color: #A0ACBB;
+$breadcrumb-color: #999999;
+$checkbox-border-color: #C1C1C7;
+$warning-color: #FAAD14;
+$low-yellow-color: #FDCA64;
+$line-color: #DBE4EF;
+$varient4-color: #EAEEF2;
+$default-color: #E5ECF3;
+$blue-color: #1890FF;
+$lightBlue-color: #6993FF;
+$darkBlue-color: #1B2559;
+$purple-color: #49416D;
+$idleTime-color: #898347;
+$light-green-progress-color: #37B4A4;
+$light-yellow-color: #FACD74;
+$darkGreen-color: #045162;
+$darkOrange-color: #F78812;
+$light-grey: #A3AED0;
+$darkOrange-color: #F78812;
+$lightOrange-color: #F4A261;
+$lightDarkBlue-color: #0354A6;
+$button-light-bg-color: #F4F9FF;
+$delete-btn-bg-color: #FF5F68;
+
+$label-color: #848588;
+$light-grey: #A3AED0;
+
+$darkRed-color: #E75151;
+/* box shadow */
+$box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.18);
+
+
+$card-box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1);
+
+/*font-size vars */
+$fs-48: 48px;
+$fs-40: 40px;
+$fs-32: 32px;
+$fs-28: 28px;
+$fs-26: 26px;
+$fs-24: 24px;
+$fs-22: 22px;
+$fs-20: 20px;
+$fs-18: 18px;
+$fs-16: 16px;
+$fs-14: 14px;
+$fs-12: 12px;
+$fs-10: 10px;
+
+/* font-weight-vars */
+$fw-300: 300;
+$fw-400: 400;
+$fw-500: 500;
+$fw-600: 600;
+$fw-700: 700;
+
+/* line-height vars*/
+$line-height-16: 16px;
+$line-height-18: 18px;
+$line-height-20: 20px;
+$line-height-22: 22px;
+$line-height-24: 24px;
+$line-height-28: 28px;
+$line-height-30: 30px;
+$line-height-32: 32px;
+$line-height-38: 38px;
+$line-height-40: 40px;
+
+/* padding vars */
+$btn-padding: 10px 22px;
+
+/* radius vars */
+$border-radius-4: 4px;
+$border-radius-6: 6px;
+$border-radius-8: 8px;
+$border-radius-9: 9px;
+$border-radius-10: 10px;
