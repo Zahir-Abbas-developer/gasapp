@@ -3,6 +3,7 @@ import CareLibraryIcon from "../../assets/icons/logo.jpg";
 import LazyIcon from "./../../assets/Login/lazy-icon-care.png";
 import { useState } from "react";
 import { Form, Input, Button } from "antd";
+import SignUp from "../../assets/Login/Sign-up.svg"
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./SignIn.scss";
 import { useForgetPasswordRequestMutation, useNewPasswordRequestMutation, useSignInPostRequestMutation } from "../../store/Slices/Signin";
@@ -407,8 +408,8 @@ const Login = () => {
                 </Form.Item>
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <p style={{ color: "red" }}>{changePasswordErrorMessage}</p>
-                 <p className="fs-12">By Signing up, I agree to Term of use</p>
-                <Link to="/sign-up">   <Button
+                 <p className="fs-16">By Signing up, I agree to Term of use</p>
+                <Link to="/forget-password">   <Button
                     type="primary"
                     htmlType="submit"
                     loading={isLoading}
@@ -431,43 +432,25 @@ const Login = () => {
           <div className="right-outer-div">
             <div className="img-div" style={{textAlign:"center"}}>
               <img
-                src={CareLibraryIcon}
+                src={SignUp}
                 alt="care-library-icon"
-                width={100}
-                height={100}
+                width={176}
+                height={176}
                 style={{borderRadius:"50%"}}
               />
             </div>
+            <p className="fs-16 text-center" style={{marginTop:"80px",marginBottom:"80px"}}>By Signing up, I agree to Term of use</p>
             <div>
-              <h2 className="Sign-in-heading" style={{textDecoration:"revert" }}>Forget Password</h2>
-              <Form name="currentPassword" onFinish={onFinishForgetPassword}>
-                <Form.Item
-                  name="email"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  <Input
-                  style={{color:"white"}}
-                    placeholder="Enter Email"
-                    className="input-style"
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Button
+            <Link to="/login">   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={isLoadingForgetPassword}
-                    className=" btn-signin fw-600 "
+                    loading={isLoading}
+                    className=" login-button-gas-app "
                     block
                   >
-                    Save 
-                  </Button>
-                </Form.Item>
-              </Form>
+                   Login
+                  </Button></Link>
+            
             
               {/* <p className="fs-15-n-gray">
               Resend <span className="pink-color">Log In</span> Details

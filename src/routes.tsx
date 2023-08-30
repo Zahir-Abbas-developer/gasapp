@@ -38,7 +38,7 @@ const ReviewCareHomesPage = Loadable(lazy(() => import("./pages/Ratings")));
 
 const DashboardPage = Loadable(lazy(() => import("./pages/Dashboard")));
 const JacketDetailsPage = Loadable(lazy(() => import("./pages/JacketDetails")));
-
+const OtpPage=Loadable(lazy(()=>import("./pages/Otp")))
 const OverAllRatingsPage = Loadable(
   lazy(() => import("./pages/OverAllRatings"))
 );
@@ -183,6 +183,15 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
+      {
+        path: "otp-verification",
+        element: (
+          
+            <OtpPage />
+        
+        ),
+      },
+      
       {
         path: "dashboard",
         element: (

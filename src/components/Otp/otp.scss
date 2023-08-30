@@ -1,0 +1,79 @@
+@import "../../sass/variables";
+
+.otpModal-wrapper {
+  .Otp_App {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+    }
+    .completeProcess {
+      width: 65%;
+      margin: auto;
+      margin-bottom: 35px;
+      margin-top: 60px;
+      @media only screen and (max-width: 600px) {
+        width: 100%;
+        margin-top:10px;
+      }
+    }
+
+  }
+
+  .OtpVerification {
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .otp-input input {
+    border: 1px solid #cacaca;
+    border-radius: $border-radius-8;
+    width: 60px;
+    height: 68px;
+    color: $black-color;
+    margin-bottom: 20px;
+    caret-color: $black-color;
+    font-size: 20px;
+    font-weight: 600;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .ErrorMessage {
+    margin: 0;
+  }
+  .stepperBtn {
+    padding-bottom: 30px;
+  }
+  .ResendCode {
+    margin: 35px 0;
+    a {
+      text-decoration: none;
+    }
+  }
+    @media (min-width: 280px) and (max-width:375px) {
+    .otp-input input{
+      width: 20px !important;
+      height: 100% !important;
+    }
+    }
+    @media (min-width: 376px) and (max-width:599px) {
+        .otp-input input{
+            width: 40px !important;
+        }
+    }
+    @media (min-width:600px) {
+        .otp-input input{
+            width: 60px !important;
+        }
+    }
+}
+.otpModal{
+    .MuiDialog-paper{
+        border-radius: $border-radius-10;
+    }   
+}
+
