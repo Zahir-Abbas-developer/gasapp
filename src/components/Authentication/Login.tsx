@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import CareLibraryIcon from "../../assets/icons/logo.jpg";
-import LazyIcon from "./../../assets/Login/lazy-icon-care.png";
+import PhoneInput from "react-phone-input-2";
 import { useState } from "react";
 import { Form, Input, Button } from "antd";
 import SignUp from "../../assets/Login/Sign-up.svg"
@@ -18,6 +18,7 @@ const Login = () => {
   const [changePasswordErrorMessage, setChangePasswordErrorMessage] =
     useState("");
   let navigate = useNavigate();
+  const [form] = Form.useForm();
   const location = useLocation();
   const [signInPostRequest, { isLoading }] = useSignInPostRequestMutation();
   const [forgetPasswordRequest ,{isLoading:isLoadingForgetPassword}]=useForgetPasswordRequestMutation()
@@ -391,6 +392,21 @@ const Login = () => {
                 >
                   <Input placeholder="Email" className="input-style" />
                 </Form.Item>
+            
+              <Form.Item label="Phone Number" name="phoneNumber">
+                <PhoneInput
+                  containerClass="phone-input-style"
+                  inputClass="phone-input-style"
+                  country={"pk"}
+                  onlyCountries={['pk']}
+                  disableDropdown
+                  onChange={(value: string) =>
+                    form.setFieldsValue({ phoneNumber: value })
+                  }
+                  placeholder="Phone number"
+                />
+              </Form.Item>
+           
                 <Form.Item
                   name="address"
                   rules={[
