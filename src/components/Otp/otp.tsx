@@ -1,104 +1,223 @@
-import { useEffect, useState } from "react";
-import { Button,Box } from "@mui/material";
-import OtpInput from "react-otp-input";
-import {Link} from 'react-router-dom';
-import "./otp.scss";
-const Otp=()=>{
+import React, { useState, useRef, useEffect } from "react";
+import { Button, Modal, Row, Col, Input, Form } from "antd";
 
-    return(
+export const ConfirmationCode = (props: any) => {
+  const { setIsCodeConfirmation, isCodeConfirmation, setIsVerified } = props;
+  const [isReSend, setIsReSend] = useState(false);
 
-     <OtpInput value={""}onChange={()=>{}} numInputs={5} separator={<span style={{ width: "13px" }}></span>}
-                // isInputNum={true} shouldAutoFocus={true} 
-                // errorStyle={{ border: "1px solid red"}}
-                // hasErrored={errormessage || checkcode || (minutes === 0 && seconds === 0) ? true : false}
-              /> 
-    )
-}
+  const [validationText, setvalidationText] = useState("");
 
+  const [otpValues, setOtpValues] = useState(["", "", "", ""]);
 
-export default function OtpVerifications() {
-//   const [initailCode, setInitailCode] = useState("12345");
-//   const [errormessage, setErrormessage] = useState(false);
-//   const [checkcode, setCheckcode] = useState(false);
-//   const [code, setCode] = useState("");
-//   const [minutes, setMinutes] = useState(0);
-//   const [seconds, setSeconds] = useState(30);
+  const [otp1, setOtp1] = useState("");
+  const [otp2, setOtp2] = useState("");
+  const [otp3, setOtp3] = useState("");
+  const [otp4, setOtp4] = useState("");
+  const [expiryTime, setExpiryTime] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (expiryTime > 0) {
+        setExpiryTime((prevExpiryTime) => prevExpiryTime - 1);
+      } else {
+        setvalidationText("OTP has expired. Please request a new OTP.");
+      }
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, [expiryTime]);
 
-//   useEffect(() => {
-//     let myInterval = setInterval(() => {
-//       if (seconds > 0) {
-//         setSeconds(seconds - 1);
-//       }
-//       if (seconds === 0) {
-//         if (minutes === 0) {
-//           clearInterval(myInterval);
-//         } else {
-//           setMinutes(minutes - 1);
-//           setSeconds(59);
-//         }
-//       }
-//     }, 1000);
-//     return () => {
-//       clearInterval(myInterval);
-//     };
-//   },[initailCode,minutes,seconds]);
+  const inputRefs: any = Array(4)
+    .fill(0)
+    .map(() => React.createRef());
+  const handlePaste = (e: any, index: any) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData("Text");
+    const otpArray = pasteData.split("").slice(0, 4);
+    const newOtpValues = [...otpValues];
+    otpArray.forEach((char: any, i: any) => {
+      newOtpValues[index + i] = char;
+    });
+    setOtpValues(newOtpValues);
+    inputRefs[index + otpArray.length]?.current.focus();
+  };
+  const handleInput = (e: any, index: any) => {
+    const value = e.target.value;
+    if (value.length <= 1 && !isNaN(value)) {
+      const newOtpValues = [...otpValues];
+      newOtpValues[index] = value;
+      setOtpValues(newOtpValues);
+      inputRefs[index + 1]?.current.focus();
+    }
+  };
+  const handleKeyDown = (e: any, index: any) => {
+    if (e.keyCode === 8 && !e.target.value) {
+      const newOtpValues = [...otpValues];
+      newOtpValues[index - 1] = "";
+      setOtpValues(newOtpValues);
+      inputRefs[index - 1]?.current.focus();
+    }
+  };
+  const handleBlur = (e: any, index: any) => {
+    // do nothing
+  };
 
-//   const ResendCode =  () => {
-//     setInitailCode("56789");
-//     setCode("");
-//     setSeconds(30);
-//   };
-//  const handleChange = (code: any) => {
-//     setCode(code);
+  const handleChange = (event: any) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    if (value.length === 1 && /^\d+$/.test(value)) {
+      switch (name) {
+        case "otp1":
+          setOtp1(value);
+          break;
+        case "otp2":
+          setOtp2(value);
+          break;
+        case "otp3":
+          setOtp3(value);
+          break;
+        case "otp4":
+          setOtp4(value);
+          break;
+        default:
+          break;
+      }
+    }
+    console.log("handleChange clicked");
+    setIsReSend(false);
+    otpValues?.slice(0, otpValues?.length - 1).every((item) => item !== "") &&
+      setvalidationText("");
+    // console.log(otpValues?.slice(0, otpValues?.length - 1).every(item => item !== ""));
+  };
 
-//     if (initailCode === code || (minutes === 0 && seconds === 0)) {
-//       setErrormessage(false);
-//       } else {
-//       setErrormessage(true);
-//       if (code.length < 1) {
-//         setCheckcode(true);
-//       } else {
-//         setCheckcode(false);
-//       }
-//     }
-//   };
-return (
-    <Box className="otpModal-wrapper">
-      <Box className="Otp_App">
-          <>
-            <p className="completeProcess">Please enter the verification code sent to process your payment </p>
-            <div className="OtpVerification">
-              {/* <OtpInput value={code}onChange={()=>{}} numInputs={5} separator={<span style={{ width: "13px" }}></span>}
-                // isInputNum={true} shouldAutoFocus={true} 
-                // errorStyle={{ border: "1px solid red"}}
-                // hasErrored={errormessage || checkcode || (minutes === 0 && seconds === 0) ? true : false}
-              /> */}
+  const handleVerify = (event: any) => {
+    event.preventDefault();
+    const enteredOtp = otp1 + otp2 + otp3 + otp4;
+    // do validation and submit the OTP
+    console.log(otpValues?.every((item) => item !== ""));
+
+    if (otpValues?.every((item) => item !== "")) {
+      setIsCodeConfirmation(false);
+      setvalidationText("");
+      setIsVerified(true);
+    } else setvalidationText("Please Enter the code");
+  };
+
+  return (
+    <div>
+      <Modal
+        centered
+        open={isCodeConfirmation}
+        className="myAccount-otp-wrapper modal-theme"
+        width={760}
+        footer={null}
+        onOk={() => {
+          setIsCodeConfirmation(false);
+        }}
+        onCancel={() => {
+          setIsCodeConfirmation(false);
+        }}
+        okText="Delete"
+        cancelText="Cancel"
+      >
+        <div style={{ textAlign: "center", marginTop: "50px" }}>
+          <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
+            Four digit code has been sent to (+92 900 - 78601)
+          </span>
+          <div style={{ marginTop: "12px" }}>
+            <span
+              className="fs-16 fw-500 line-height-22"
+              style={{ color: "#6F7074" }}
+            >
+              Please enter the code
+            </span>
+          </div>
+        </div>
+
+        <div className="otp-container">
+          <Input
+            className="otp-inputs"
+            maxLength={1}
+            ref={inputRefs[0]}
+            value={otpValues[0]}
+            onPaste={(e) => handlePaste(e, 0)}
+            onInput={(e) => handleInput(e, 0)}
+            onKeyDown={(e) => handleKeyDown(e, 0)}
+            onBlur={(e) => handleBlur(e, 0)}
+            onChange={handleChange}
+          />
+          <Input
+            className="otp-inputs"
+            maxLength={1}
+            ref={inputRefs[1]}
+            value={otpValues[1]}
+            onPaste={(e) => handlePaste(e, 1)}
+            onInput={(e) => handleInput(e, 1)}
+            onKeyDown={(e) => handleKeyDown(e, 1)}
+            onBlur={(e) => handleBlur(e, 1)}
+            onChange={handleChange}
+          />
+          <Input
+            className="otp-inputs"
+            maxLength={1}
+            ref={inputRefs[2]}
+            value={otpValues[2]}
+            onPaste={(e) => handlePaste(e, 2)}
+            onInput={(e) => handleInput(e, 2)}
+            onKeyDown={(e) => handleKeyDown(e, 2)}
+            onBlur={(e) => handleBlur(e, 2)}
+            onChange={handleChange}
+          />
+          <Input
+            className="otp-inputs"
+            maxLength={1}
+            ref={inputRefs[3]}
+            value={otpValues[3]}
+            onPaste={(e) => handlePaste(e, 3)}
+            onInput={(e) => handleInput(e, 3)}
+            onKeyDown={(e) => handleKeyDown(e, 3)}
+            onBlur={(e) => handleBlur(e, 3)}
+            onChange={handleChange}
+          />
+        </div>
+        {validationText && (
+          <div style={{ position: 'relative' }}>
+            <p className="two-factor-auth-error fs-14 fw-400 m-0" style={{ position: 'absolute', bottom: '5px', left: '4px', width: '100%' }}>
+              {validationText}
+            </p>
+          </div>
+        )}
+
+        <div style={{ textAlign: "center", marginTop: "50px" }}>
+          <Button key="Continue" type="primary" style={{ backgroundColor: "#E76F51" }} onClick={handleVerify}>
+            Verify
+          </Button>
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: "40px", paddingBottom: '50px' }}>
+          <span
+            className="fs-14 fw-400"
+            style={{ color: "#6F7074", paddingRight: "8px" }}
+          >
+            Didn’t get code?
+          </span>
+          <span
+            className="fs-14 fw-500 account-modal-title-color"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setIsReSend(true);
+              setOtpValues(["", "", "", ""]);
+            }}
+          >
+            Resend
+          </span>
+          {isReSend && (
+            <div style={{ position: 'relative' }}>
+              <p className="fs-12 fw-400" style={{ color: "#264653", position: "absolute", top: "10px", right: '4px', width: '100%' }}>
+                Code has been resend
+              </p>
             </div>
-            {/* {errormessage ? <p className="ErrorMessage error-color">Invalid Code</p> : ""}
-            {checkcode ? <p className="ErrorMessage error-color">Enter authentication code</p> : ""} */}
-              <>
-                <div>
-                  {/* {minutes === 0 && seconds === 0 ? (<p className="ErrorMessage error-color">Code expired</p>) : (
-                    <h1 className="fw-500 fs-16 error-color">
-                      {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-                    </h1>
-                  )} */}
-                </div>
-                <div>
-                  <p className="ResendCode"> 
-                    Didn’t receive the verification code?
-                    <br />
-                    {/* <Link to="" onClick={ResendCode} className="cursor-pointer secondary-color"> Resend Code </Link> */}
-                  </p>
-                </div>
-                <div className="stepperBtn">
-                  {/* <Button variant="contained" sx={{width:"70%",margin:'auto'}} onClick={()=>{close()}} className="btn-primary">
-                    Continue
-                  </Button> */}
-                </div>
-              </>
-          </>
-      </Box>
-    </Box>
+          )}
+        </div>
+      </Modal>
+    </div>
   );
-}
+};

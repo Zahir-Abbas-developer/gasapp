@@ -1,6 +1,6 @@
-import Otp from "../../components/Otp/otp"
+import  { ConfirmationCode } from "../../components/Otp/otp"
 
 const OtpPage=()=>{
-    return <Otp/>
+    return <ConfirmationCode/>
 }
 export default OtpPage
