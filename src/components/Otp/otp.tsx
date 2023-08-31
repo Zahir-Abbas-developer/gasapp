@@ -103,21 +103,7 @@ export const ConfirmationCode = (props: any) => {
 
   return (
     <div>
-      <Modal
-        centered
-        open={isCodeConfirmation}
-        className="myAccount-otp-wrapper modal-theme"
-        width={760}
-        footer={null}
-        onOk={() => {
-          setIsCodeConfirmation(false);
-        }}
-        onCancel={() => {
-          setIsCodeConfirmation(false);
-        }}
-        okText="Delete"
-        cancelText="Cancel"
-      >
+    
         <div style={{ textAlign: "center", marginTop: "50px" }}>
           <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
             Four digit code has been sent to (+92 900 - 78601)
@@ -217,7 +203,7 @@ export const ConfirmationCode = (props: any) => {
             </div>
           )}
         </div>
-      </Modal>
+   
     </div>
   );
 };
