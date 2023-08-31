@@ -1,4 +1,4 @@
-import Cylinder from "../../assets/images/Cylinder/Gas-Cylinder-PNG 2.png"
+import Cylinder from "../../assets/images/Cylinder/cylinder.svg"
 
 export const selectUserType=[
     {
