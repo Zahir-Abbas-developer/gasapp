@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ManageUsersData } from "../../../mock/ManageUserData";
 import { Button, Card, Col, Layout, Row } from "antd";
-import "./SelectServices.scss";
+import "./CylinderOrders.scss";
 import "../../../sass/common.scss";
 // import AddUserTypeModal from "../AddUserTypeModal/AddUserTypeModal";
 import { useEffect, useState } from "react";
@@ -15,8 +15,8 @@ import ApiLoader from "../../ApiLoader/ApiLoader";
 import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../../store";
-import { selectUserType } from "../../../mock/SelectCylinderTypes";
-const SelectGroundTypes = () => {
+import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
+const CylinderOrders = () => {
 
 
   const { isError, isSuccess, isLoading, data } =
@@ -53,9 +53,9 @@ const SelectGroundTypes = () => {
             {/* SELECT GROUND */}
           </p>
         </div>
-        {selectUserType.length>0 ?
+        {OrdersylinderData.length>0 ?
         <Row gutter={[80, 30]}>
-          {selectUserType.map((card: any) => (
+          {OrdersylinderData.map((card: any) => (
             <Col xs={24} md={24} sm={24} lg={24} xl={24} xxl={8} key={card._id}>
               <Card
                 className="card-hover-color cursor-pointer"
@@ -91,22 +91,32 @@ const SelectGroundTypes = () => {
                        
                       }}
                     >
-                      {card?.name.replace("_", ' ')}
+                         {card?.name.replace("_", ' ')}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                      {card?.description}
+                          Type :  {card?.type}
                     </p>
+                    <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
+                          ETA :  {card?.eta}
+                    </p>
+                    <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
+                          Amount :  {card?.amount}
+                    </p>
+                    <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
+                          Address :  {card?.address}
+                    </p>
+                   
                   </div>
                 </div>
                 <Link to="/forget-password">   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={isLoading}
+                   
                     style={{fontSize:"14PX"}}
                     className=" login-button-gas-app "
                     block
                   >
-                    Order Now
+                  Cancel  Order
                   </Button></Link>
                   </Col>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
@@ -192,4 +202,4 @@ const SelectGroundTypes = () => {
   );
 };
 
-export default SelectGroundTypes;
+export default CylinderOrders;

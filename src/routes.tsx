@@ -42,7 +42,7 @@ const OtpPage=Loadable(lazy(()=>import("./pages/Otp")))
 const OverAllRatingsPage = Loadable(
   lazy(() => import("./pages/OverAllRatings"))
 );
-
+const CylinderOrders = Loadable(lazy(() => import("./pages/CylinderOrders")));
 const ProductDetailsPage = Loadable(
   lazy(() => import("./pages/ProductDetails"))
 );
@@ -172,6 +172,14 @@ export const routes: any = [
         element: (
           // <RequireAuth allowedRoles={[ROLES.superAdmin]}>
             <Services />
+          // </RequireAuth>
+        ),
+      },
+      {
+        path: "orders",
+        element: (
+          // <RequireAuth allowedRoles={[ROLES.superAdmin]}>
+            <CylinderOrders />
           // </RequireAuth>
         ),
       },
