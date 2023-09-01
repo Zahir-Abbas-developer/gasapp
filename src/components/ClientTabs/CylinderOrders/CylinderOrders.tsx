@@ -81,7 +81,7 @@ const CylinderOrders = () => {
                   }}
                 >
                  
-                  <div style={{ display: "block", textAlign: "center" }}>
+                  <div style={{ display: "block", }}>
                     <p
                       className="fs-16 fw-500"
                       style={{
@@ -108,16 +108,7 @@ const CylinderOrders = () => {
                    
                   </div>
                 </div>
-                <Link to="/forget-password">   <Button
-                    type="primary"
-                    htmlType="submit"
-                   
-                    style={{fontSize:"14PX"}}
-                    className=" login-button-gas-app "
-                    block
-                  >
-                  Cancel  Order
-                  </Button></Link>
+              
                   </Col>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
                   <img
@@ -131,6 +122,18 @@ const CylinderOrders = () => {
                     margin: "auto",
                   }}
                 />
+                  </Col>
+                  <Col xs={24} style={{textAlign:"center"}}>
+                  <Link to="/forget-password">   <Button
+                    type="primary"
+                    htmlType="submit"
+                    
+                    style={{fontSize:"14PX",width:"135.49px"}}
+                    className=" login-button-gas-app "
+                    block
+                  >
+                  Cancel  Order
+                  </Button></Link>
                   </Col>
                 </Row>
                 <div>
