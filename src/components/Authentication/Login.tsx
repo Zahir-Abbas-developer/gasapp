@@ -174,7 +174,7 @@ const Login = () => {
   return (
     <Row className="care-signin">
       {/* Left Div */}
-      <Col xs={0} sm={0} lg={12} xl={14}>
+      <Col xs={0} sm={0} lg={6} xl={14}>
         <div className="left-outer-div">
           <div className="inner-left-div">
             <div>
@@ -206,7 +206,7 @@ const Login = () => {
       </Col>
       {/* Right Div for form */}
       {location?.pathname === "/login" && (
-        <Col xs={24} sm={24} lg={12} xl={10}>
+        <Col xs={24} sm={24} lg={18} xl={10}>
           <div className="right-outer-div">
            
             <div>
