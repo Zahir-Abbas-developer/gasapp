@@ -1,79 +1,333 @@
-@import "../../sass/variables";
+.account-modal-wrapper {
+  // background: #FFFFFF;
+  // border: 1px solid #e6e6e6;
+  border-radius: 4px;
 
-.otpModal-wrapper {
-  .Otp_App {
-    text-align: center;
+  .phone-input-style .phone-input-style {
+    height: 40px;
     width: 100%;
-    margin: auto;
-    @media only screen and (max-width: 600px) {
+    border-radius: 2px !important;
+    border: 1px solid rgba(160, 172, 187, 0.4) !important;
+    background-color: var(--white-dark-bg);
+    color: var(--title-color);
+
+    &::placeholder {
+      color: #a0acbb;
+    }
+  }
+
+  .ant-modal-content {
+    padding: 0px !important;
+  }
+
+  .ant-modal-header {
+    padding: 18px 0px 15px 30px !important;
+    box-shadow: inset 0px -1px 0px #e9ebf0;
+    border-radius: 4px 4px 0px 0px;
+  }
+
+  .form-content {
+    padding: 10px 32px;
+  }
+
+  .ant-modal-footer {
+    padding-bottom: 20px !important;
+    padding-right: 30px !important;
+  }
+
+  .ant-input-password {
+    border-radius: 2px;
+    border: 1px solid rgba(160, 172, 187, 0.4);
+  }
+
+  .ant-input {
+    border-radius: 2px;
+    border: 1px solid rgba(160, 172, 187, 0.4);
+  }
+}
+
+.profile-modal-edit {
+  @extend .account-modal-wrapper;
+
+  .ant-modal-footer {
+    text-align: center !important;
+    padding-right: 0px !important;
+  }
+}
+
+.myAccount-otp-wrapper {
+  .otp-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+  }
+
+  .otp-inputs {
+    caret-color: transparent;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    border: 1px solid #eee;
+    font-size: 30px;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .two-factor-auth-error {
+    text-align: center;
+    color: red !important;
+  }
+
+  @media only screen and (max-width: 600px) and (min-width: 330px) {
+    .otp-inputs {
+      font-size: 24px;
+      height: 50px;
+      max-width: 50px;
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 329px) {
+    .otp-inputs {
+      font-size: 10px;
+      height: 40px;
+      max-width: 40px;
+      font-weight: 400;
+    }
+  }
+
+  @media only screen and (max-width: 510px) {
+    .code-verif-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}
+
+
+.account-form-wrapper {
+
+  .account-setting-form {
+    width: 900px;
+
+    @media screen and (max-width: 1350px) {
       width: 100%;
     }
-    .completeProcess {
-      width: 65%;
-      margin: auto;
-      margin-bottom: 35px;
-      margin-top: 60px;
-      @media only screen and (max-width: 600px) {
-        width: 100%;
-        margin-top:10px;
+    .ant-select .ant-select-selection-item > * {
+      display: none;
+    }
+  }
+  .my-account-input {
+    border: 1px solid rgba(160, 172, 187, 0.4) !important;
+    border-radius: 2px !important;
+    padding: 8px 11px !important;
+    background-color: var(--white-dark-bg);
+    color: var(--title-color);
+
+    &::placeholder {
+      color: #a0acbb;
+    }
+
+    &:hover {
+      border-color: #ff815e !important;
+    }
+  }
+
+  .phone-input-style .phone-input-style {
+    height: 40px;
+    width: 100%;
+    border-radius: 2px !important;
+    border: 1px solid rgba(160, 172, 187, 0.4) !important;
+    background-color: var(--white-dark-bg);
+    color: var(--title-color);
+
+    &::placeholder {
+      color: #a0acbb;
+    }
+  }
+
+  .profile--input-style {
+    border-radius: 2px !important;
+    height: 40px !important;
+    border-color: #a0acbb;
+
+    .ant-select-selector {
+      border-radius: 2px !important;
+      // height: 37px !important;
+      align-items: center !important;
+      border-color: #a0acbb;
+
+      &:hover {
+        border-color: #a0acbb;
+      }
+    }
+  }
+
+  .ant-select.ant-select-in-form-item {
+    border: 1px solid rgba(160, 172, 187, 0.4) !important;
+
+    &:hover {
+      border-color: #ff815e !important;
+    }
+  }
+
+  .ant-select-selector {
+    border: 0 !important;
+  }
+
+  .ant-form-item-label > label {
+    color: var(--label-color) !important;
+  }
+
+  .react-tel-input .flag-dropdown {
+    background-color: var(--white-dark-bg) !important;
+    color: var(--title-color) !important;
+
+    &::placeholder {
+      color: #a0acbb;
+    }
+
+    border: 1px solid rgba(160, 172, 187, 0.4) !important;
+  }
+
+  .timezone-myaccount {
+    border: 1px solid rgba(160, 172, 187, 0.4) !important;
+
+    &:hover {
+      border-color: #ff815e !important;
+    }
+
+    .ant-select.ant-select-in-form-item {
+      border: none !important;
+    }
+  }
+
+  .timezone-div {
+    display: flex;
+    justify-content: space-between;
+
+    @media only screen and (max-width: 330px) {
+      flex-direction: column;
+      width: 100%;
+      padding: 5px 0px 5px 5px !important;
+      margin: 0;
+    }
+
+    .ant-select {
+      width: 100% !important;
+    }
+  }
+
+  .ant-select-selector {
+    border-radius: 2px;
+    height: 37px !important;
+    border-radius: 2px !important;
+    background-color: var(--white-dark-bg) !important;
+    color: var(--title-color);
+    color: var(--label-color) !important;
+
+    &::placeholder {
+      color: #a0acbb;
+    }
+
+    &:hover {
+      border-color: #ff815e !important;
+    }
+  }
+
+  .custom-radio-btn {
+    .ant-radio-checked .ant-radio-inner {
+      border-color: #e76f51;
+      background-color: #fff;
+
+      &::after {
+        background-color: #e76f51;
+        height: 22px;
+        width: 22px;
+        top: 4px;
+        left: 4px;
+      }
+    }
+  }
+}
+
+.tabs-section-wrapper {
+  .tab-wrapper {
+    p {
+      padding: 15px 25px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      border-left: 4px solid transparent;
+
+      &:hover {
+        background-color: rgba(231, 111, 81, 0.14) !important;
+        border-left: 4px solid #e76f51;
       }
     }
 
-  }
+    .selected-tab {
+      background-color: rgba(231, 111, 81, 0.14) !important;
+      border-left: 4px solid #e76f51;
+    }
 
-  .OtpVerification {
-    justify-content: center;
-    display: flex;
-    text-align: center;
-    padding: 0 20px;
-  }
-  .otp-input input {
-    border: 1px solid #cacaca;
-    border-radius: $border-radius-8;
-    width: 60px;
-    height: 68px;
-    color: $black-color;
-    margin-bottom: 20px;
-    caret-color: $black-color;
-    font-size: 20px;
-    font-weight: 600;
-    &:focus {
-      outline: none;
+    p:nth-child(odd) {
+      // background-color: #fef9f8;
+      background: var(--table-row-bg);
     }
   }
 
-  .ErrorMessage {
-    margin: 0;
+  .tabs-styles {
+    padding: 15px 25px;
+    cursor: pointer;
   }
-  .stepperBtn {
-    padding-bottom: 30px;
-  }
-  .ResendCode {
-    margin: 35px 0;
-    a {
-      text-decoration: none;
+
+  .btn-simple {
+    background-color: var(--card-bg-color) !important;
+    border: 1px solid black;
+    color: var(--label-color) !important;
+
+    &:hover {
+      background: var(--main-bg-color);
+
+      img {
+        filter: var(--white-img-theme-class) !important;
+      }
     }
   }
-    @media (min-width: 280px) and (max-width:375px) {
-    .otp-input input{
-      width: 20px !important;
-      height: 100% !important;
+
+  @media only screen and (max-width: 1600px) {
+    .responsive-btns {
+      display: flex;
+      justify-content: center;
+      width: 100% !important;
     }
+
+    .col-responsive {
+      padding: 0%;
+      margin: 5px 0px;
     }
-    @media (min-width: 376px) and (max-width:599px) {
-        .otp-input input{
-            width: 40px !important;
-        }
-    }
-    @media (min-width:600px) {
-        .otp-input input{
-            width: 60px !important;
-        }
-    }
-}
-.otpModal{
-    .MuiDialog-paper{
-        border-radius: $border-radius-10;
-    }   
+  }
 }
 
+.ant-btn-default:disabled {
+  background-color: #c1c1c7 !important;
+  color: #ffffff !important;
+}
+
+.account-modal-responsivness {
+  padding: 0px 44px;
+  color: #3b4d60;
+
+  @media only screen and (min-width: 280px) and (max-width: 340px) {
+    padding: 0px 10px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .my-account-form-styles {
+    margin-top: 20px;
+  }
+}
