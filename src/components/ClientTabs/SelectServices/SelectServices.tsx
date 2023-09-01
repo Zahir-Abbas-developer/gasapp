@@ -50,7 +50,7 @@ const SelectGroundTypes = () => {
             className="fs-28 fw-500 grey-color"
             style={{ marginTop: "0px", paddingBottom: "58px" }}
           >
-            {/* SELECT GROUND */}
+        Home
           </p>
         </div>
         {selectUserType.length>0 ?
@@ -81,7 +81,7 @@ const SelectGroundTypes = () => {
                   }}
                 >
                  
-                  <div style={{ display: "block", textAlign: "center" }}>
+                  <div style={{ display: "block" }}>
                     <p
                       className="fs-16 fw-500"
                       style={{
@@ -102,7 +102,7 @@ const SelectGroundTypes = () => {
                     type="primary"
                     htmlType="submit"
                     // loading={isLoading}
-                    style={{fontSize:"14PX"}}
+                    style={{fontSize:"14PX",width:"135.49px"}}
                     className=" login-button-gas-app "
                     block
                   >

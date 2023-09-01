@@ -92,12 +92,14 @@ export const ConfirmationCode = (props: any) => {
 
   const [validationText, setvalidationText] = useState("");
 
-  const [otpValues, setOtpValues] = useState(["", "", "", ""]);
+  const [otpValues, setOtpValues] = useState(["", "", "", "","",""]);
 
   const [otp1, setOtp1] = useState("");
   const [otp2, setOtp2] = useState("");
   const [otp3, setOtp3] = useState("");
   const [otp4, setOtp4] = useState("");
+  const [otp5, setOtp5] = useState("");
+  const [otp6, setOtp6] = useState("");
   const [expiryTime, setExpiryTime] = useState(0);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -147,7 +149,7 @@ console.log("otp1", otp1 + otp2 + otp3 + otp4)
 
   const handleVerify = (event: any) => {
     event.preventDefault();
-    const enteredOtp = otp1 + otp2 + otp3 + otp4;
+    const enteredOtp = otp1 + otp2 + otp3 + otp4 + otp5 +otp6;
     // do validation and submit the OTP
     console.log(otpValues?.every((item) => item !== ""));
 
@@ -161,11 +163,12 @@ useEffect(()=>{
 
 },[otp1])
   return (
-    <div>
-  
+    <div className="myAccount-otp-wrapper">
+      
         <div  className="myAccount-otp-wrapper modal-theme" style={{ textAlign: "center", marginTop: "50px" }}>
+        <h1 style={{fontSize:"40px",fontWeight:"700"}}>OTP</h1>
           <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
-            Four digit code has been sent to (+92 900 - 78601)
+          Enter 6 digits OTP sent to your  Phone (+92 900 - 78601)
           </span>
           <div style={{ marginTop: "12px" }}>
             <span
@@ -226,6 +229,30 @@ useEffect(()=>{
             onBlur={(e) => handleBlur(e, 3)}
             onChange={(event:any)=>setOtp4(event?.target?.value)}
           />
+                <Input
+            className="otp-inputs"
+            maxLength={1}
+            name="otp5"
+            ref={inputRefs[4]}
+            value={otpValues[4]}
+            onPaste={(e) => handlePaste(e, 4)}
+            onInput={(e) => handleInput(e, 4)}
+            onKeyDown={(e) => handleKeyDown(e, 4)}
+            onBlur={(e) => handleBlur(e, 4)}
+            onChange={(event:any)=>setOtp5(event?.target?.value)}
+          />
+                <Input
+            className="otp-inputs"
+            maxLength={1}
+            name="otp6"
+            ref={inputRefs[5]}
+            value={otpValues[5]}
+            onPaste={(e) => handlePaste(e, 5)}
+            onInput={(e) => handleInput(e, 5)}
+            onKeyDown={(e) => handleKeyDown(e, 5)}
+            onBlur={(e) => handleBlur(e, 5)}
+            onChange={(event:any)=>setOtp6(event?.target?.value)}
+          />
         </div>
         {validationText && (
           <div style={{ position: 'relative' }}>
@@ -235,9 +262,9 @@ useEffect(()=>{
           </div>
         )}
 
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
-          <Button key="Continue" type="primary" style={{ backgroundColor: "#E76F51" }} onClick={handleVerify}>
-            Verify
+        <div style={{ textAlign: "center", marginTop: "80px" }}>
+          <Button key="Continue" type="primary" style={{ backgroundColor: "#D1372D",width:"229px" }} onClick={handleVerify}>
+          Confirm
           </Button>
         </div>
 

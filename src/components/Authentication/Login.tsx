@@ -392,7 +392,7 @@ const Login = () => {
                   <Input placeholder="Email" className="input-style" />
                 </Form.Item>
             
-              <Form.Item label="Phone Number" name="phoneNumber">
+              <Form.Item  name="phoneNumber">
                 <PhoneInput
                   containerClass="phone-input-style"
                   inputClass="phone-input-style"

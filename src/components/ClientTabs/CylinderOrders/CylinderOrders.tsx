@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ManageUsersData } from "../../../mock/ManageUserData";
 import { Button, Card, Col, Layout, Row } from "antd";
+import arrow from "../../../assets/images/Cylinder/arrow.svg"
 import "./CylinderOrders.scss";
 import "../../../sass/common.scss";
 // import AddUserTypeModal from "../AddUserTypeModal/AddUserTypeModal";
@@ -40,19 +41,28 @@ const CylinderOrders = () => {
   return (
     <div>
       {/* <BreadCrumb breadCrumbItems={breadCrumbItems} /> */}
+      
       <Layout
         className="border-radius-8 select-user-types"
         style={{ backgroundColor: "#FFFFFF", padding: "40px 84px 94px 84px" }}
       >
-
-        <div style={{ textAlign: "center" }}>
-          <p
+    
+      
+          <Row>
+            <Col sm={12}>
+         <Link to="/services">   <img src={arrow} width={18} height={18}  style={{cursor:"pointer"}}/></Link>
+            </Col>
+            <Col sm={12}>
+            <p
             className="fs-28 fw-500 grey-color"
             style={{ marginTop: "0px", paddingBottom: "58px" }}
           >
-            {/* SELECT GROUND */}
+          My Orders
           </p>
-        </div>
+            </Col>
+          </Row>
+        
+    
         {OrdersylinderData.length>0 ?
         <Row gutter={[80, 30]}>
           {OrdersylinderData.map((card: any) => (
@@ -83,7 +93,7 @@ const CylinderOrders = () => {
                  
                   <div style={{ display: "block", }}>
                     <p
-                      className="fs-16 fw-500"
+                      className="fs-16 fw-700"
                       style={{
                         color: "#14142B",
                         marginTop: "18px 18px",
@@ -125,11 +135,11 @@ const CylinderOrders = () => {
                   </Col>
                   <Col xs={24} style={{textAlign:"center"}}>
                   <Link to="/forget-password">   <Button
-                    type="primary"
+                 
                     htmlType="submit"
                     
                     style={{fontSize:"14PX",width:"135.49px"}}
-                    className=" login-button-gas-app "
+                    className="cancel-button-gas-app fs-14 fw-700"
                     block
                   >
                   Cancel  Order

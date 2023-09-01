@@ -150,6 +150,30 @@ text-align: center;
 .sign-in-agree{
   font-size: 12px;
 }
+.phone-input-style .phone-input-style {
+  height: 40px;
+  width: 100%;
+  border-radius: 2px !important;
+  border: 1px solid rgba(160, 172, 187, 0.4) !important;
+  background-color: var(--white-dark-bg);
+  color: var(--title-color);
+
+  &::placeholder {
+    color: #a0acbb;
+  }
+}
+.phone-input-style .phone-input-style {
+  height: 40px;
+  width: 100%;
+  border-radius: 2px !important;
+  border: 1px solid rgba(160, 172, 187, 0.4) !important;
+  background-color: var(--white-dark-bg);
+  color: var(--title-color);
+
+  &::placeholder {
+    color: #a0acbb;
+  }
+}
 // :where(.css-dev-only-do-not-override-1sg6b5s).ant-input {
 //     box-sizing: border-box;
 //     margin: 0;
