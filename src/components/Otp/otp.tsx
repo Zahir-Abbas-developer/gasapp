@@ -162,13 +162,8 @@ useEffect(()=>{
 },[otp1])
   return (
     <div>
-<<<<<<< HEAD
   
         <div  className="myAccount-otp-wrapper modal-theme" style={{ textAlign: "center", marginTop: "50px" }}>
-=======
-    
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
->>>>>>> 1de2d210b6a6d644ec3833beeaa546b3090b4f1c
           <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
             Four digit code has been sent to (+92 900 - 78601)
           </span>
@@ -271,11 +266,7 @@ useEffect(()=>{
             </div>
           )}
         </div>
-<<<<<<< HEAD
   
-=======
-   
->>>>>>> 1de2d210b6a6d644ec3833beeaa546b3090b4f1c
     </div>
   );
 };
