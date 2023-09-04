@@ -87,12 +87,12 @@ export const TwoFactorAuth = (props: any) => {
 };
 
 export const ConfirmationCode = (props: any) => {
-  const { setIsCodeConfirmation, isCodeConfirmation, setIsVerified } = props;
+  const { setIsCodeConfirmation, isCodeConfirmation, setIsVerified, confirmationResult } = props;
   const [isReSend, setIsReSend] = useState(false);
 
   const [validationText, setvalidationText] = useState("");
 
-  const [otpValues, setOtpValues] = useState(["", "", "", "","",""]);
+  const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
 
   const [otp1, setOtp1] = useState("");
   const [otp2, setOtp2] = useState("");
@@ -111,7 +111,7 @@ export const ConfirmationCode = (props: any) => {
     }, 10000);
     return () => clearTimeout(timer);
   }, [expiryTime]);
-console.log("otp1", otp1 + otp2 + otp3 + otp4)
+  console.log("otp1", otp1 + otp2 + otp3 + otp4)
   const inputRefs: any = Array(4)
     .fill(0)
     .map(() => React.createRef());
@@ -149,151 +149,152 @@ console.log("otp1", otp1 + otp2 + otp3 + otp4)
 
   const handleVerify = (event: any) => {
     event.preventDefault();
-    const enteredOtp = otp1 + otp2 + otp3 + otp4 + otp5 +otp6;
+    const enteredOtp = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
     // do validation and submit the OTP
     console.log(otpValues?.every((item) => item !== ""));
 
     if (otpValues?.every((item) => item !== "")) {
-      setIsCodeConfirmation(false);
-      setvalidationText("");
-      setIsVerified(true);
+      confirmationResult.confirm(enteredOtp).then(async (res: any) => { console.log(res) }).catch((err: any) => { console.log(err, "errrrrrrrr") })
+      // setIsCodeConfirmation(false);
+      // setvalidationText("");
+      // setIsVerified(true);
     } else setvalidationText("Please Enter the code");
   };
-useEffect(()=>{
+  useEffect(() => {
 
-},[otp1])
+  }, [otp1])
   return (
     <div className="myAccount-otp-wrapper">
-      
-        <div  className="myAccount-otp-wrapper modal-theme" style={{ textAlign: "center", marginTop: "50px" }}>
-        <h1 style={{fontSize:"40px",fontWeight:"700"}}>OTP</h1>
-          <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
-          Enter 6 digits OTP sent to your  Phone (+92 900 - 78601)
-          </span>
-          <div style={{ marginTop: "12px" }}>
-            <span
-              className="fs-16 fw-500 line-height-22"
-              style={{ color: "#6F7074" }}
-            >
-              Please enter the code
-            </span>
-          </div>
-        </div>
 
-        <div className="otp-container">
-          <Input
-            className="otp-inputs"
-            maxLength={1}
-            name="otp1"
-            ref={inputRefs[0]}
-            value={otpValues[0]}
-            onPaste={(e) => handlePaste(e, 0)}
-            onInput={(e) => handleInput(e, 0)}
-            onKeyDown={(e) => handleKeyDown(e, 0)}
-            onBlur={(e) => handleBlur(e, 0)}
-            onChange={(event:any)=>setOtp1(event?.target?.value)}
-          />
-          <Input
-            className="otp-inputs"
-            maxLength={1}
-            name="otp2" 
-            ref={inputRefs[1]}
-            value={otpValues[1]}
-            onPaste={(e) => handlePaste(e, 1)}
-            onInput={(e) => handleInput(e, 1)}
-            onKeyDown={(e) => handleKeyDown(e, 1)}
-            onBlur={(e) => handleBlur(e, 1)}
-            onChange={(event:any)=>setOtp2(event?.target?.value)}
-          />
-          <Input
-            className="otp-inputs"
-            maxLength={1}
-            ref={inputRefs[2]}
-            name="otp3"
-            value={otpValues[2]}
-            onPaste={(e) => handlePaste(e, 2)}
-            onInput={(e) => handleInput(e, 2)}
-            onKeyDown={(e) => handleKeyDown(e, 2)}
-            onBlur={(e) => handleBlur(e, 2)}
-            onChange={(event:any)=>setOtp3(event?.target?.value)}
-          />
-          <Input
-            className="otp-inputs"
-            maxLength={1}
-            name="otp4"
-            ref={inputRefs[3]}
-            value={otpValues[3]}
-            onPaste={(e) => handlePaste(e, 3)}
-            onInput={(e) => handleInput(e, 3)}
-            onKeyDown={(e) => handleKeyDown(e, 3)}
-            onBlur={(e) => handleBlur(e, 3)}
-            onChange={(event:any)=>setOtp4(event?.target?.value)}
-          />
-                <Input
-            className="otp-inputs"
-            maxLength={1}
-            name="otp5"
-            ref={inputRefs[4]}
-            value={otpValues[4]}
-            onPaste={(e) => handlePaste(e, 4)}
-            onInput={(e) => handleInput(e, 4)}
-            onKeyDown={(e) => handleKeyDown(e, 4)}
-            onBlur={(e) => handleBlur(e, 4)}
-            onChange={(event:any)=>setOtp5(event?.target?.value)}
-          />
-                <Input
-            className="otp-inputs"
-            maxLength={1}
-            name="otp6"
-            ref={inputRefs[5]}
-            value={otpValues[5]}
-            onPaste={(e) => handlePaste(e, 5)}
-            onInput={(e) => handleInput(e, 5)}
-            onKeyDown={(e) => handleKeyDown(e, 5)}
-            onBlur={(e) => handleBlur(e, 5)}
-            onChange={(event:any)=>setOtp6(event?.target?.value)}
-          />
+      <div className="myAccount-otp-wrapper modal-theme" style={{ textAlign: "center", marginTop: "50px" }}>
+        <h1 style={{ fontSize: "40px", fontWeight: "700" }}>OTP</h1>
+        <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
+          Enter 6 digits OTP sent to your  Phone (+92 900 - 78601)
+        </span>
+        <div style={{ marginTop: "12px" }}>
+          <span
+            className="fs-16 fw-500 line-height-22"
+            style={{ color: "#6F7074" }}
+          >
+            Please enter the code
+          </span>
         </div>
-        {validationText && (
+      </div>
+
+      <div className="otp-container">
+        <Input
+          className="otp-inputs"
+          maxLength={1}
+          name="otp1"
+          ref={inputRefs[0]}
+          value={otpValues[0]}
+          onPaste={(e) => handlePaste(e, 0)}
+          onInput={(e) => handleInput(e, 0)}
+          onKeyDown={(e) => handleKeyDown(e, 0)}
+          onBlur={(e) => handleBlur(e, 0)}
+          onChange={(event: any) => setOtp1(event?.target?.value)}
+        />
+        <Input
+          className="otp-inputs"
+          maxLength={1}
+          name="otp2"
+          ref={inputRefs[1]}
+          value={otpValues[1]}
+          onPaste={(e) => handlePaste(e, 1)}
+          onInput={(e) => handleInput(e, 1)}
+          onKeyDown={(e) => handleKeyDown(e, 1)}
+          onBlur={(e) => handleBlur(e, 1)}
+          onChange={(event: any) => setOtp2(event?.target?.value)}
+        />
+        <Input
+          className="otp-inputs"
+          maxLength={1}
+          ref={inputRefs[2]}
+          name="otp3"
+          value={otpValues[2]}
+          onPaste={(e) => handlePaste(e, 2)}
+          onInput={(e) => handleInput(e, 2)}
+          onKeyDown={(e) => handleKeyDown(e, 2)}
+          onBlur={(e) => handleBlur(e, 2)}
+          onChange={(event: any) => setOtp3(event?.target?.value)}
+        />
+        <Input
+          className="otp-inputs"
+          maxLength={1}
+          name="otp4"
+          ref={inputRefs[3]}
+          value={otpValues[3]}
+          onPaste={(e) => handlePaste(e, 3)}
+          onInput={(e) => handleInput(e, 3)}
+          onKeyDown={(e) => handleKeyDown(e, 3)}
+          onBlur={(e) => handleBlur(e, 3)}
+          onChange={(event: any) => setOtp4(event?.target?.value)}
+        />
+        <Input
+          className="otp-inputs"
+          maxLength={1}
+          name="otp5"
+          ref={inputRefs[4]}
+          value={otpValues[4]}
+          onPaste={(e) => handlePaste(e, 4)}
+          onInput={(e) => handleInput(e, 4)}
+          onKeyDown={(e) => handleKeyDown(e, 4)}
+          onBlur={(e) => handleBlur(e, 4)}
+          onChange={(event: any) => setOtp5(event?.target?.value)}
+        />
+        <Input
+          className="otp-inputs"
+          maxLength={1}
+          name="otp6"
+          ref={inputRefs[5]}
+          value={otpValues[5]}
+          onPaste={(e) => handlePaste(e, 5)}
+          onInput={(e) => handleInput(e, 5)}
+          onKeyDown={(e) => handleKeyDown(e, 5)}
+          onBlur={(e) => handleBlur(e, 5)}
+          onChange={(event: any) => setOtp6(event?.target?.value)}
+        />
+      </div>
+      {validationText && (
+        <div style={{ position: 'relative' }}>
+          <p className="two-factor-auth-error fs-14 fw-400 m-0" style={{ position: 'absolute', bottom: '5px', left: '4px', width: '100%' }}>
+            {validationText}
+          </p>
+        </div>
+      )}
+
+      <div style={{ textAlign: "center", marginTop: "80px" }}>
+        <Button key="Continue" type="primary" style={{ backgroundColor: "#D1372D", width: "229px" }} onClick={handleVerify}>
+          Confirm
+        </Button>
+      </div>
+
+      <div style={{ textAlign: "center", marginTop: "40px", paddingBottom: '50px' }}>
+        <span
+          className="fs-14 fw-400"
+          style={{ color: "#6F7074", paddingRight: "8px" }}
+        >
+          Didn’t get code?
+        </span>
+        <span
+          className="fs-14 fw-500 account-modal-title-color"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setIsReSend(true);
+            setOtpValues(["", "", "", ""]);
+          }}
+        >
+          Resend
+        </span>
+        {isReSend && (
           <div style={{ position: 'relative' }}>
-            <p className="two-factor-auth-error fs-14 fw-400 m-0" style={{ position: 'absolute', bottom: '5px', left: '4px', width: '100%' }}>
-              {validationText}
+            <p className="fs-12 fw-400" style={{ color: "#264653", position: "absolute", top: "10px", right: '4px', width: '100%' }}>
+              Code has been resend
             </p>
           </div>
         )}
+      </div>
 
-        <div style={{ textAlign: "center", marginTop: "80px" }}>
-          <Button key="Continue" type="primary" style={{ backgroundColor: "#D1372D",width:"229px" }} onClick={handleVerify}>
-          Confirm
-          </Button>
-        </div>
-
-        <div style={{ textAlign: "center", marginTop: "40px", paddingBottom: '50px' }}>
-          <span
-            className="fs-14 fw-400"
-            style={{ color: "#6F7074", paddingRight: "8px" }}
-          >
-            Didn’t get code?
-          </span>
-          <span
-            className="fs-14 fw-500 account-modal-title-color"
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setIsReSend(true);
-              setOtpValues(["", "", "", ""]);
-            }}
-          >
-            Resend
-          </span>
-          {isReSend && (
-            <div style={{ position: 'relative' }}>
-              <p className="fs-12 fw-400" style={{ color: "#264653", position: "absolute", top: "10px", right: '4px', width: '100%' }}>
-                Code has been resend
-              </p>
-            </div>
-          )}
-        </div>
-  
     </div>
   );
 };
