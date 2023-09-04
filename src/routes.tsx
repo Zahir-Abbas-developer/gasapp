@@ -186,9 +186,9 @@ export const routes: any = [
       {
         path: "admin-dashboard",
         element: (
-          <RequireAuth allowedRoles={[ROLES.admin]}>
+        
             <StaffAllocationPage />
-          </RequireAuth>
+        
         ),
       },
       {

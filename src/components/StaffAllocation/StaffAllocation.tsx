@@ -147,15 +147,21 @@ const StaffAllocation = () => {
     {
       icon: markIcon,
       count: allCategories?.length<9?`0${allCategories?.length}`:allCategories?.length,
-      text: "Total Categories",
+      text: "Total Orders",
       background: "rgba(51, 214, 159, 0.07)",
     },
     {
-      icon: underPerformIcon,
-      count: getOrders?.length<9?`0${getOrders?.length}`:getOrders?.length,
-      text: "Total Orders",
-      background: "rgba(255, 76, 97, 0.05)",
+      icon: markIcon,
+      count: allCategories?.length<9?`0${allCategories?.length}`:allCategories?.length,
+      text: "Total Users",
+      background: "rgba(51, 214, 159, 0.07)",
     },
+    // {
+    //   icon: underPerformIcon,
+    //   count: getOrders?.length<9?`0${getOrders?.length}`:getOrders?.length,
+    //   text: "Total Orders",
+    //   background: "rgba(255, 76, 97, 0.05)",
+    // },
    
   ];
 

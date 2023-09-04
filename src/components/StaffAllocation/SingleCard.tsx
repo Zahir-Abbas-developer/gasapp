@@ -1,4 +1,5 @@
-import { Col, Row } from "antd";
+import { Card, Col, Row } from "antd";
+import "../../sass/common.scss";
 import React, { FC } from "react";
 interface ISingleCard {
   icon:string,
@@ -10,7 +11,15 @@ const SingleCard:FC<ISingleCard> = (props) => {
   const {icon,count,text,background} = props;
   return (
     <Row className="single-card">
-      <Col>
+      <Col sm={24}>
+      <Card   className="card-hover-color cursor-pointer"
+                style={{
+                  boxShadow: "none",
+                  borderRadius: "22px",
+                  minHeight: "260px",
+                }}>
+<Row>
+<Col>
         <div className="img-wrapper" style={{background:background}}>
           <img src={icon} alt={""} />
         </div>
@@ -18,6 +27,10 @@ const SingleCard:FC<ISingleCard> = (props) => {
       <Col>
         <p className="card-count">{count}</p>
         <p className="card-text">{text}</p>
+      </Col>
+</Row>
+      </Card>
+      
       </Col>
     </Row>
   );

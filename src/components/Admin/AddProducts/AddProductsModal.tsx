@@ -246,7 +246,11 @@ function AddProductsModal(props: any) {
                 suffixIcon={<img src={arrowDown} alt='arrow down' />}
                 className="d-flex"
                 placeholder="Select Category"
-                options={selectCategory}
+                options={[
+                  { value: 'small', label: 'Small' },
+                  { value: 'medium', label: 'Medium' },
+                  { value: 'large', label: 'Large' },
+                ]}
               />
             </Form.Item>
           </Col>
@@ -262,7 +266,11 @@ function AddProductsModal(props: any) {
                 suffixIcon={<img src={arrowDown} alt='arrow down' />}
                 className="d-flex"
                 placeholder="Select material"
-                options={userRoleDropdown}
+                options={[
+                  { value: 'regular', label: 'Regualr' },
+                  // { value: 'medium', label: 'Medium' },
+                  // { value: 'large', label: 'Large' },
+                ]}
               />
             </Form.Item>
           </Col>
@@ -297,7 +305,21 @@ function AddProductsModal(props: any) {
               />
             </Form.Item>
           </Col>
-
+          <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
+            <label className="fs-14 fw-600">Product Size</label>
+            <Form.Item
+              name="size"
+              rules={[{ required: true, message: "Required field " }]}
+              style={{ marginBottom: "8px" }}
+              normalize={(value: any) => handleInputTrimStart(value)}
+            >
+              <Input
+                placeholder="Enter product price"
+                id="price"
+                style={{ marginTop: "2px", height: "40px", }}
+              />
+            </Form.Item>
+          </Col>
           <Col xs={24} lg={24}>
           <p style={{fontWeight:600,color:"#6E7191"}}>Thumbnail</p>
           <Thumbnail uploadCertificateThumbnail={uploadCertificateThumbnail}  />
