@@ -84,9 +84,9 @@ const Thumbnail = ({ uploadCertificateThumbnail, fileUrl, disabled}: any) => {
                     <CloudUploadOutlined />
                   </p>
                 {location.pathname==="/client-profile" ? <p className="ant-upload-text fs-14 fw-600 m-0">
-                    Drag and drop, or <span>Browse</span> your Product files
-                  </p> :  <p className="ant-upload-text fs-14 fw-600 m-0">
-                    Drag and drop, or <span>Browse</span> your Product files
+                    Drag and drop, or <span style={{color:"#D1372D"}}>Browse</span> your Product file
+                  </p> :  <p  className="ant-upload-text fs-14 fw-600 m-0">
+                    Drag and drop, or <span>Browse</span> your Product file
                   </p>
 }
                 </>

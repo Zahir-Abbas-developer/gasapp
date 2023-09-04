@@ -225,7 +225,7 @@ export const routes: any = [
       },
       {
         path:"/add-products",
-        element: (<RequireAuth allowedRoles={[ROLES.admin]}> <AddProductsPage/></RequireAuth>)  
+        element:  <AddProductsPage/>
       },
       {
         path:"/jacket-details",

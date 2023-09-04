@@ -9,7 +9,6 @@ import {
 } from "antd";
 import arrowDown from "../../../assets/icons/arrow-down-icon.svg"
 import { useState } from 'react';
-import { usePostJobRequestMutation, useUpdateJobRequestMutation } from "../../../store/Slices/Setting/JobRole";
 import AppSnackbar from "../../../utils/AppSnackbar";
 import { ROLES } from "../../../constants/Roles";
 import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
@@ -27,8 +26,6 @@ function AddProductsModal(props: any) {
   const [certificateUrlThumbnail, setCertificateUrlThumbnail] = useState("")
 
   const [fieldCount, setFieldCount] = useState(1);
-  const [quantities, setQuantities] = useState([""]); // Array to hold quantity values
-  const [sizes, setSizes] = useState([""]); // Array to hold size values
   const [fields, setFields] = useState([{ quantity: "", size: "" }]);
 
   const { addEditJobRole, setAddEditJobRole, modalType, getTableRowValues, setGetFieldValues, role } = props;
@@ -53,7 +50,6 @@ function AddProductsModal(props: any) {
       label: item?.name,
     }));
   }
-  console.log(fields)
   if (isSuccessColors) {
     selectColor = getColors
 
@@ -254,23 +250,9 @@ function AddProductsModal(props: any) {
               />
             </Form.Item>
           </Col>
+          
           <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-            <label className="fs-14 fw-600">Select Color</label>
-            <Form.Item
-              name="color"
-              rules={[{ required: true, message: "Required field " }]}
-              style={{ marginBottom: "8px" }}
-            >
-              <Select
-                suffixIcon={<img src={arrowDown} alt='arrow down' />}
-                className="d-flex"
-                placeholder="Select Color"
-                options={selectColor}
-              />
-            </Form.Item>
-          </Col>
-          <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-            <label className="fs-14 fw-600">Select Material</label>
+            <label className="fs-14 fw-600">Select Type</label>
             <Form.Item
               name="material"
               rules={[{ required: true, message: "Required field " }]}
@@ -284,34 +266,7 @@ function AddProductsModal(props: any) {
               />
             </Form.Item>
           </Col>
-          <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-            <label className="fs-14 fw-600">Select Product</label>
-            <Form.Item
-              name="productType"
-              rules={[{ required: true, message: "Required field " }]}
-              style={{ marginBottom: "8px" }}
-            >
-              <Select
-                suffixIcon={<img src={arrowDown} alt='arrow down' />}
-                className="d-flex"
-                placeholder="Select product"
-
-                options={[
-                  {
-                    value: 'SHOES',
-                    label: 'Shoes',
-                  },
-                  {
-                    value: 'JACKETS',
-                    label: 'Jackets',
-                  },
-
-
-
-                ]}
-              />
-            </Form.Item>
-          </Col>
+          
           <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
             <label className="fs-14 fw-600">Product Description</label>
             <Form.Item
@@ -328,7 +283,7 @@ function AddProductsModal(props: any) {
             </Form.Item>
           </Col>
           <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-            <label className="fs-14 fw-600">Product Price</label>
+            <label className="fs-14 fw-600">Product Amount</label>
             <Form.Item
               name="price"
               rules={[{ required: true, message: "Required field " }]}
@@ -343,128 +298,17 @@ function AddProductsModal(props: any) {
             </Form.Item>
           </Col>
 
-          <Col xs={12} lg={12}>
-          <p style={{fontWeight:600,color:"#6E7191"}}>Images</p>
-            <UploadImage uploadCertificateId={uploadCertificateId} />
-          </Col>
           <Col xs={24} lg={24}>
           <p style={{fontWeight:600,color:"#6E7191"}}>Thumbnail</p>
           <Thumbnail uploadCertificateThumbnail={uploadCertificateThumbnail}  />
           </Col>
-          <Col xs={24} lg={24} style={{ textAlign: "end" }}>
-            <PlusCircleOutlined style={{ marginLeft: "20px", cursor: "pointer" }} onClick={handleAddField} /> Click to  Add More Shoe Sizes and Quantity
-          </Col>
-          {fields.map((field: any, index: any) => (
-            <>  <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-              <label className="fs-14 fw-600">Product Quantity</label>
-              <Form.Item
-                name={`quantity${index}`}
-                rules={[{ required: true, message: "Required field " }]}
-                style={{ marginBottom: "8px" }}
-                normalize={(value: any) => handleInputTrimStart(value)}
-              >
-                <Input
-                  placeholder="Enter product quantity"
-                  id={`quantity${index}`}
-                  style={{ marginTop: "2px", height: "40px" }}
-                  value={field.quantity}
-                  onChange={(e) => {
-                    const newFields = [...fields];
-                    newFields[index].quantity = e.target.value;
-                    setFields(newFields);
-                  }}
-                />
-              </Form.Item>
-
-            </Col>
-              <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-                <label className="fs-14 fw-600">Select Shoe Size</label>
-                <Form.Item
-                  name={`eu${index}`}
-                  rules={[{ required: true, message: "Required field " }]}
-                  style={{ marginBottom: "8px" }}
-                >
-                  <Select
-                    suffixIcon={<img src={arrowDown} alt='arrow down' />}
-                    className="d-flex"
-                    placeholder="Select Product Size"
-
-                    value={field.size}
-                    onChange={(value) => {
-                      const newFields = [...fields];
-                      newFields[index].size = value;
-                      setFields(newFields);
-                    }}
-                    options={[
-                      {
-                        value: '42',
-                        label: '42',
-                      },
-                      {
-                        value: '43',
-                        label: '43',
-                      },
-                      {
-                        value: '44',
-                        label: '44',
-                      },
-                      {
-                        value: '45',
-                        label: '45',
-                      },
-                      {
-                        value: '46',
-                        label: '46',
-                      },
-                      {
-                        value: '47',
-                        label: '47',
-                      },
-                    ]}
-                  />
-                </Form.Item>
-              </Col>    </>
-          ))}
-          <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-            <label className="fs-14 fw-600">Product Sku</label>
-            <Form.Item
-              name="sku"
-              rules={[{ required: true, message: "Required field " }]}
-              style={{ marginBottom: "8px" }}
-              normalize={(value: any) => handleInputTrimStart(value)}
-            >
-              <Input
-                placeholder="Enter product sku"
-                id="sku"
-                style={{ marginTop: "2px", height: "40px", }}
-              />
-            </Form.Item>
-          </Col>
-          {role === ROLES.coordinator && (
-            <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-              <label className="fs-14 fw-600">Select Care Home</label>
-              <Form.Item
-                name="careHomeId"
-                rules={[{ required: true, message: "Required field " }]}
-                style={{ marginBottom: "8px" }}
-              >
-                <Select
-                  suffixIcon={<img src={arrowDown} alt='arrow down' />}
-                  className="d-flex"
-                  placeholder="Select care home"
-                  options={userRoleDropdown}
-                  defaultValue={getTableRowValues?.careHomeData?.clientName}
-                />
-              </Form.Item>
-            </Col>
-          )}
-
+          
         </Row>
 
         <Form.Item>
 
           {/* {apiErrorMessage !== undefined && <p className="fs-14 fw-400 line-height-18 error-color  m-0" style={{ marginBottom: "1rem" }}>{apiErrorMessage?.status === 400 ? 'Request not fulfilled! Try again after some time.' : 'Something went wrong.'}</p>} */}
-          <Button type="primary" htmlType="submit" loading={isPostJobRequestMutation || isUpdateJobRequestMutation}>
+          <Button type="primary" style={{backgroundColor:"#D1372D"}} htmlType="submit" loading={isPostJobRequestMutation || isUpdateJobRequestMutation}>
             {modalType === 'Edit' ? 'Update' : "Save"}
           </Button>
         </Form.Item>
