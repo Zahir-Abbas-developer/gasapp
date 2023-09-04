@@ -16,9 +16,10 @@ import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../../store";
 import { selectUserType } from "../../../mock/SelectCylinderTypes";
+import ProductsDrawer from "./Drawer";
 const SelectGroundTypes = () => {
 
-
+  const [openDrawer, setOpenDrawer] = useState(false);
   const { isError, isSuccess, isLoading, data } =
     useGetAuthUserTypeRequestQuery({});
 
@@ -27,7 +28,7 @@ const SelectGroundTypes = () => {
     UserType = data;
   }
 
- 
+ console.log(openDrawer)
   const navigate = useNavigate();
 
   //BreadCrumb Items 
@@ -64,9 +65,9 @@ const SelectGroundTypes = () => {
                   borderRadius: "22px",
                   minHeight: "260px",
                 }}
-                onClick={() =>
-                  navigate("/select-stadium-location", { state: card })
-                }
+                // onClick={() =>
+                //   navigate("/select-stadium-location", { state: card })
+                // }
               >
                 <Row>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
@@ -98,16 +99,17 @@ const SelectGroundTypes = () => {
                     </p>
                   </div>
                 </div>
-                <Link to="/forget-password">   <Button
+                   <Button
+                   onClick={()=>{setOpenDrawer(true)}}
                     type="primary"
-                    htmlType="submit"
+                    // htmlType="submit"
                     // loading={isLoading}
                     style={{fontSize:"14PX",width:"135.49px"}}
                     className=" login-button-gas-app "
                     block
                   >
                     Order Now
-                  </Button></Link>
+                  </Button>
                   </Col>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
                   <img
@@ -187,6 +189,7 @@ const SelectGroundTypes = () => {
             isOpenUserTypeModal={isOpenUserTypeModal}
           /> */}
         </Row>:<ApiLoader/>}
+      <ProductsDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/>
       </Layout>
     </div>
   );
