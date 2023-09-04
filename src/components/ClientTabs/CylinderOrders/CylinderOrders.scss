@@ -17,8 +17,18 @@
     border:1px solid #D1372D;
     color:#D1372D
 }
-.ant-tabs-nav{
+.ant-tabs-nav-list {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  .ant-tabs-tab {
     width: 50% !important;
+    justify-content: center !important;
+  }
+.ant-tabs-nav{
+    width: 100% !important;
     background-color: #D1372D !important;;
 }  
 .ant-tabs-nav-wrap{
@@ -27,7 +37,12 @@ justify-content: center !important;
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     background-color: #FFFFFF !important;
+    padding: 0px 100px !important;
     color:#D1372D !important;
+    border: 1px solid #FFFFFF !important ;
+    width: 280px !important;
+    height: 27px !important;
+
     
 }
 // .ant-tabs-tab{
