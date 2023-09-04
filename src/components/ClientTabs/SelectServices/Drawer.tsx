@@ -6,12 +6,17 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 const ProductsDrawer = ({openDrawer,setOpenDrawer}:any) => {
   const [placement, setPlacement] = useState<DrawerProps['placement']>('right')
-  const [quantityNumber ,setQuantityNumber]=useState(0)
+  const [quantityNumber ,setQuantityNumber]=useState(1)
 
   const onClose = () => {
     setOpenDrawer(false);
   };
-
+const handleIncrement=()=>{
+    setQuantityNumber(quantityNumber+1)
+}
+const handleDecreament=()=>{
+    setQuantityNumber(quantityNumber-1)
+}
   return (
     <>
       <Drawer
@@ -26,7 +31,7 @@ const ProductsDrawer = ({openDrawer,setOpenDrawer}:any) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
        
-       <p> <PlusOutlined  style={{color:"red"}}/> {quantityNumber} <MinusOutlined  style={{color:"red"}}/></p>  
+       <p> <MinusOutlined  style={{color:"red",marginRight:"10px"}}  onClick={handleDecreament}   /> {quantityNumber>0? quantityNumber:1} <PlusOutlined  style={{color:"red",marginLeft:"10px"}} onClick={handleIncrement}  /> </p>  
         <Button
                     type="primary"
                     // htmlType="submit"
