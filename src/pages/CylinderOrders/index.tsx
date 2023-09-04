@@ -1,6 +1,6 @@
-import CylinderOrders from "../../components/ClientTabs/CylinderOrders/CylinderOrders"
+import OrdersTabs from "../../components/ClientTabs/CylinderOrders/OrdersTab"
 
 const CylinderOrdersPage=()=>{
-    return <CylinderOrders/>
+    return <OrdersTabs/>
 }
 export default CylinderOrdersPage

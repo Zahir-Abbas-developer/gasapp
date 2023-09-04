@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../../store";
 import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
-const CylinderOrders = () => {
+const PastOrders = () => {
 
 
   const { isError, isSuccess, isLoading, data } =
@@ -47,8 +47,8 @@ const CylinderOrders = () => {
         style={{ backgroundColor: "#FFFFFF", padding: "40px 84px 94px 84px" }}
       >
     
-      
-          {/* <Row>
+{/*       
+          <Row>
             <Col sm={12}>
          <Link to="/services">   <img src={arrow} width={18} height={18}  style={{cursor:"pointer"}}/></Link>
             </Col>
@@ -60,8 +60,8 @@ const CylinderOrders = () => {
           My Orders
           </p>
             </Col>
-          </Row>
-         */}
+          </Row> */}
+        
     
         {OrdersylinderData.length>0 ?
         <Row gutter={[80, 30]}>
@@ -215,4 +215,4 @@ const CylinderOrders = () => {
   );
 };
 
-export default CylinderOrders;
+export default PastOrders;

@@ -17,3 +17,13 @@
     border:1px solid #D1372D;
     color:#D1372D
 }
+.ant-tabs-nav-wrap{
+display: flex !important;
+justify-content: center !important;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    background-color: white !important;
+}
+// .ant-tabs-tab{
+//     margin-right: 360px !important;
+// }
