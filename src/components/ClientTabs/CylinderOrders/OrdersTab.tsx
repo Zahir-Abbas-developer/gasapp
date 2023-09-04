@@ -43,7 +43,7 @@ const OrdersTabs = () => {
         
          <Row>
             <Col sm={24}>
-            <Tabs defaultActiveKey="1" style={{backgroundColor:"#D1372D",color:"white",fontSize:"20px",margin:"20px"}} items={items} onChange={onChange} />
+            <Tabs defaultActiveKey="1" style={{color:"white",fontSize:"20px",margin:"20px"}} items={items} onChange={onChange} />
             </Col>
          </Row>
         </>
