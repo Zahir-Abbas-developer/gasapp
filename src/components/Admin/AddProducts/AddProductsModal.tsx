@@ -114,62 +114,13 @@ function AddProductsModal(props: any) {
   // ---------------- On Finish used to reset form fields in form ----------------
   const onFinish = async (values: any) => {
     // -------- for error cases --------
-    // const valuessss = { mneee: values?.name, ...values };
-    const shoeSizes = fields.map((field) => {
-      let usValue = ""; // Default value for the 'us' field
 
-      if (field.size === "42") {
-        usValue = "7";
-      } else if (field.size === "43") {
-        usValue = "8";
-      }
-      else if (field.size === "43") {
-        usValue = "8";
-      }
-      else if (field.size === "44") {
-        usValue = "9";
-      }
-      else if (field.size === "45") {
-        usValue = "8";
-      }
-      else if (field.size === "46") {
-        usValue = "8";
-      }
-      else if (field.size === "47") {
-        usValue = "8";
-      }
-
-      return {
-        quantity: parseInt(field.quantity),
-        eu: parseInt(field.size),
-        us: parseInt(usValue),
-      };
-    });
 
     const addProductValues = {
-      ...values, price: parseInt(values?.price), thumbnail: certificateUrlThumbnail,images:[...certificateUrl], "tags": [
-        "Running",
-        "Sportswear"
-      ], shoeSizes: shoeSizes
+      ...values, price: parseInt(values?.price),quantity: parseInt(values?.quantity), thumbnail: certificateUrlThumbnail
     }
 
-    for (let i = 0; i <= 400; i++) {
-      const euProperty = `eu${i}`;
-      const quantityProperty = `quantity${i}`;
-
-      if (addProductValues.hasOwnProperty(euProperty)) {
-        delete addProductValues[euProperty];
-      }
-
-      if (addProductValues.hasOwnProperty(quantityProperty)) {
-        delete addProductValues[quantityProperty];
-      }
-    }
-
-
-
-
-
+    
     const newValues = handleInputTrimSpaces(values);
 
     try {
@@ -230,7 +181,7 @@ function AddProductsModal(props: any) {
             >
               <Input
                 placeholder="Enter product name"
-                id="PositionName"
+                id="Product Name"
                 style={{ marginTop: "2px", height: "40px", }}
               />
             </Form.Item>
@@ -316,6 +267,21 @@ function AddProductsModal(props: any) {
               <Input
                 placeholder="Enter product price"
                 id="price"
+                style={{ marginTop: "2px", height: "40px", }}
+              />
+            </Form.Item>
+          </Col>
+          <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
+            <label className="fs-14 fw-600">Product Quantity</label>
+            <Form.Item
+              name="quantity"
+              rules={[{ required: true, message: "Required field " }]}
+              style={{ marginBottom: "8px" }}
+              normalize={(value: any) => handleInputTrimStart(value)}
+            >
+              <Input
+                placeholder="Enter product quantity"
+                id="quantity"
                 style={{ marginTop: "2px", height: "40px", }}
               />
             </Form.Item>

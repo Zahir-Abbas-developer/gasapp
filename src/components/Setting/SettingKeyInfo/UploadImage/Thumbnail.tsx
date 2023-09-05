@@ -27,7 +27,7 @@ const Thumbnail = ({ uploadCertificateThumbnail, fileUrl, disabled}: any) => {
   const props: UploadProps = {
     name: "file",
     multiple: true,
-    action: "https://thankful-onesies.cyclic.app/uploads",
+    action: "https://eager-fly-handkerchief.cyclic.app/uploads",
     headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5kb2UiLCJzdWIiOiI2NDM1NGY4MmUzOWQ3N2JkNTgzZTIwNzIiLCJpYXQiOjE2ODU1MzI4NDksImV4cCI6MTY4NTYxOTI0OX0.Pa6J_v8K8DUxFkCu5Mam5mfNqW9gA9YPPmpdJbtZBmI` },
     onChange(info) {
       console.log(info.file)

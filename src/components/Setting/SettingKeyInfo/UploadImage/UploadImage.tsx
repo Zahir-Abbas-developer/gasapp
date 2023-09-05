@@ -117,7 +117,7 @@ const handleUpload = () => {
   });
   setUploading(true);
   // You can use any AJAX library you like
-  fetch('https://thankful-onesies.cyclic.app/uploads', {
+  fetch('https://eager-fly-handkerchief.cyclic.app/uploads', {
     method: 'POST',
     body: formData,
   })

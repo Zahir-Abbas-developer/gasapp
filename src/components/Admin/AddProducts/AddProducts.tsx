@@ -106,7 +106,7 @@ const AddProducts = () => {
     // }
   }
 //get products 
-
+console.log(jobID)
 const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({})
     let productsData:any
     if(isSuccessProducts){
@@ -279,7 +279,7 @@ const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({}
               <div
                 className="border-color cursor-pointer"
                 onClick={() => {
-                  setJobID(text._id);
+                  setJobID(text.id);
                   setGetFieldValues(text);
                   handleCrossAllocationValues(text);
                 }}
