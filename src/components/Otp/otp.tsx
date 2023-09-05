@@ -3,6 +3,9 @@ import { Button, Modal, Row, Col, Input, Form } from "antd";
 import PhoneInput from "react-phone-input-2";
 import './otp.scss'
 import { useNavigate } from "react-router-dom";
+import {  doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { renderDashboard } from "../../utils/useRenderDashboard";
 export const TwoFactorAuth = (props: any) => {
   const [phoneNumberInput, setPhoneNumberInput] = useState<string>("");
   const [phoneError, setPhoneError] = useState(false);
@@ -155,12 +158,19 @@ export const ConfirmationCode = (props: any) => {
     // do validation and submit the OTP
     console.log(otpValues?.every((item) => item !== ""));
 
-    if (otpValues?.every((item) => item !== "")) {
-      confirmationResult?.confirm(enteredOtp)?.then(async (res: any) => { console.log(res);navigate("/services") }).catch((err: any) => { console.log(err, "errrrrrrrr") })
+   
+      confirmationResult?.confirm(enteredOtp)?.then(async (res: any) => { console.log(res); getDoc(doc(db, "users", res?.user?.uid)).then((result) => {
+        if (result.exists()) {
+          const userData: any = { id: result.id, ...result.data() };
+          console.log(userData)
+          localStorage.setItem("user", JSON.stringify(userData));
+          navigate(renderDashboard(userData?.role || "user"));
+        }
+      });navigate("/services") }).catch((err: any) => { console.log(err, "errrrrrrrr") })
       // setIsCodeConfirmation(false);
       // setvalidationText("");
       // setIsVerified(true);
-    } else setvalidationText("Please Enter the code");
+  
   };
   useEffect(() => {
 
