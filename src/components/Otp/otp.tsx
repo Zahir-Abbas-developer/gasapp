@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button, Modal, Row, Col, Input, Form } from "antd";
 import PhoneInput from "react-phone-input-2";
 import './otp.scss'
+import { useNavigate } from "react-router-dom";
 export const TwoFactorAuth = (props: any) => {
   const [phoneNumberInput, setPhoneNumberInput] = useState<string>("");
   const [phoneError, setPhoneError] = useState(false);
@@ -88,6 +89,7 @@ export const TwoFactorAuth = (props: any) => {
 
 export const ConfirmationCode = (props: any) => {
   const { setIsCodeConfirmation, isCodeConfirmation, setIsVerified, confirmationResult } = props;
+  const navigate=useNavigate()
   const [isReSend, setIsReSend] = useState(false);
 
   const [validationText, setvalidationText] = useState("");
@@ -118,7 +120,7 @@ export const ConfirmationCode = (props: any) => {
   const handlePaste = (e: any, index: any) => {
     e.preventDefault();
     const pasteData = e.clipboardData.getData("Text");
-    const otpArray = pasteData.split("").slice(0, 4);
+    const otpArray = pasteData.split("").slice(0, 6);
     const newOtpValues = [...otpValues];
     otpArray.forEach((char: any, i: any) => {
       newOtpValues[index + i] = char;
@@ -154,7 +156,7 @@ export const ConfirmationCode = (props: any) => {
     console.log(otpValues?.every((item) => item !== ""));
 
     if (otpValues?.every((item) => item !== "")) {
-      confirmationResult.confirm(enteredOtp).then(async (res: any) => { console.log(res) }).catch((err: any) => { console.log(err, "errrrrrrrr") })
+      confirmationResult?.confirm(enteredOtp)?.then(async (res: any) => { console.log(res);navigate("/services") }).catch((err: any) => { console.log(err, "errrrrrrrr") })
       // setIsCodeConfirmation(false);
       // setvalidationText("");
       // setIsVerified(true);

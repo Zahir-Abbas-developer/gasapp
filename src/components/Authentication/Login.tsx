@@ -80,7 +80,7 @@ const Login = () => {
         const baseURL = "https://eager-fly-handkerchief.cyclic.app"
         const { data } = await axios.post(baseURL + "/auth/login", { phoneNumber: values.mobilenumber })
         console.log("🚀 ~ file: Login.tsx:81 ~ onFinish ~ data:", data)
-        setOtpShow(true);
+      
       }
       onCaptchaVerify();
       const payload = {
@@ -88,6 +88,7 @@ const Login = () => {
       };
       const appVerifier = (window as any).recaptchaVerifier;
       signInWithPhoneNumber(auth, payload.phoneNumber, appVerifier).then((result: any) => {
+        setOtpShow(true);
         (window as any).confirmationResult = result;
         console.log("hurray", result)
         
@@ -182,7 +183,7 @@ const Login = () => {
 const handlePhoneNumberChange = (value:any) => {
   form.setFieldsValue({ phoneNumber: value });
 };
-console.log(form.getFieldValue('phoneNumber'))
+
   return (
     <Row className="care-signin">
       {/* Left Div */}
