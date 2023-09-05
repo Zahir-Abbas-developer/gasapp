@@ -145,19 +145,7 @@ const Login = () => {
     }
   };
 
-  const onFinishForgetPassword = async (values: any) => {
-    const payload = {
-      email: values?.email,
-      url: window?.location?.origin + "/reset-password",
-    };
-    try {
-      const res: any = await forgetPasswordRequest({ payload }).unwrap();
-      // console.log(res)
-      // navigate(`/reset-password?token=${res?.token}`)
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   const myParam = useLocation().search;
   const resetToken = new URLSearchParams(myParam).get("token");
   const onFinishNewPassword = async (values: any) => {
