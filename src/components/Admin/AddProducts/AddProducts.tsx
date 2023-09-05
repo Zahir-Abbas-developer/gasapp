@@ -232,29 +232,21 @@ const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({}
       
     },
     {
-      title: "Category Name",
-      dataIndex: "name",
+      title: "Product Category Name",
+      dataIndex: "category",
       align: "center",
-      render: (value: any, record: any, index: any) => {
-        return <span>{record?.categoryData?.name}</span>;
-      },
     },
     {
-      title: "Color",
-      dataIndex: "color",
+      title: "Product Size",
+      dataIndex: "size",
       align: "center",
-      render: (value: any, record: any, index: any) => {
-        return <span>{record?.colorData?.name}</span>;
-      },
     },
     {
-      title: "Material",
-      dataIndex: "material",
+      title: "Product Quantity",
+      dataIndex: "quantity",
       align: "center",
-      render: (value: any, record: any, index: any) => {
-        return <span>{record?.materialData?.name}</span>;
-      },
     },
+
   
     {
       title: "Action",

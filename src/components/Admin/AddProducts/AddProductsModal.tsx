@@ -93,11 +93,10 @@ function AddProductsModal(props: any) {
     const formValues = {
       name: getTableRowValues.name,
       category: getTableRowValues.category,
-      color: getTableRowValues.color,
-      material: getTableRowValues?.material,
       description: getTableRowValues?.description,
       price: getTableRowValues?.price,
-      sku: getTableRowValues?.sku,
+      size: getTableRowValues?.size,
+      quantity: getTableRowValues?.quantity,
       // eu:getTableRowValues?.shoeSizes[0]?.eu,
       // quantity:getTableRowValues?.shoeSizes[0]?.quantity
     }
@@ -125,7 +124,7 @@ function AddProductsModal(props: any) {
 
     try {
       if (modalType === 'Edit') {
-        await updateProducts({ id: getTableRowValues._id, payload: addProductValues }).unwrap();
+        await updateProducts({ id: getTableRowValues.id, payload: addProductValues }).unwrap();
         AppSnackbar({ type: "success", messageHeading: "Successfully Updated!", message: "Information updated successfully" });
         // apiErrorMessage = '';
       }
@@ -198,15 +197,15 @@ function AddProductsModal(props: any) {
                 className="d-flex"
                 placeholder="Select Category"
                 options={[
-                  { value: 'small', label: 'Small' },
-                  { value: 'medium', label: 'Medium' },
-                  { value: 'large', label: 'Large' },
+                  { value: 'SMALL', label: 'Small' },
+                  { value: 'MEDIUM', label: 'Medium' },
+                  { value: 'LARGE', label: 'Large' },
                 ]}
               />
             </Form.Item>
           </Col>
           
-          <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
+          {/* <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
             <label className="fs-14 fw-600">Select Type</label>
             <Form.Item
               name="material"
@@ -225,7 +224,7 @@ function AddProductsModal(props: any) {
               />
             </Form.Item>
           </Col>
-          
+           */}
           <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
             <label className="fs-14 fw-600">Product Description</label>
             <Form.Item

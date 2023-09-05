@@ -55,7 +55,7 @@ export const extendedApi = emptySplitApi.injectEndpoints({
       updateProducts: builder.mutation({
         query: ({ payload ,id }: any) => ({
           url: `products/${id}`,
-          method: "PUT",
+          method: "PATCH",
           body: payload,
         }),
   
