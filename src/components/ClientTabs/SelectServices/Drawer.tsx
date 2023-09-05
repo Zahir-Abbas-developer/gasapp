@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Button, Drawer, Radio, Space } from 'antd';
+import { Button, Col, Drawer, Radio, Row, Space } from 'antd';
 import type { DrawerProps } from 'antd/es/drawer';
 import type { RadioChangeEvent } from 'antd/es/radio';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { usePostOrdersMutation } from '../../../store/Slices/Orders';
+import AppSnackbar from '../../../utils/AppSnackbar';
 
-const ProductsDrawer = ({openDrawer,setOpenDrawer}:any) => {
+const ProductsDrawer = ({openDrawer,setOpenDrawer,orderData}:any) => {
   const [placement, setPlacement] = useState<DrawerProps['placement']>('right')
   const [quantityNumber ,setQuantityNumber]=useState(1)
+  const [postOrders]=usePostOrdersMutation({})
 
   const onClose = () => {
     setOpenDrawer(false);
@@ -17,6 +20,22 @@ const handleIncrement=()=>{
 const handleDecreament=()=>{
     setQuantityNumber(quantityNumber-1)
 }
+const handleConfirmOrder=()=>{
+  const orderPayload={userId:"26V7YwGVsZubhuMkGaec",productId:orderData?.id,address:"Fazal Town",subtotal:orderData?.price,total:orderData?.price * quantityNumber,quantity:quantityNumber}
+ try{
+  postOrders({payload:orderPayload}).unwrap()
+  AppSnackbar({ type: "success", messageHeading: "Successfully Order", message: "Order Successful!" });
+  setOpenDrawer(false)
+ }
+ catch(error:any){
+  AppSnackbar({
+    type: "error",
+    messageHeading: "Error",
+    message: error?.data?.message ?? "Something went wrong!"
+  });
+ }
+}
+console.log(orderData)
   return (
     <>
       <Drawer
@@ -27,16 +46,48 @@ const handleDecreament=()=>{
         open={openDrawer}
 
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+      <Row>
+        <Col sm={18}>
+        <Row>
+          <Col sm={12} >
+            <p>Name :</p>
+          </Col>
+          <Col sm={12}>
+          <p>{orderData?.name}</p>
+          </Col>
+          <Col sm={12}>
+          <p>Category :</p>
+          </Col>
+          <Col sm={12}>
+         <p> {orderData?.category}</p>
+          </Col>
+          <Col sm={12}>
+          <p>Amount :</p>
+          </Col>
+          <Col sm={12}>
+         <p> {orderData?.price}</p>
+          </Col>
+          <Col sm={12}>
+         <p> Size :</p>
+          </Col>
+          <Col sm={12}>
+         <p> {orderData?.size}</p>
+          </Col>
+        </Row>
+        </Col>
+        <Col sm={6}>
+        <img src={orderData?.thumbnail}></img>
+        </Col>
+      </Row>
        
        <p> <MinusOutlined  style={{color:"red",marginRight:"10px"}}  onClick={handleDecreament}   /> {quantityNumber>0? quantityNumber:1} <PlusOutlined  style={{color:"red",marginLeft:"10px"}} onClick={handleIncrement}  /> </p>  
-        <Button
+       
+       <p>Toatl : {orderData?.price * quantityNumber}</p>
+        <Button  onClick={handleConfirmOrder}
                     type="primary"
                     // htmlType="submit"
                     // loading={isLoading}
-                    style={{fontSize:"14PX",width:"200.49px"}}
+                    style={{fontSize:"14PX",width:"200.49px",marginTop:"20px"}}
                     className=" login-button-gas-app "
                     block
                   >

@@ -21,6 +21,7 @@ import { useGetAllProductsQuery } from "../../../store/Slices/Products";
 const SelectGroundTypes = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [orderData ,setOrderData]=useState({})
   const paramsObj: any = {};
   const query = "&" + new URLSearchParams(paramsObj).toString();
   const { data: dataProducts, isSuccess: isSuccessProducts } = useGetAllProductsQuery({ query })
@@ -101,7 +102,7 @@ const SelectGroundTypes = () => {
                   </div>
                 </div>
                    <Button
-                   onClick={()=>{setOpenDrawer(true)}}
+                   onClick={()=>{setOpenDrawer(true);setOrderData(card)}}
                     type="primary"
                     // htmlType="submit"
                     // loading={isLoading}
@@ -190,7 +191,7 @@ const SelectGroundTypes = () => {
             isOpenUserTypeModal={isOpenUserTypeModal}
           /> */}
         </Row>:<ApiLoader/>}
-      <ProductsDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/>
+      <ProductsDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} orderData={orderData}/>
       </Layout>
     </div>
   );
