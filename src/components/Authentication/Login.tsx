@@ -55,7 +55,8 @@ const Login = () => {
         email: values.email,
         password: values.password,
         username: values?.username,
-        url: window?.location?.origin + "/user-verification",
+        address:values?.address,
+        phoneNumber:`+${values?.phoneNumber}`
       };
       const { error, data }: any = await authSignUp({
         payload: { ...payload, role: "user" },
@@ -79,6 +80,7 @@ const Login = () => {
         const baseURL = "https://eager-fly-handkerchief.cyclic.app"
         const { data } = await axios.post(baseURL + "/auth/login", { phoneNumber: values.mobilenumber })
         console.log("🚀 ~ file: Login.tsx:81 ~ onFinish ~ data:", data)
+        setOtpShow(true);
       }
       onCaptchaVerify();
       const payload = {
@@ -88,7 +90,7 @@ const Login = () => {
       signInWithPhoneNumber(auth, payload.phoneNumber, appVerifier).then((result: any) => {
         (window as any).confirmationResult = result;
         console.log("hurray", result)
-        setOtpShow(true);
+        
 
       }).catch(err => console.log("errrrrrrrr", err))
     } catch (err: any) {
@@ -147,40 +149,8 @@ const Login = () => {
 
 
   const myParam = useLocation().search;
-  const resetToken = new URLSearchParams(myParam).get("token");
-  const onFinishNewPassword = async (values: any) => {
-    const payload = {
-      password: values?.password,
-      token: resetToken,
-    };
-    try {
-      const res = await resetPasswordRequest({ payload }).unwrap();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const onFinishChangePassword = async (values: any) => {
-    if (values?.newPassword === values?.confirmNewPassword) {
-      const payload = {
-        currentPassword: values.currentPassword,
-        updatedPassword: values.newPassword,
-      };
-      const { error, data }: any = await changePasswordPostRequest({
-        payload,
-      });
-      if (!error) {
-        navigate("/login");
-      } else {
-        setChangePasswordErrorMessage(error?.data?.message);
-      }
-    } else {
-      setChangePasswordErrorMessage(
-        "New Password and Confirm New Password Should Be Equal"
-      );
-    }
-  };
+
   const validateEmail = (rule: any, value: any, callback: any) => {
     if (!value) {
       callback();
@@ -208,7 +178,11 @@ const Login = () => {
       }
     }
   };
-
+// Define a function to handle the onChange event
+const handlePhoneNumberChange = (value:any) => {
+  form.setFieldsValue({ phoneNumber: value });
+};
+console.log(form.getFieldValue('phoneNumber'))
   return (
     <Row className="care-signin">
       {/* Left Div */}
@@ -246,7 +220,8 @@ const Login = () => {
       </Col>
       {/* Right Div for form */}
       {location?.pathname === "/login" &&
-        !otpShow ? <Col xs={24} sm={24} lg={18} xl={10}>
+       !otpShow && 
+        <Col xs={24} sm={24} lg={18} xl={10}>
         <div className="right-outer-div">
           <div>
             <div id="recaptcha-container"></div>
@@ -311,97 +286,14 @@ const Login = () => {
             </p> */}
           </div>
         </div>
-      </Col> : <ConfirmationCode confirmationResult={(window as any).confirmationResult} />
+      </Col> 
+      
       }
-      {/* Change Password */}
-      {location?.pathname === "/change-password" && (
-        <Col xs={24} sm={24} lg={12} xl={10}>
-          <div className="right-outer-div">
-            <div className="img-div" style={{ textAlign: "center" }}>
-              <img
-                src={CareLibraryIcon}
-                alt="care-library-icon"
-                width={90}
-                height={90}
-                style={{ borderRadius: "50%" }}
-              />
-            </div>
-            <div>
-              <h2 className="Sign-in-heading">Change Passwod</h2>
-              <Form name="currentPassword" onFinish={onFinishChangePassword}>
-                <Form.Item
-                  name="currentPassword"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  <Input.Password
-                    placeholder="Current Password"
-                    className="input-style"
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="newPassword"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  {/* <Input.Password placeholder="Password" /> */}
-                  <Input.Password
-                    placeholder="New Password"
-                    className="input-style"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="confirmNewPassword"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  {/* <Input.Password placeholder="Password" /> */}
-                  <Input.Password
-                    placeholder="Confirm New Password"
-                    className="input-style"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                  />
-                </Form.Item>
-                <p style={{ color: "red" }}>{errorMessage}</p>
-                <p style={{ color: "red" }}>{changePasswordErrorMessage}</p>
-
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={isLoading}
-                    className=" btn-signin fw-600 "
-                    block
-                  >
-                    Save Password
-                  </Button>
-                </Form.Item>
-              </Form>
-
-              {/* <p className="fs-15-n-gray">
-              Resend <span className="pink-color">Log In</span> Details
-            </p> */}
-            </div>
-          </div>
+      {otpShow && <Row>
+        <Col>
+        <ConfirmationCode confirmationResult={(window as any).confirmationResult}  />
         </Col>
-      )}
+      </Row>}
       {location?.pathname === "/sign-up" && (
         <Col xs={24} sm={24} lg={12} xl={10}>
           <div className="right-outer-div">
@@ -423,7 +315,6 @@ const Login = () => {
                   ]}
                 >
                   <Input
-                    style={{ color: "white" }}
                     placeholder="Full Name"
                     className="input-style"
                   />
@@ -448,9 +339,7 @@ const Login = () => {
                     country={"pk"}
                     onlyCountries={["pk"]}
                     disableDropdown
-                    onChange={(value: string) =>
-                      form.setFieldsValue({ phoneNumber: value })
-                    }
+                    onChange={handlePhoneNumberChange}
                     placeholder="Phone number"
                   />
                 </Form.Item>
@@ -465,7 +354,7 @@ const Login = () => {
                   ]}
                 >
                   <Input
-                    style={{ color: "white" }}
+                   
                     placeholder="Address"
                     className="input-style"
                   />
@@ -473,7 +362,7 @@ const Login = () => {
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <p style={{ color: "red" }}>{changePasswordErrorMessage}</p>
                 <p className="fs-16">By Signing up, I agree to Term of use</p>
-                <Link to="/forget-password">
+              
                   {" "}
                   <Button
                     type="primary"
@@ -484,7 +373,7 @@ const Login = () => {
                   >
                     Sign up
                   </Button>
-                </Link>
+                
               </Form>
 
               {/* <p className="fs-15-n-gray">
@@ -494,116 +383,7 @@ const Login = () => {
           </div>
         </Col>
       )}
-      {location?.pathname === "/forget-password" && (
-        <Col xs={24} sm={24} lg={12} xl={10}>
-          <div className="right-outer-div">
-            <div className="img-div" style={{ textAlign: "center" }}>
-              <img
-                src={SignUp}
-                alt="care-library-icon"
-                width={176}
-                height={176}
-                style={{ borderRadius: "50%" }}
-              />
-            </div>
-            <p
-              className="fs-16 text-center"
-              style={{ marginTop: "80px", marginBottom: "80px" }}
-            >
-              By Signing up, I agree to Term of use
-            </p>
-            <div>
-              <Link to="/login">
-                {" "}
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={isLoading}
-                  className=" login-button-gas-app "
-                  block
-                >
-                  Login
-                </Button>
-              </Link>
 
-              {/* <p className="fs-15-n-gray">
-              Resend <span className="pink-color">Log In</span> Details
-            </p> */}
-            </div>
-          </div>
-        </Col>
-      )}
-      {location?.pathname === "/reset-password" && (
-        <Col xs={24} sm={24} lg={12} xl={10}>
-          <div className="right-outer-div">
-            <div className="img-div" style={{ textAlign: "center" }}>
-              <img
-                src={CareLibraryIcon}
-                alt="care-library-icon"
-                width={100}
-                height={100}
-                style={{ borderRadius: "50%" }}
-              />
-            </div>
-            <div>
-              <h2 className="Sign-in-heading">New Password</h2>
-              <Form name="password" onFinish={onFinishNewPassword}>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  {/* <Input.Password placeholder="Password" /> */}
-                  <Input.Password
-                    placeholder="New Password"
-                    className="input-style"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="confirmNewPassword"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Required field",
-                    },
-                  ]}
-                >
-                  {/* <Input.Password placeholder="Password" /> */}
-                  <Input.Password
-                    placeholder="Confirm New Password"
-                    className="input-style"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={isLoadingNewPassword}
-                    className=" btn-signin fw-600 "
-                    block
-                  >
-                    Save
-                  </Button>
-                </Form.Item>
-              </Form>
-
-              {/* <p className="fs-15-n-gray">
-              Resend <span className="pink-color">Log In</span> Details
-            </p> */}
-            </div>
-          </div>
-        </Col>
-      )}
     </Row>
   );
 };

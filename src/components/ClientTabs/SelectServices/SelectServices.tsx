@@ -17,19 +17,20 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../store";
 import { selectUserType } from "../../../mock/SelectCylinderTypes";
 import ProductsDrawer from "./Drawer";
+import { useGetAllProductsQuery } from "../../../store/Slices/Products";
 const SelectGroundTypes = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
-  const { isError, isSuccess, isLoading, data } =
-    useGetAuthUserTypeRequestQuery({});
-
-  let UserType: any;
-  if (isSuccess) {
-    UserType = data;
+  const paramsObj: any = {};
+  const query = "&" + new URLSearchParams(paramsObj).toString();
+  const { data: dataProducts, isSuccess: isSuccessProducts } = useGetAllProductsQuery({ query })
+ 
+  let productsData: any
+  if (isSuccessProducts) {
+      productsData = dataProducts
   }
 
- console.log(openDrawer)
-  const navigate = useNavigate();
+
 
   //BreadCrumb Items 
   const breadCrumbItems =
@@ -54,9 +55,9 @@ const SelectGroundTypes = () => {
         Home
           </p>
         </div>
-        {selectUserType.length>0 ?
+        {productsData?.length>0 ?
         <Row gutter={[80, 30]}>
-          {selectUserType.map((card: any) => (
+          {productsData.map((card: any) => (
             <Col xs={24} md={24} sm={24} lg={24} xl={24} xxl={8} key={card._id}>
               <Card
                 className="card-hover-color cursor-pointer"
@@ -92,7 +93,7 @@ const SelectGroundTypes = () => {
                        
                       }}
                     >
-                      {card?.name.replace("_", ' ')}
+                      {card?.category.replace("_", ' ')}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                       {card?.description}
@@ -113,11 +114,11 @@ const SelectGroundTypes = () => {
                   </Col>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
                   <img
-                  src={card?.icon}
+                  src={card?.thumbnail}
                   alt="icon"
                   className={"add-user-image"}
-                  height={card?.name==="Small"? 97.38:card?.name==="Medium"?137.49:145}
-                  width={card?.name==="Small"? 91.19:card?.name==="Medium"?117.34:125}
+                  height={card?.name==="SMALL"? 97.38:card?.name==="MEDIUM"?137.49:145}
+                  width={card?.name==="SMALL"? 91.19:card?.name==="MEDIUM"?117.34:125}
                   style={{
                     display: "block",
                     margin: "auto",
