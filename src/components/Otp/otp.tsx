@@ -108,7 +108,7 @@ export const ConfirmationCode = (props: any) => {
       if (expiryTime > 0) {
         setExpiryTime((prevExpiryTime) => prevExpiryTime - 1);
       } else {
-        setvalidationText("OTP has expired. Please request a new OTP.");
+        // setvalidationText("OTP has expired. Please request a new OTP.");
       }
     }, 10000);
     return () => clearTimeout(timer);
