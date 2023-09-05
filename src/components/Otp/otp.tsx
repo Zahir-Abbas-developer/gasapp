@@ -92,7 +92,7 @@ export const TwoFactorAuth = (props: any) => {
 
 export const ConfirmationCode = (props: any) => {
   const { setIsCodeConfirmation, isCodeConfirmation, setIsVerified, confirmationResult } = props;
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [isReSend, setIsReSend] = useState(false);
 
   const [validationText, setvalidationText] = useState("");
@@ -161,6 +161,7 @@ export const ConfirmationCode = (props: any) => {
    
       confirmationResult?.confirm(enteredOtp)?.then(async (res: any) => { console.log(res); getDoc(doc(db, "users", res?.user?.uid)).then((result) => {
         if (result.exists()) {
+          console.log(result.data)
           const userData: any = { id: result.id, ...result.data() };
           console.log(userData)
           localStorage.setItem("user", JSON.stringify(userData));
