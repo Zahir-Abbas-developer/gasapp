@@ -3,6 +3,8 @@ import { Button, Modal, Row, Col, Input, Form } from "antd";
 import PhoneInput from "react-phone-input-2";
 import './otp.scss'
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 export const TwoFactorAuth = (props: any) => {
   const [phoneNumberInput, setPhoneNumberInput] = useState<string>("");
   const [phoneError, setPhoneError] = useState(false);
@@ -89,7 +91,7 @@ export const TwoFactorAuth = (props: any) => {
 
 export const ConfirmationCode = (props: any) => {
   const { setIsCodeConfirmation, isCodeConfirmation, setIsVerified, confirmationResult } = props;
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [isReSend, setIsReSend] = useState(false);
 
   const [validationText, setvalidationText] = useState("");
@@ -156,7 +158,12 @@ export const ConfirmationCode = (props: any) => {
     console.log(otpValues?.every((item) => item !== ""));
 
     if (otpValues?.every((item) => item !== "")) {
-      confirmationResult?.confirm(enteredOtp)?.then(async (res: any) => { console.log(res);navigate("/services") }).catch((err: any) => { console.log(err, "errrrrrrrr") })
+      confirmationResult?.confirm(enteredOtp)?.then(async (res: any) => {
+        getDoc(doc(db, "users", res.user.uid)).then((dataRes) => {
+          console.log("dataaaaaaaaaaa", dataRes.id, dataRes.data())
+        })
+        // navigate("/services") 
+      }).catch((err: any) => { console.log(err, "errrrrrrrr") })
       // setIsCodeConfirmation(false);
       // setvalidationText("");
       // setIsVerified(true);
