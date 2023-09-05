@@ -17,17 +17,16 @@ import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../../store";
 import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
+import { useGetOverAllProductsQuery } from "../../../store/Slices/Products";
 const CylinderOrders = () => {
+const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
 
-
-  const { isError, isSuccess, isLoading, data } =
-    useGetAuthUserTypeRequestQuery({});
-
-  let UserType: any;
+  
+  let currentOrders: any;
   if (isSuccess) {
-    UserType = data;
+    currentOrders = data;
   }
-
+ console.log(currentOrders)
  
   const navigate = useNavigate();
 
@@ -63,9 +62,9 @@ const CylinderOrders = () => {
           </Row>
          */}
     
-        {OrdersylinderData.length>0 ?
+        {currentOrders?.length>0 ?
         <Row gutter={[80, 30]}>
-          {OrdersylinderData.map((card: any) => (
+          {currentOrders.map((card: any) => (
             <Col xs={24} md={24} sm={24} lg={24} xl={24} xxl={8} key={card._id}>
               <Card
                 className="card-hover-color cursor-pointer"
@@ -104,13 +103,13 @@ const CylinderOrders = () => {
                          {card?.name.replace("_", ' ')}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          Type :  {card?.type}
+                          Type :  Regular
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           ETA :  {card?.eta}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          Amount :  {card?.amount}
+                          Amount :  {card?.price}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           Address :  {card?.address}
@@ -122,7 +121,7 @@ const CylinderOrders = () => {
                   </Col>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
                   <img
-                  src={card?.icon}
+                  src={card?.thumbnail}
                   alt="icon"
                   className={"add-user-image"}
                   height={card?.name==="Small"? 97.38:card?.name==="Medium"?137.49:145}

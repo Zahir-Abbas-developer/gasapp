@@ -10,7 +10,14 @@ export const extendedApi = emptySplitApi.injectEndpoints({
 
       invalidatesTags: ["orders"],
     }),
+    getOverAllProducts: builder.query({
+        query: ({page,limit,query}:any) => ({
+          url: `/orders?status=PENDING`,
+          method: "GET",
+        }),
   
+        providesTags: ["orders"],
+      }),
   }),
 });
 
