@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../store";
 import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
 import { useGetOverAllProductsQuery } from "../../../store/Slices/Products";
+import dayjs from "dayjs";
 const CylinderOrders = () => {
 const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
 
@@ -106,7 +107,7 @@ const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
                           Type :  Regular
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          ETA :  {card?.eta}
+                          ETA :  {dayjs(card?.createdAt?._nanoseconds/ 1000000 + card?.createdAt?._seconds * 1000 ).format('YYYY-MM-DD HH:mm:ss')  }
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           Amount :  {card?.price}
