@@ -19,9 +19,10 @@ import { useAppSelector } from "../../../store";
 import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
 import { useGetOverAllProductsQuery } from "../../../store/Slices/Products";
 import dayjs from "dayjs";
+import { useCancelOrderMutation } from "../../../store/Slices/Orders";
 const CylinderOrders = () => {
 const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
-
+const [cancelOrder]=useCancelOrderMutation({})
   
   let currentOrders: any;
   if (isSuccess) {
@@ -37,6 +38,9 @@ const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
       { title: "User Type", path: "", }
       , { title: "Dashboard", path: "/dashboard", },
     ];
+    const handleCancelOrder=(card:any)=>{
+      cancelOrder({id:card?.id,payload:{status:"CANCELLED"}})
+    }
   
   return (
     <div>
@@ -74,9 +78,7 @@ const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
                   borderRadius: "22px",
                   minHeight: "260px",
                 }}
-                onClick={() =>
-                  navigate("/select-stadium-location", { state: card })
-                }
+                
               >
                 <Row>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
@@ -134,8 +136,8 @@ const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
                 />
                   </Col>
                   <Col xs={24} style={{textAlign:"center"}}>
-                  <Link to="/forget-password">   <Button
-                 
+                  <Button
+                   onClick={()=>handleCancelOrder(card)}
                     htmlType="submit"
                     
                     style={{fontSize:"14PX",width:"135.49px"}}
@@ -143,7 +145,7 @@ const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
                     block
                   >
                   Cancel  Order
-                  </Button></Link>
+                  </Button>
                   </Col>
                 </Row>
                 <div>

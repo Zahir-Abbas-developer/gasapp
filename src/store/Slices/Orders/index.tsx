@@ -1,7 +1,7 @@
 import { emptySplitApi } from "../../Services";
 export const extendedApi = emptySplitApi.injectEndpoints({
   endpoints: (builder: any) => ({
-    postOrders: builder.query({
+    postOrders: builder.mutation({
       query: ({payload}:any) => ({
         url: `orders`,
         method: "POST",
@@ -18,9 +18,19 @@ export const extendedApi = emptySplitApi.injectEndpoints({
   
         providesTags: ["orders"],
       }),
+      cancelOrder: builder.mutation({
+        query: ({id,payload}:any) => ({
+          url: `/orders/${id}`,
+          method: "PATCH",
+          body: payload,
+        }),
+  
+        invalidatesTags: ["orders"],
+      }),
   }),
 });
 
 export const {
  usePostOrdersMutation, 
+ useCancelOrderMutation
 } = extendedApi;

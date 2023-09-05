@@ -74,9 +74,9 @@ const PastOrders = () => {
                   borderRadius: "22px",
                   minHeight: "260px",
                 }}
-                onClick={() =>
-                  navigate("/select-stadium-location", { state: card })
-                }
+                // onClick={() =>
+                //   navigate("/select-stadium-location", { state: card })
+                // }
               >
                 <Row>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
@@ -134,7 +134,7 @@ const PastOrders = () => {
                 />
                   </Col>
                   <Col xs={24} style={{textAlign:"center"}}>
-                  <Link to="/forget-password">   <Button
+                    <Button
                  
                     htmlType="submit"
                     
@@ -143,7 +143,7 @@ const PastOrders = () => {
                     block
                   >
                   Cancel  Order
-                  </Button></Link>
+                  </Button>
                   </Col>
                 </Row>
                 <div>
