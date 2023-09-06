@@ -17,15 +17,15 @@ import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../../store";
 import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
+import { useGetPastOrdersQuery } from "../../../store/Slices/Orders";
 const PastOrders = () => {
 
 
-  const { isError, isSuccess, isLoading, data } =
-    useGetAuthUserTypeRequestQuery({});
+    const {data ,isSuccess,isLoading}=useGetPastOrdersQuery({})
 
-  let UserType: any;
+  let pastOrders: any;
   if (isSuccess) {
-    UserType = data;
+    pastOrders = data;
   }
 
  
@@ -63,9 +63,9 @@ const PastOrders = () => {
           </Row> */}
         
     
-        {OrdersylinderData.length>0 ?
+        {pastOrders?.length>0 ?
         <Row gutter={[80, 30]}>
-          {OrdersylinderData.map((card: any) => (
+          {pastOrders.map((card: any) => (
             <Col xs={24} md={24} sm={24} lg={24} xl={24} xxl={8} key={card._id}>
               <Card
                 className="card-hover-color cursor-pointer"
@@ -209,7 +209,7 @@ const PastOrders = () => {
             setIsOpenuserTypeModal={setIsOpenuserTypeModal}
             isOpenUserTypeModal={isOpenUserTypeModal}
           /> */}
-        </Row>:<ApiLoader/>}
+        </Row>:isLoading?<ApiLoader/>:<p style={{color:"black" ,textAlign:"center",fontSize:"25PX"}}>NO DATA AVAILABLE</p>}
       </Layout>
     </div>
   );

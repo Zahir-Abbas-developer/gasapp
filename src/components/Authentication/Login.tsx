@@ -59,7 +59,7 @@ const Login = () => {
         phoneNumber:`+${values?.phoneNumber}`
       };
       const { error, data }: any = await authSignUp({
-        payload: { ...payload, role: "user" },
+        payload: { ...payload, role: "admin" },
       });
 
       if (!error) {
@@ -201,7 +201,7 @@ const handlePhoneNumberChange = (value:any) => {
                 </span>
                 <span> to</span>
               </h1>
-              <h3 className="heading-3">Gas App</h3>
+              <h3 className="heading-3">LNG</h3>
             </div>
             {/* <div>
               <p className="p-tag-description-1">If you don't have an account register</p>

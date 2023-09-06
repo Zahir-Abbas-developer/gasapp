@@ -222,7 +222,7 @@ const [cancelOrder]=useCancelOrderMutation({})
             setIsOpenuserTypeModal={setIsOpenuserTypeModal}
             isOpenUserTypeModal={isOpenUserTypeModal}
           /> */}
-        </Row>:<ApiLoader/>}
+        </Row>:isLoading?<ApiLoader/>:<p style={{color:"black" ,textAlign:"center",fontSize:"25PX"}}>NO DATA AVAILABLE</p>}
       </Layout>
     </div>
   );

@@ -152,7 +152,7 @@ const DashboardLayout = ({ children }: any) => {
   return (
     <>
       <Layout className="layout">
-        {/* <NavBar /> */}
+        <NavBar />
         <Content className="main-content bgLight-color">
           {/* {path !== "Dashboard" && (
             // <Breadcrumb

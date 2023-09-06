@@ -92,9 +92,6 @@ function AddCategoryModal(props: any) {
     setGetFieldValues({});
   }
 
-
-
-
   return (
     <Modal
       title="Add Category"

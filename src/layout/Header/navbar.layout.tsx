@@ -106,8 +106,8 @@ const NavBar = () => {
   ];
 
   // const userData: any = JSON.parse(localStorage.getItem("UserData") || "{}");
-  const { role,permissions }: any = JSON.parse(
-    localStorage.getItem("careUserData") || "{}"
+  const { role,username }: any = JSON.parse(
+    localStorage.getItem("user") || "{}"
   );
   const handleOpenDrawer=()=>{
     dispatch(openDrawer())
@@ -126,11 +126,6 @@ const NavBar = () => {
   };
   // ========================== Profile Dropdown ==========================
   const profileDropdown = [
-    
-    {
-      title: "Change Password",
-      icon: <ChangePassword />,
-    },
     {
       title: "Logout",
       icon: <Logout />,
@@ -166,18 +161,12 @@ const NavBar = () => {
    
           <div style={{display:"flex" ,justifyContent:"space-between"}}>
       <p style={{color:"white"}} className="solace-leather-online">SOLACE LEATHER ONLINE PLATFORM</p>
-      <h1 style={{fontWeight:"500" ,fontSize:"32px",marginTop:"10px" ,marginBottom:"0px"}}>Solace</h1>
+      <h1 style={{fontWeight:"500" ,fontSize:"32px",marginTop:"10px" ,marginBottom:"0px"}}>LNG</h1>
       <div className="short_hands">
-        <img src={SearchImg}  onClick={handleOpenGlobalSearchDrawer}  style={{cursor:"pointer"}}/>
-          <Switch
-            className="switch fs-12"
-            checkedChildren="Dark"
-            unCheckedChildren="Light"
-            onChange={() => setIsDarkMode(!isDarkMode)}
-          />
-          <Badge   count={products?.products?.length} showZero style={{color:"white"}}>
-          <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleOpenDrawer} />
-        </Badge>
+        {/* <img src={SearchImg}  onClick={handleOpenGlobalSearchDrawer}  style={{cursor:"pointer"}}/> */}
+          
+          {/* <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleOpenDrawer} /> */}
+      
         <div className="adminDetail">
         <Popover
           rootClassName="profile-dropdown"
@@ -188,19 +177,19 @@ const NavBar = () => {
                   key={uuidv4()}
                   onClick={() => {
                     if (item?.title === "Logout") {
-                      localStorage.removeItem("careUserData");
+                      localStorage.removeItem("user");
                       localStorage.clear();
                       navigate("/login");
                       logOutUser()
                       
                     }
-                    if (item?.title === "Change Password") {
-                      navigate("/change-password");
-                    }
-                    if (item?.title === "Profile Preview") {
-                      setIsProfileModal(true);
-                      setviewClientModal(true);
-                    }
+                    // if (item?.title === "Change Password") {
+                    //   navigate("/change-password");
+                    // }
+                    // if (item?.title === "Profile Preview") {
+                    //   setIsProfileModal(true);
+                    //   setviewClientModal(true);
+                    // }
                   }}
                   className='profile-item'
                   style={{
@@ -221,10 +210,7 @@ const NavBar = () => {
           onOpenChange={() => setOpen(false)}
         >
           <Space onClick={() => setOpen(!open)}>
-            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>:
-            <Avatar style={{ verticalAlign: "middle" }} size="large">
-             
-            </Avatar>}
+            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>: <img height={50} width={50} src={ `https://ui-avatars.com/api/?rounded=true&name=${username}`}></img>}
             <div
               className="details"
               style={{ display: "flex", flexDirection: "column" }}
@@ -278,93 +264,8 @@ const NavBar = () => {
             }}
           /> */}
         </div>
-        <div
-          className={role === "user" ? "employeeMenu" : "menus"}
-        >
-          <nav className="nav">
-            <ul className="nav-title">
-              {navItems.map((item: any) => {
-                return (
-                  <Fragment key={uuidv4()}>
-                    {item.toshowforrole.includes(role ?role: "newUser") && (
-                      <div>
-                        <li
-                          className={`nav-link ${active === item.title && "activeNav"
-                            }`}
-                        >
-                          <img
-                            className="nav-img"
-                            height={40} 
-                            width={40}
-                            src={isDarkMode ? item.darkIcon : item.lightIcon}
-                            alt={"icon"}
-                            onClick={() => {
-                              handleRole(item);
-                            }}
-                          />
-                          <span
-                            className="fs-12 nav-text title-color"
-                            style={{
-                              color: active === item.title ? "#e76f51" : "",
-                              fontSize:"large"
-                            }}
-                            onClick={() => {
-                              item.subItems
-                                ? setDropDown(true)
-                                : navigate(item.path ,{state:{shoeType:item.shoeType}});
-                              setActive(item.title);
-                            }}
-                          >
-                            {item.title}{" "}
-                            {item.subItems &&
-                              (dropDown && active && active === item.title ? (
-                                <UpOutlined style={{ fontSize: "10px" }} />
-                              ) : (
-                                <DownOutlined style={{ fontSize: "10px" }} />
-                              ))}
-                          </span>
-                        </li>
-                        {item.subItems && dropDown && active === item.title && (
-                          <ClickAwayListener
-                            onClickAway={() => setDropDown(false)}
-                          >
-                            <div className="dropDown select-theme">
-                              {item.subItems.map(
-                                (subNav: any) =>
-                                  subNav.toshowforrole.includes(
-                                    role ?role: "newUser"
-                                  ) && (
-                                    <Fragment key={uuidv4()}>
-                                      <p
-                                        onClick={() => {
-                                          navigate(subNav.path,{state:{shoeType:subNav.shoeType}});
-                                          setActiveChild(subNav.title);
-                                          setDropDown(false);
-                                        }}
-                                        style={{
-                                          color:
-                                            activeChild === subNav.title
-                                              ? "#e76f51"
-                                              : "",
-                                        }}
-                                      >
-                                        {subNav.title}
-                                      </p>
-                                    </Fragment>
-                                  )
-                              )}
-                            </div>
-                          </ClickAwayListener>
-                        )}
-                      </div>
-                    )}
-                  </Fragment>
-                );
-              })}
-            </ul>
-          </nav>
-        </div>
        
+
       </div>
       </div>
       {toggleDrawer && (

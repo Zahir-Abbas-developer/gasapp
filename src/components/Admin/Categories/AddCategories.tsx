@@ -40,6 +40,7 @@ import CrossAllocationModal from "../../Setting/SettingJobRole/CrossAllocationMo
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import AddCategoryModal from "./AddCategoryModal";
 import { useDeleteCategoriesMutation,  useGetAllCategoriessQuery } from "../../../store/Slices/Products";
+import { useGetAllOrdersQuery } from "../../../store/Slices/Orders";
 
 
 const AddCategories = () => {
@@ -48,7 +49,7 @@ const AddCategories = () => {
   const [selectedFilterValue, setSelectedFilterValue] = useState<string | undefined>();
   const [selectedCareHomeFilterValue, setSelectedCareHomeFilterValue] = useState<string | undefined>();
   const [crossAllocationRecord, setCrossAllocationRecord] = useState([]);
-  const {data:getCategories ,isSuccess:isSuccessCategories}=useGetAllCategoriessQuery({})
+  const {data:getOrders ,isSuccess:isSuccessOrders ,isLoading:isLoadingOrders}=useGetAllOrdersQuery({})
   // ============================== Filters ==============================
   const [searchName, setSearchName] = useState<string>("");
 
@@ -85,11 +86,11 @@ const AddCategories = () => {
   let JobRole: any;
   let unchangeUserData: any;
   let clientAPIData: any;
-  let allCategories:any
-  if(isSuccessCategories){
-    allCategories=getCategories
+  let allOrders:any
+  if(isSuccessOrders){
+    allOrders=getOrders
   }
-
+console.log(allOrders)
   if (isSuccess) {
     JobRole = jobRoleFilterData;
     unchangeUserData = data;
@@ -177,7 +178,7 @@ const AddCategories = () => {
             height={18}
             width={16}
           />
-          <span className="m-0">Edit Details</span>
+          <span className="m-0">Delivered</span>
         </Space>
       ),
       key: "1",
@@ -197,7 +198,7 @@ const AddCategories = () => {
             height={18}
             width={16}
           />
-          <span>Delete</span>
+          <span>Cancel</span>
         </Space>
       ),
       key: "3",
@@ -216,29 +217,52 @@ const AddCategories = () => {
       },
     },
     {
-      title: "Category Name",
-      dataIndex: "name",
+      title: "Address",
+      dataIndex: "address",
       align: "center"
     },
     {
-      title: "Category Description",
-      dataIndex: "description",
-      align: "center"
+      title: "Category",
+      dataIndex: "category",
+      align: "center",
+      render: (_: any, text: any) => (
+        <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.category}</span>
+      )
     },
-  
+    {
+      title: "Name",
+      dataIndex: "name",
+      align: "center",
+      render: (_: any, text: any) => (
+        <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.name}</span>
+      )
+    },
+    {
+      title: "Amount",
+      dataIndex: "price",
+      align: "center",
+      render: (_: any, text: any) => (
+        <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.price} Rs.</span>
+      )
+    },
+    {
+      title: "Size",
+      dataIndex: "size",
+      align: "center",
+      render: (_: any, text: any) => (
+        <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.size}</span>
+      )
+    },
+    {
+      title: "Image",
+      dataIndex: "thumbnail",
+      align: "center",
+      render: (_: any, text: any) => (
+        <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}><img height={50} width={50} src={text?.productData?.thumbnail}></img></span>
+      )
+    },
 
-    ...(role === ROLES.coordinator ?
-      [{
-        title: "Care Home",
-        align: "center",
-
-        dataIndex: "careHomeData",
-        key: "careHomeData",
-        render: (_: any, text: any) => (
-          <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.careHomeData?.clientName}</span>
-        )
-      }] : []
-    ),
+    
     {
       title: "Action",
       dataIndex: "action",
@@ -294,17 +318,7 @@ const AddCategories = () => {
 
       <div className="setting-job-role">
         <div className="header border-radius-10">
-          <Button
-            className="add-job-role-btn fs-14 fw-600 border-radius-10 d-flex justify-center align-items-center"
-            onClick={() => {
-              setGetFieldValues({});
-              setAddEditJobRole(true);
-              setModalType("Add");
-            }}
-          >
-            Add Category
-            <PlusCircleOutlined style={{ marginLeft: "20px" }} />
-          </Button>
+        
 
           {/* ============================== Job Role Top Filters ============================== */}
           <Row gutter={[0, 20]} className='job-role-filters-wrapper'>
@@ -397,9 +411,9 @@ const AddCategories = () => {
           <Table
             scroll={{ x: 768 }}
             columns={columns}
-            dataSource={allCategories}
+            dataSource={allOrders}
             locale={{ emptyText: !jobRoleFilterIsLoading ? "No Data" : " " }}
-            loading={jobRoleFilterIsLoading}
+            loading={isLoadingOrders}
             pagination={{
               current: pagination.page,
               pageSize: pagination.limit,
