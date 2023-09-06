@@ -29,6 +29,7 @@ import { useGetUserTypesListQuery } from "../../store/Slices/BookingCalendar";
 import AppSnackbar from "../../utils/AppSnackbar";
 import BreadCrumb from "../../layout/BreadCrumb/BreadCrumb";
 import { useGetAllCategoriessQuery, useGetAllMaterialsQuery, useGetAllProductsQuery, useGetOrdersQuery, useGetOverAllProductsQuery } from "../../store/Slices/Products";
+import { useGetAllOrdersQuery } from "../../store/Slices/Orders";
 
 const StaffAllocation = () => {
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
@@ -94,11 +95,7 @@ const StaffAllocation = () => {
   const { data: userTypes }: any = useGetUserTypesListQuery({});
   const {data:getMaterials ,isSuccess:isSuccessMaterials}=useGetAllMaterialsQuery({refetchOnMountOrArgChange: true})
   const {data:getCategories ,isSuccess:isSuccessCategories}=useGetAllCategoriessQuery({})
-  const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({})
-    let productsData:any
-    if(isSuccessProducts){
-        productsData=products
-    }
+
   let allMaterials:any
   if(isSuccessMaterials){
     allMaterials=getMaterials
@@ -107,18 +104,23 @@ const StaffAllocation = () => {
   if(isSuccessCategories){
     allCategories=getCategories
   }
-  const {data:isGetOrders ,isSuccess:isSuccessOrders}=useGetOrdersQuery({})
+  const {data:isGetOrders ,isSuccess:isSuccessOrders}=useGetAllOrdersQuery({refetchOnMountOrArgChange: true})
   let getOrders:any
   if(isSuccessOrders){
     getOrders=isGetOrders
   }
+  console.log(getOrders?.length)
   const careHomeOptions = careHomes?.data?.result?.map((item: any) => {
     return {
       value: item?._id,
       label: item?.clientName,
     };
   });
-
+  const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({})
+  let productsData:any
+  if(isSuccessProducts){
+      productsData=products
+  }
   const { data: nonAllocateCareHomes }: any = useGetAllClientQuery({
     id: selectedRecord?._id,
   });
@@ -146,7 +148,7 @@ const StaffAllocation = () => {
     },
     {
       icon: markIcon,
-      count: allCategories?.length<9?`0${allCategories?.length}`:allCategories?.length,
+      count: getOrders?.length<9?`0${getOrders?.length}`:getOrders?.length,
       text: "Total Orders",
       background: "rgba(51, 214, 159, 0.07)",
     },
