@@ -60,7 +60,7 @@ const FooterDetails=()=>{
         </Link>
        </Col>
        <Col  xs={24} md={6}>
-       <Link to="/users" style={{color:"#000000" ,cursor:"pointer"}} >  <div style={{textAlign:"center",padding:"40px" ,cursor:"pointer"}}>
+       <Link to="/users-list" style={{color:"#000000" ,cursor:"pointer"}} >  <div style={{textAlign:"center",padding:"40px" ,cursor:"pointer"}}>
         <ShoppingCartOutlined style={{fontSize:"32px" ,color:addToCartColor}}  />
           <p style={{color:addToCartColor}}  onClick={()=>{setAddToCartColor("#D1372D");setHomeColor("");setOrderColor("")}}>Users</p>
         </div>

@@ -73,7 +73,7 @@ const AddCategoriesPage = Loadable(
 const AddColorsPage = Loadable(
   lazy(() => import("./pages/AddColors"))
 );
-const AddStylesPage = Loadable(
+const UsersData = Loadable(
   lazy(() => import("./pages/AddStyles"))
 );
 const AddOrdersPage = Loadable(
@@ -240,8 +240,8 @@ export const routes: any = [
         element:(<RequireAuth allowedRoles={[ROLES.admin]}><AddOrdersPage/></RequireAuth> )
       },
       {
-        path:"/add-colors",
-        element:(<RequireAuth allowedRoles={[ROLES.admin]}><AddColorsPage/></RequireAuth> )
+        path:"/users-list",
+        element:(<UsersData/> )
       },
       {
         path:"/add-styles",

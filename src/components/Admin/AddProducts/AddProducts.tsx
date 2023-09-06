@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 // Ant Components
@@ -36,6 +36,8 @@ import CrossAllocationModal from "../../Setting/SettingJobRole/CrossAllocationMo
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import AddProductsModal from "./AddProductsModal";
 import { useDeleteProductsMutation, useGetAllMaterialsQuery, useGetAllProductsQuery, useGetOverAllProductsQuery } from "../../../store/Slices/Products";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 
 const AddProducts = () => {
@@ -122,7 +124,6 @@ const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({}
     }));
 
   }
-
 
   // ============================== Handle Delete Job Role ==============================
   const handleDeleteSubmit = async () => {
