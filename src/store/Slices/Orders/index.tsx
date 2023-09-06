@@ -10,7 +10,7 @@ export const extendedApi = emptySplitApi.injectEndpoints({
 
       invalidatesTags: ["orders"],
     }),
-    getOverAllProducts: builder.query({
+    getOverAllOrders: builder.query({
         query: ({page,limit,query}:any) => ({
           url: `/orders?status=PENDING`,
           method: "GET",
@@ -20,7 +20,7 @@ export const extendedApi = emptySplitApi.injectEndpoints({
       }),
       cancelOrder: builder.mutation({
         query: ({id,payload}:any) => ({
-          url: `/orders/${id}`,
+          url: `orders/${id}`,
           method: "PATCH",
           body: payload,
         }),
@@ -32,5 +32,6 @@ export const extendedApi = emptySplitApi.injectEndpoints({
 
 export const {
  usePostOrdersMutation, 
- useCancelOrderMutation
+ useCancelOrderMutation,
+ useGetOverAllOrdersQuery
 } = extendedApi;

@@ -17,19 +17,20 @@ import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../../store";
 import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
-import { useGetOverAllProductsQuery } from "../../../store/Slices/Products";
+
 import dayjs from "dayjs";
-import { useCancelOrderMutation } from "../../../store/Slices/Orders";
+import { useCancelOrderMutation, useGetOverAllOrdersQuery } from "../../../store/Slices/Orders";
+import AppSnackbar from "../../../utils/AppSnackbar";
 const CylinderOrders = () => {
-const {data ,isLoading,isSuccess}=useGetOverAllProductsQuery({})
+const {data ,isLoading,isSuccess}=useGetOverAllOrdersQuery({})
 const [cancelOrder]=useCancelOrderMutation({})
   
   let currentOrders: any;
   if (isSuccess) {
     currentOrders = data;
   }
+
  console.log(currentOrders)
- 
   const navigate = useNavigate();
 
   //BreadCrumb Items 
@@ -39,7 +40,17 @@ const [cancelOrder]=useCancelOrderMutation({})
       , { title: "Dashboard", path: "/dashboard", },
     ];
     const handleCancelOrder=(card:any)=>{
-      cancelOrder({id:card?.id,payload:{status:"CANCELLED"}})
+      try{
+      cancelOrder({id:card?.id,payload:{ status: "CANCELLED"}}).unwrap()
+      AppSnackbar({ type: "success", messageHeading: "Successfully Cancel!", message: "Your Order has been cancel successfully" });
+      }
+      catch (error: any) {
+        AppSnackbar({
+          type: "error",
+          messageHeading: "Error",
+          message: error?.data?.message ?? "Something went wrong!"
+        });
+      }
     }
   
   return (
@@ -103,7 +114,7 @@ const [cancelOrder]=useCancelOrderMutation({})
                        
                       }}
                     >
-                         {card?.name.replace("_", ' ')}
+                         {card?.name}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           Type :  Regular
@@ -112,7 +123,7 @@ const [cancelOrder]=useCancelOrderMutation({})
                           ETA :  {dayjs(card?.createdAt?._nanoseconds/ 1000000 + card?.createdAt?._seconds * 1000 ).format('YYYY-MM-DD HH:mm:ss')  }
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          Amount :  {card?.price}
+                          Amount :  {card?.total}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           Address :  {card?.address}
@@ -124,7 +135,7 @@ const [cancelOrder]=useCancelOrderMutation({})
                   </Col>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
                   <img
-                  src={card?.thumbnail}
+                  src={card?.productData?.thumbnail}
                   alt="icon"
                   className={"add-user-image"}
                   height={card?.name==="Small"? 97.38:card?.name==="Medium"?137.49:145}
