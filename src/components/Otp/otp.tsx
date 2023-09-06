@@ -117,7 +117,7 @@ export const ConfirmationCode = (props: any) => {
     return () => clearTimeout(timer);
   }, [expiryTime]);
   console.log("otp1", otp1 + otp2 + otp3 + otp4)
-  const inputRefs: any = Array(4)
+  const inputRefs: any = Array(6)
     .fill(0)
     .map(() => React.createRef());
   const handlePaste = (e: any, index: any) => {
