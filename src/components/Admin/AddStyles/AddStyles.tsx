@@ -40,6 +40,8 @@ import AddModal from "../../Setting/SettingJobRole/AddModal";
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import AddStyleModal from "./AddStylesModal";
 import { useDeleteMaterialsMutation, useGetAllMaterialsQuery } from "../../../store/Slices/Products";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 
 const AddStyles = () => {
@@ -89,6 +91,14 @@ const AddStyles = () => {
   if(isSuccessMaterials){
     allMaterials=getMaterials
   }
+
+  const fetchCategories = () => {
+    onSnapshot(collection(db, "users"), (snapshot) => {
+      const categoriesData: any = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      
+    });
+  };
+
   if (isSuccess) {
     JobRole = jobRoleFilterData;
     unchangeUserData = data;
