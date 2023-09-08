@@ -11,7 +11,7 @@ type PropsType = {
   cancelTitle: string;
   isLoading?: any;
   setDeleteModal: (value: boolean) => void;
-  onSubmit?: () => void;
+  onSubmit?:any;
   onCancel?: () => void;
 };
 

@@ -21,10 +21,12 @@ import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderT
 import dayjs from "dayjs";
 import { useCancelOrderMutation, useGetOverAllOrdersQuery } from "../../../store/Slices/Orders";
 import AppSnackbar from "../../../utils/AppSnackbar";
+import DeleteModal from "../../../shared/DeleteModal/DeleteModal";
 const CylinderOrders = () => {
 const {data ,isLoading,isSuccess}=useGetOverAllOrdersQuery({})
-const [cancelOrder]=useCancelOrderMutation({})
-  
+const [cancelOrder,{isLoading:isLoadingCancel}]=useCancelOrderMutation({})
+const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
+const [rowData ,setCardRowData]=useState<any>(false)
   let currentOrders: any;
   if (isSuccess) {
     currentOrders = data;
@@ -39,9 +41,9 @@ const [cancelOrder]=useCancelOrderMutation({})
       { title: "User Type", path: "", }
       , { title: "Dashboard", path: "/dashboard", },
     ];
-    const handleCancelOrder=(card:any)=>{
+    const handleCancelOrder= async ()=>{
       try{
-      cancelOrder({id:card?.id,payload:{ status: "CANCELLED"}}).unwrap()
+        await cancelOrder({id:rowData?.id,payload:{ status: "CANCELLED"}}).unwrap()
       AppSnackbar({ type: "success", messageHeading: "Successfully Cancel!", message: "Your Order has been cancel successfully" });
       }
       catch (error: any) {
@@ -148,7 +150,7 @@ const [cancelOrder]=useCancelOrderMutation({})
                   </Col>
                   <Col xs={24} style={{textAlign:"center"}}>
                   <Button
-                   onClick={()=>handleCancelOrder(card)}
+                   onClick={()=>{setCardRowData(card);setIsDeleteModal(true)}}
                     htmlType="submit"
                     
                     style={{fontSize:"14PX",width:"135.49px"}}
@@ -224,6 +226,16 @@ const [cancelOrder]=useCancelOrderMutation({})
           /> */}
         </Row>:isLoading?<ApiLoader/>:<p style={{color:"black" ,textAlign:"center",fontSize:"25PX"}}>NO DATA AVAILABLE</p>}
       </Layout>
+      <DeleteModal
+        setDeleteModal={setIsDeleteModal}
+        deleteModal={isDeleteModal}
+        submitTitle="Yes"
+        cancelTitle="No"
+        title="Do you want to cancel this Order?"
+        onSubmit={handleCancelOrder}
+        onCancel={() => setIsDeleteModal(false)}
+        isLoading={isLoadingCancel}
+      />
     </div>
   );
 };
