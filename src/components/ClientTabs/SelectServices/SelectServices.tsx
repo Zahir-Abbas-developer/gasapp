@@ -59,7 +59,7 @@ const SelectGroundTypes = () => {
         {productsData?.length>0 ?
         <Row gutter={[80, 30]}>
           {productsData.map((card: any) => (
-            <Col xs={24} md={24} sm={24} lg={24} xl={24} xxl={8} key={card._id}>
+            <Col xs={24} md={8} sm={24} lg={8} xl={8} xxl={8} key={card._id}>
               <Card
                 className="card-hover-color cursor-pointer"
                 style={{

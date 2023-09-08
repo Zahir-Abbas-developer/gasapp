@@ -59,11 +59,11 @@ const Login = () => {
         phoneNumber:`+${values?.phoneNumber}`
       };
       const { error, data }: any = await authSignUp({
-        payload: { ...payload, role: "admin" },
+        payload: { ...payload, role: "user" },
       });
 
       if (!error) {
-        navigate("/login");
+        navigate("/confirmation-signup");
       } else {
         setChangePasswordErrorMessage(error?.data?.message);
       }
@@ -342,6 +342,7 @@ const handlePhoneNumberChange = (value:any) => {
                     disableDropdown
                     onChange={handlePhoneNumberChange}
                     placeholder="Phone number"
+                    inputStyle={{background: "rgba(238, 46, 126, 0.05)",height:"50px",border:"1px solid black"}}
                   />
                 </Form.Item>
 

@@ -49,6 +49,7 @@ const ProductDetailsPage = Loadable(
 const BillingDetailsPage = Loadable(
   lazy(() => import("./pages/BillingDetails"))
 );
+const ConfirmationPage =Loadable(lazy(()=>import("./pages/ConfirmationPage")))
 
 //Cart Details
 const CartDetailsPage=Loadable(
@@ -162,7 +163,10 @@ export const routes: any = [
     path: "reset-password",
     element: <ResetPassword />,
   },
-  
+  {
+    path:"confirmation-signup",
+    element:<ConfirmationPage/>
+  },
   {
     path: "/",
     element: <DashboardLayout />,
