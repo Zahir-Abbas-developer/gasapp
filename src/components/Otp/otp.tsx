@@ -91,7 +91,7 @@ export const TwoFactorAuth = (props: any) => {
 };
 
 export const ConfirmationCode = (props: any) => {
-  const { confirmationResult } = props;
+  const { confirmationResult,phoneNumber } = props;
   const navigate = useNavigate()
   const [isReSend, setIsReSend] = useState(false);
 
@@ -116,7 +116,7 @@ export const ConfirmationCode = (props: any) => {
     }, 10000);
     return () => clearTimeout(timer);
   }, [expiryTime]);
-  console.log("otp1", otp1 + otp2 + otp3 + otp4)
+  console.log("otp1", phoneNumber)
   const inputRefs: any = Array(6)
     .fill(0)
     .map(() => React.createRef());
@@ -182,7 +182,7 @@ export const ConfirmationCode = (props: any) => {
       <div className="myAccount-otp-wrapper modal-theme" style={{ textAlign: "center", marginTop: "90px" }}>
         <h1 style={{ fontSize: "40px", fontWeight: "700" }}>OTP</h1>
         <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
-          Enter 6 digits OTP sent to your  Phone (+92 900 - 78601)
+          Enter 6 digits OTP sent to your  Phone ({phoneNumber?.phoneNumber})
         </span>
         <div style={{ marginTop: "12px" }}>
           <span

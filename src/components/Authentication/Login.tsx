@@ -31,6 +31,7 @@ const Login = () => {
   const [otpShow, setOtpShow] = useState(false)
   const [isLoadingSignIn ,setIsLoadingSignIn]=useState(false)
   const [isLoadingSignUp ,setIsLoadingSignUp]=useState(false)
+  const [phoneNumber ,setPhoneNumber]=useState({})
 
   const [signInPostRequest, { isLoading }] = useSignInPostRequestMutation();
   const [forgetPasswordRequest, { isLoading: isLoadingForgetPassword }] =
@@ -42,17 +43,9 @@ const Login = () => {
   const [changePasswordPostRequest, { isLoading: changePasswordLoading }] =
     useChangePasswordPostRequestMutation();
 
-  function renderDashboard(role: string): string {
-    if (role === "user") {
-      return "/services";
-    } else if (role === "admin") {
-      return "/admin-dashboard";
-    } else {
-      return "/services";
-    }
-  }
   const onFinishSignUp = async (values: any) => {
     delete values?.confirmpassWord;
+  
     setIsLoadingSignUp(true)
     if (values?.password === values?.confirmPassword) {
       const payload = {
@@ -86,6 +79,7 @@ const Login = () => {
         const baseURL = "https://eager-fly-handkerchief.cyclic.app"
         const { data } = await axios.post(baseURL + "/auth/login", { phoneNumber: values.mobilenumber })
         console.log("🚀 ~ file: Login.tsx:81 ~ onFinish ~ data:", data)
+        setPhoneNumber(data)
         setIsLoadingSignIn(false);
       }
      
@@ -299,7 +293,7 @@ const handlePhoneNumberChange = (value:any) => {
       }
       {otpShow && 
         <Col sm={24} style={{textAlign:"center",backgroundColor:"white"}}>
-        <ConfirmationCode confirmationResult={(window as any).confirmationResult}  />
+        <ConfirmationCode confirmationResult={(window as any).confirmationResult} phoneNumber={phoneNumber} />
         </Col>
       }
       {location?.pathname === "/sign-up" && (
