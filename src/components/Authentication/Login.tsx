@@ -29,6 +29,9 @@ const Login = () => {
   const [form] = Form.useForm();
   const location = useLocation();
   const [otpShow, setOtpShow] = useState(false)
+  const [isLoadingSignIn ,setIsLoadingSignIn]=useState(false)
+  const [isLoadingSignUp ,setIsLoadingSignUp]=useState(false)
+
   const [signInPostRequest, { isLoading }] = useSignInPostRequestMutation();
   const [forgetPasswordRequest, { isLoading: isLoadingForgetPassword }] =
     useForgetPasswordRequestMutation();
@@ -50,6 +53,7 @@ const Login = () => {
   }
   const onFinishSignUp = async (values: any) => {
     delete values?.confirmpassWord;
+    setIsLoadingSignUp(true)
     if (values?.password === values?.confirmPassword) {
       const payload = {
         email: values.email,
@@ -66,6 +70,7 @@ const Login = () => {
         navigate("/confirmation-signup");
       } else {
         setChangePasswordErrorMessage(error?.data?.message);
+        setIsLoadingSignUp(false)
       }
     } else {
       setChangePasswordErrorMessage(
@@ -77,18 +82,20 @@ const Login = () => {
   const onFinish = async (values: any, optioanlBoolean?: boolean) => {
     try {
       if (!optioanlBoolean) {
+        setIsLoadingSignIn(true)
         const baseURL = "https://eager-fly-handkerchief.cyclic.app"
         const { data } = await axios.post(baseURL + "/auth/login", { phoneNumber: values.mobilenumber })
         console.log("🚀 ~ file: Login.tsx:81 ~ onFinish ~ data:", data)
-      
+        setIsLoadingSignIn(false);
       }
+     
       onCaptchaVerify();
       const payload = {
         phoneNumber: values.mobilenumber,
       };
       const appVerifier = (window as any).recaptchaVerifier;
       signInWithPhoneNumber(auth, payload.phoneNumber, appVerifier).then((result: any) => {
-        setOtpShow(true);
+        setOtpShow(true);  
         (window as any).confirmationResult = result;
         console.log("hurray", result)
         
@@ -187,7 +194,7 @@ const handlePhoneNumberChange = (value:any) => {
   return (
     <Row className="care-signin">
       {/* Left Div */}
-      <Col xs={0} sm={0} lg={6} xl={14}>
+     {!otpShow && <Col xs={0} sm={0} lg={6} xl={14}>
         <div className="left-outer-div">
           <div className="inner-left-div">
             <div>
@@ -218,7 +225,7 @@ const handlePhoneNumberChange = (value:any) => {
             </div> */}
           </div>
         </div>
-      </Col>
+      </Col>}
       {/* Right Div for form */}
       {location?.pathname === "/login" &&
        !otpShow && 
@@ -253,7 +260,7 @@ const handlePhoneNumberChange = (value:any) => {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  loading={isLoading}
+                  loading={isLoadingSignIn}
                   className=" login-button-gas-app "
                   block
                 >
@@ -290,11 +297,11 @@ const handlePhoneNumberChange = (value:any) => {
       </Col> 
       
       }
-      {otpShow && <Row>
-        <Col>
+      {otpShow && 
+        <Col sm={24} style={{textAlign:"center",backgroundColor:"white"}}>
         <ConfirmationCode confirmationResult={(window as any).confirmationResult}  />
         </Col>
-      </Row>}
+      }
       {location?.pathname === "/sign-up" && (
         <Col xs={24} sm={24} lg={12} xl={10}>
           <div className="right-outer-div">
@@ -369,7 +376,7 @@ const handlePhoneNumberChange = (value:any) => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={isLoading}
+                    loading={isLoadingSignUp}
                     className=" login-button-gas-app "
                     block
                   >

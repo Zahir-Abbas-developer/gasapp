@@ -179,7 +179,7 @@ export const ConfirmationCode = (props: any) => {
   return (
     <div className="myAccount-otp-wrapper">
 
-      <div className="myAccount-otp-wrapper modal-theme" style={{ textAlign: "center", marginTop: "50px" }}>
+      <div className="myAccount-otp-wrapper modal-theme" style={{ textAlign: "center", marginTop: "90px" }}>
         <h1 style={{ fontSize: "40px", fontWeight: "700" }}>OTP</h1>
         <span className="fs-24 fw-600 line-height-20 code-verif-title account-modal-title-color">
           Enter 6 digits OTP sent to your  Phone (+92 900 - 78601)
@@ -282,7 +282,7 @@ export const ConfirmationCode = (props: any) => {
         </Button>
       </div>
 
-      <div style={{ textAlign: "center", marginTop: "40px", paddingBottom: '50px' }}>
+      {/* <div style={{ textAlign: "center", marginTop: "40px", paddingBottom: '50px' }}>
         <span
           className="fs-14 fw-400"
           style={{ color: "#6F7074", paddingRight: "8px" }}
@@ -306,7 +306,7 @@ export const ConfirmationCode = (props: any) => {
             </p>
           </div>
         )}
-      </div>
+      </div> */}
 
     </div>
   );
