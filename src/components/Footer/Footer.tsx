@@ -47,7 +47,8 @@ const FooterDetails=()=>{
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <section >
-     {role==="user"?  <Row className="footer-main">
+     {role==="user"? 
+      <Row className="footer-main">
       <Col xs={12} md={12}>
         <Link to="/services" style={{ color: "#000000", cursor: "pointer" }}>
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
@@ -67,7 +68,8 @@ const FooterDetails=()=>{
         
       </Col>
   
-    </Row>:  <Row className="footer-main">
+    </Row>: role==="admin"?
+     <Row className="footer-main">
       <Col xs={6} md={6}>
     
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
@@ -104,7 +106,7 @@ const FooterDetails=()=>{
           </div>
         </Link>
       </Col>
-    </Row> }
+    </Row>:"" }
      
     </section>
       

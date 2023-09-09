@@ -182,7 +182,7 @@ export const routes: any = [
       {
         path: "orders",
         element: (
-          // <RequireAuth allowedRoles={[ROLES.superAdmin]}>
+          // <RequireAuth allowedRoles={[ROLES.admin || "admin"]}>
             <CylinderOrders />
           // </RequireAuth>
         ),
@@ -190,9 +190,9 @@ export const routes: any = [
       {
         path: "admin-dashboard",
         element: (
-        
+          <RequireAuth allowedRoles={[ROLES.admin || "admin"]}>
             <StaffAllocationPage />
-        
+            </RequireAuth>
         ),
       },
       {
@@ -229,7 +229,7 @@ export const routes: any = [
       },
       {
         path:"/add-products",
-        element:  <AddProductsPage/>
+        element:  <RequireAuth allowedRoles={[ROLES.admin || "admin"]}> <AddProductsPage/></RequireAuth>
       },
       {
         path:"/jacket-details",
@@ -237,19 +237,19 @@ export const routes: any = [
       },
       {
         path:"/add-categories",
-        element:(<AddCategoriesPage/> )
+        element:( <RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddCategoriesPage/></RequireAuth> )
       },
       {
         path:"/add-orders",
-        element:(<RequireAuth allowedRoles={[ROLES.admin]}><AddOrdersPage/></RequireAuth> )
+        element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddOrdersPage/></RequireAuth> )
       },
       {
         path:"/users-list",
-        element:(<UsersData/> )
+        element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><UsersData/></RequireAuth> )
       },
       {
         path:"/add-styles",
-        element:(<RequireAuth allowedRoles={[ROLES.admin]}><AddStyles/></RequireAuth> )
+        element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddStyles/></RequireAuth> )
       },
      
      
