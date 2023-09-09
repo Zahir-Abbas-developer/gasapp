@@ -163,7 +163,7 @@ const NavBar = () => {
    
           <div style={{display:"flex" ,justifyContent:"space-between"}}>
       <p style={{color:"white"}} className="solace-leather-online">welcome to LNG APP</p>
-      <h1 style={{fontWeight:"500" ,fontSize:"32px",marginTop:"10px" ,marginBottom:"0px"}}>LNG</h1>
+      <h1 style={{fontWeight:"500" ,fontSize:"32px",marginTop:"10px" ,marginBottom:"0px"}} className="lng-heading">LNG</h1>
       <div className="short_hands">
         {/* <img src={SearchImg}  onClick={handleOpenGlobalSearchDrawer}  style={{cursor:"pointer"}}/> */}
           

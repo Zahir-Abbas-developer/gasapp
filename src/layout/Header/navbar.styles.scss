@@ -233,6 +233,12 @@
 .solace-leather-online{
   display: none;
 }
+
+  }
+  @media screen and (min-width: 200px) and (max-width: 500px) {
+    .lng-heading{
+      display: none;
+    }
   }
 .logo {
   align-items: center;
