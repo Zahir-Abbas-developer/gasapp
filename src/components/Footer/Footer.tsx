@@ -48,7 +48,7 @@ const FooterDetails=()=>{
   return (
     <section >
      {role==="user"?  <Row className="footer-main">
-      <Col xs={24} md={12}>
+      <Col xs={12} md={12}>
         <Link to="/services" style={{ color: "#000000", cursor: "pointer" }}>
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
             <HomeOutlined style={{ fontSize: "32px", color: homeColor }} onClick={handleHomeClick} />
@@ -57,7 +57,7 @@ const FooterDetails=()=>{
           </div>
         </Link>
       </Col>
-      <Col xs={24} md={12}>
+      <Col xs={12} md={12}>
         
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
             <UsergroupAddOutlined style={{ fontSize: "32px", color: orderColor }} onClick={()=>{handleOrderClick();navigate("/orders")}} />
@@ -68,7 +68,7 @@ const FooterDetails=()=>{
       </Col>
   
     </Row>:  <Row className="footer-main">
-      <Col xs={24} md={6}>
+      <Col xs={6} md={6}>
     
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
           <DashboardOutlined  style={{ fontSize: "32px", color: homeColor }} onClick={()=>{handleHomeClick();navigate("/admin-dashboard")}}  />
@@ -77,7 +77,7 @@ const FooterDetails=()=>{
           </div>
       
       </Col>
-      <Col xs={24} md={6}>
+      <Col xs={6} md={6}>
         <Link to="/add-categories" style={{ color: "#000000", cursor: "pointer" }}>
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
             <UsergroupAddOutlined style={{ fontSize: "32px", color: orderColor }} onClick={()=>{handleOrderClick();navigate("/add-categories")}} />
@@ -86,7 +86,7 @@ const FooterDetails=()=>{
           </div>
         </Link>
       </Col>
-      <Col xs={24} md={6}>
+      <Col xs={6} md={6}>
         <Link to="/add-products" style={{ color: "#000000", cursor: "pointer" }}>
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
             <ShoppingCartOutlined style={{ fontSize: "32px", color: addToCartColor }}onClick={()=>{handleAddToCartClick();navigate("/add-products")}} />
@@ -95,7 +95,7 @@ const FooterDetails=()=>{
           </div>
         </Link>
       </Col>
-      <Col xs={24} md={6}>
+      <Col xs={6} md={6}>
         <Link to="/users-list" style={{ color: "#000000", cursor: "pointer" }}>
           <div style={{ textAlign: "center", padding: "40px", cursor: "pointer" }}>
           <UsergroupAddOutlined style={{ fontSize: "32px", color: usersColor }} onClick={()=>{handleUsersClick();navigate("/users-list")}} />
