@@ -173,7 +173,7 @@ const NavBar = () => {
    
         
           <Space onClick={() => setOpen(!open)}>
-            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>:      <> <p>welcome {username}</p>  <img
+            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>:      <> <p>Welcome {username}</p>  <img
               className="cursor-pointer white-img-theme-class "
               src={Bell}
               alt="notification_icon"
