@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Checkbox, Col, Row } from "antd";
 import CareLibraryIcon from "../../assets/icons/logo.jpg";
 import PhoneInput from "react-phone-input-2";
 import { useState } from "react";
@@ -32,7 +32,7 @@ const Login = () => {
   const [isLoadingSignIn ,setIsLoadingSignIn]=useState(false)
   const [isLoadingSignUp ,setIsLoadingSignUp]=useState(false)
   const [phoneNumber ,setPhoneNumber]=useState({})
-
+  const [isCheckbox ,setIsCheckbox]=useState(false)
   const [signInPostRequest, { isLoading }] = useSignInPostRequestMutation();
   const [forgetPasswordRequest, { isLoading: isLoadingForgetPassword }] =
     useForgetPasswordRequestMutation();
@@ -58,7 +58,7 @@ const Login = () => {
       const { error, data }: any = await authSignUp({
         payload: { ...payload, role: "user" },
       });
-
+      setIsCheckbox(true)
       if (!error) {
         navigate("/confirmation-signup");
       } else {
@@ -131,7 +131,10 @@ const Login = () => {
     //   }
     // }
   };
-
+  const onChange = (e: any) => {
+    console.log(`checked = ${e.target.checked}`);
+    setIsCheckbox(e.target.checked)
+  };
   const onCaptchaVerify = () => {
     if (!(window as any).recaptchaVerifier) {
       (window as any).recaptchaVerifier = new RecaptchaVerifier(
@@ -363,9 +366,9 @@ const handlePhoneNumberChange = (value:any) => {
                   />
                 </Form.Item>
                 <p style={{ color: "red" }}>{errorMessage}</p>
-                <p style={{ color: "red" }}>{changePasswordErrorMessage}</p>
-                <p className="fs-16">By Signing up, I agree to Term of use</p>
-              
+             
+                <p className="fs-16"> <Checkbox defaultChecked onChange={onChange}></Checkbox> By Signing up, I agree to Term of use</p>
+                {!isCheckbox &&   <p style={{ color: "red" }}>Required field</p>}
                   {" "}
                   <Button
                     type="primary"
