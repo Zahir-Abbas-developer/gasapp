@@ -22,7 +22,7 @@ function App() {
         </div>
       </ErrorBoundary>
     </HelmetProvider>
-  );
+  )
 }
 
-export default App;
+export default App
