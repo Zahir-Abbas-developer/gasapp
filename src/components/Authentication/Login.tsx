@@ -337,7 +337,12 @@ const handlePhoneNumberChange = (value:any) => {
                   <Input placeholder="Email" className="input-style" />
                 </Form.Item>
 
-                <Form.Item name="phoneNumber">
+                <Form.Item name="phoneNumber"   rules={[
+                    {
+                      required: true,
+                      message: "Required field",
+                    },
+                  ]} >
                   <PhoneInput
                     containerClass="phone-input-style"
                     inputClass="phone-input-style"
