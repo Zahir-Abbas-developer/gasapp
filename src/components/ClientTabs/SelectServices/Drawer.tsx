@@ -67,7 +67,7 @@ console.log(orderData)
           <p>Amount :</p>
           </Col>
           <Col xs={12}>
-         <p> {orderData?.price}</p>
+         <p> {orderData?.price} Rs</p>
           </Col>
           <Col xs={12}>
          <p> Size :</p>

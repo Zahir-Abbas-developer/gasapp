@@ -30,12 +30,12 @@ export const TwoFactorAuth = (props: any) => {
               Authentication.
             </span>
             <div>
-              <p
+              {/* <p
                 className="title-color fs-12 fw-500 m-0 label-color "
                 style={{ marginTop: "20px", marginBottom: '5px' }}
               >
                 Phone
-              </p>
+              </p> */}
 
               <Form form={form}>
                 <Form.Item

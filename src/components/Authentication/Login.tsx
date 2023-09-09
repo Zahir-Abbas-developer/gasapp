@@ -22,7 +22,7 @@ import { ConfirmationCode } from "../Otp/otp";
 
 //comment for testing
 const Login = () => {
-  const [errorMessage, setErrorMessage] = useState(false);
+
   const [changePasswordErrorMessage, setChangePasswordErrorMessage] =
     useState("");
   let navigate = useNavigate();
@@ -33,6 +33,8 @@ const Login = () => {
   const [isLoadingSignUp ,setIsLoadingSignUp]=useState(false)
   const [phoneNumber ,setPhoneNumber]=useState({})
   const [isCheckbox ,setIsCheckbox]=useState(false)
+  const [isChecked, setIsChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [signInPostRequest, { isLoading }] = useSignInPostRequestMutation();
   const [forgetPasswordRequest, { isLoading: isLoadingForgetPassword }] =
     useForgetPasswordRequestMutation();
@@ -42,8 +44,16 @@ const Login = () => {
   const [authSignUp] = useAuthSignUpMutation();
   const [changePasswordPostRequest, { isLoading: changePasswordLoading }] =
     useChangePasswordPostRequestMutation();
-
+    const onChange = (e:any) => {
+      setIsChecked(e.target.checked);
+      setErrorMessage('');
+    };
+  
   const onFinishSignUp = async (values: any) => {
+    if (!isChecked) {
+      setErrorMessage('You must agree to the terms of use.');
+      return;
+    }
     delete values?.confirmpassWord;
   
     setIsLoadingSignUp(true)
@@ -131,10 +141,7 @@ const Login = () => {
     //   }
     // }
   };
-  const onChange = (e: any) => {
-    console.log(`checked = ${e.target.checked}`);
-    setIsCheckbox(e.target.checked)
-  };
+
   const onCaptchaVerify = () => {
     if (!(window as any).recaptchaVerifier) {
       (window as any).recaptchaVerifier = new RecaptchaVerifier(
@@ -370,9 +377,16 @@ const handlePhoneNumberChange = (value:any) => {
                     className="input-style"
                   />
                 </Form.Item>
-                <p style={{ color: "red" }}>{errorMessage}</p>
-             
-                <p className="fs-16"> <Checkbox defaultChecked onChange={onChange}></Checkbox> By Signing up, I agree to Term of use</p>
+                <Form.Item>
+        <p style={{ color: "red" }}>{errorMessage}</p>
+        <p className="fs-16">
+          <Checkbox
+            checked={isChecked}
+            onChange={onChange}
+          />
+           <span style={{marginLeft:"5px"}}>By Signing up, I agree to Term of use</span>
+        </p>
+      </Form.Item>
                   {" "}
                   <Button
                     type="primary"
