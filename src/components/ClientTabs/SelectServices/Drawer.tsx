@@ -5,7 +5,7 @@ import type { RadioChangeEvent } from 'antd/es/radio';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { usePostOrdersMutation } from '../../../store/Slices/Orders';
 import AppSnackbar from '../../../utils/AppSnackbar';
-
+import './SelectServices.scss'
 const ProductsDrawer = ({openDrawer,setOpenDrawer,orderData}:any) => {
   const [placement, setPlacement] = useState<DrawerProps['placement']>('right')
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
@@ -41,6 +41,7 @@ console.log(orderData)
     <>
       <Drawer
         title="Order Details"
+        className="confirmation-drawer"
         placement={placement}
         width={500}
         onClose={onClose}
@@ -48,35 +49,35 @@ console.log(orderData)
 
       >
       <Row>
-        <Col sm={18}>
+        <Col xs={18}>
         <Row>
-          <Col sm={12} >
+          <Col xs={12} >
             <p>Name :</p>
           </Col>
-          <Col sm={12}>
+          <Col xs={12}>
           <p>{orderData?.name}</p>
           </Col>
-          <Col sm={12}>
+          <Col xs={12}>
           <p>Category :</p>
           </Col>
-          <Col sm={12}>
+          <Col xs={12}>
          <p> {orderData?.category}</p>
           </Col>
-          <Col sm={12}>
+          <Col xs={12}>
           <p>Amount :</p>
           </Col>
-          <Col sm={12}>
+          <Col xs={12}>
          <p> {orderData?.price}</p>
           </Col>
-          <Col sm={12}>
+          <Col xs={12}>
          <p> Size :</p>
           </Col>
-          <Col sm={12}>
+          <Col xs={12}>
          <p> {orderData?.size}</p>
           </Col>
         </Row>
         </Col>
-        <Col sm={6}>
+        <Col xs={6}>
         <img src={orderData?.thumbnail}></img>
         </Col>
       </Row>
