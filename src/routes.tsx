@@ -174,9 +174,9 @@ export const routes: any = [
       {
         path: "services",
         element: (
-          // <RequireAuth allowedRoles={[ROLES.superAdmin]}>
+         
             <Services />
-          // </RequireAuth>
+         
         ),
       },
       {

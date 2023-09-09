@@ -8,6 +8,7 @@ import AppSnackbar from '../../../utils/AppSnackbar';
 
 const ProductsDrawer = ({openDrawer,setOpenDrawer,orderData}:any) => {
   const [placement, setPlacement] = useState<DrawerProps['placement']>('right')
+  const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   const [quantityNumber ,setQuantityNumber]=useState(1)
   const [postOrders]=usePostOrdersMutation({})
 
@@ -83,8 +84,10 @@ console.log(orderData)
        <p> <MinusOutlined  style={{color:"red",marginRight:"10px"}}  onClick={handleDecreament}   /> {quantityNumber>0? quantityNumber:1} <PlusOutlined  style={{color:"red",marginLeft:"10px"}} onClick={handleIncrement}  /> </p>  
        
        <p>Toatl : {orderData?.price * quantityNumber}</p>
+       {!role ?<p style={{color:"red",marginBottom:"0px"}}>Please Sign In First</p>:""}
         <Button  onClick={handleConfirmOrder}
                     type="primary"
+                    disabled={!role}
                     // htmlType="submit"
                     // loading={isLoading}
                     style={{fontSize:"14PX",width:"200.49px",marginTop:"20px"}}

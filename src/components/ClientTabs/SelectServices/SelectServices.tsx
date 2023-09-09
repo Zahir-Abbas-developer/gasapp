@@ -24,14 +24,12 @@ const SelectGroundTypes = () => {
   const [orderData ,setOrderData]=useState({})
   const paramsObj: any = {};
   const query = "&" + new URLSearchParams(paramsObj).toString();
-  const { data: dataProducts, isSuccess: isSuccessProducts } = useGetAllProductsQuery({ query })
+  const { data: dataProducts, isSuccess: isSuccessProducts ,isLoading} = useGetAllProductsQuery({ query })
  
   let productsData: any
   if (isSuccessProducts) {
       productsData = dataProducts
   }
-
-
 
   //BreadCrumb Items 
   const breadCrumbItems =
@@ -190,7 +188,7 @@ const SelectGroundTypes = () => {
             setIsOpenuserTypeModal={setIsOpenuserTypeModal}
             isOpenUserTypeModal={isOpenUserTypeModal}
           /> */}
-        </Row>:<ApiLoader/>}
+        </Row>:isLoading?<ApiLoader/>:<p style={{color:"black" ,textAlign:"center",fontSize:"25PX"}}>NO DATA AVAILABLE</p>}
       <ProductsDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} orderData={orderData}/>
       </Layout>
     </div>
