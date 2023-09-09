@@ -64,7 +64,7 @@ const AddCategories = () => {
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   // ============================== Query Parameters Of Search and Filter ==============================
   const paramsObj: any = {};
-  if (searchName) paramsObj["name"] = searchName;
+  if (searchName) paramsObj["status"] = searchName;
   if (selectedFilterValue) paramsObj["userRole"] = selectedFilterValue;
   if (selectedFilterValue === "All") paramsObj["userRole"] = "";
   if (selectedCareHomeFilterValue) paramsObj["careHomeId"] = selectedCareHomeFilterValue;
@@ -228,6 +228,14 @@ console.log(allOrders)
       },
     },
     {
+      title: "Name",
+      dataIndex: "name",
+      align: "center",
+      render: (_: any, text: any) => (
+        <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.name}</span>
+      )
+    },
+    {
       title: "Address",
       dataIndex: "address",
       align: "center"
@@ -240,14 +248,7 @@ console.log(allOrders)
         <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.category}</span>
       )
     },
-    {
-      title: "Name",
-      dataIndex: "name",
-      align: "center",
-      render: (_: any, text: any) => (
-        <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.name}</span>
-      )
-    },
+   
     {
       title: "Amount",
       dataIndex: "price",
@@ -263,6 +264,11 @@ console.log(allOrders)
       render: (_: any, text: any) => (
         <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.productData?.size}</span>
       )
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      align: "center"
     },
     {
       title: "Image",
