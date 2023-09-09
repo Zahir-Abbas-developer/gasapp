@@ -346,7 +346,7 @@ const StaffAllocation = () => {
     },
     {
       title: "Dashboard",
-      path: "/dashboard",
+      path: "",
     },
   ];
 

@@ -26,7 +26,7 @@ const SingleCard:FC<ISingleCard> = (props) => {
       </Col>
       <Col>
         <p className="card-count">{count}</p>
-        <p className="card-text">{text}</p>
+        <p className="card-text" style={{marginLeft:"12px "}}>{text}</p>
       </Col>
 </Row>
       </Card>

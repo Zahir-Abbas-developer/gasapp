@@ -25,6 +25,7 @@ import NotifyTabs from "../../components/notifications/notification-tabs.compone
 import type { MenuProps } from "antd";
 import "./navbar.styles.scss";
 import { useAppSelector } from "../../store";
+import Logo from "../../assets/images/Cylinder/cylinder.svg"
 import { openDrawer, openGlobalSearchDrawer } from "../../store/Slices/OpenDrawerSlice";
 import { useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../store/Slices/Signin";
@@ -162,8 +163,9 @@ const NavBar = () => {
       
    
           <div style={{display:"flex" ,justifyContent:"space-between"}}>
-      <p style={{color:"white"}} className="solace-leather-online">welcome to LNG APP</p>
-      <h1 style={{fontWeight:"500" ,fontSize:"32px",marginTop:"10px" ,marginBottom:"0px"}} className="lng-heading">LNG</h1>
+      {/* <p style={{color:"white"}} className="solace-leather-online">welcome to LNG APP</p> */}
+      <img src={Logo} height={50} width={50}></img>
+      <h1 style={{fontWeight:"500" ,fontSize:"32px",marginTop:"10px" ,marginBottom:"0px"}} className="lng-heading"></h1>
       <div className="short_hands">
         {/* <img src={SearchImg}  onClick={handleOpenGlobalSearchDrawer}  style={{cursor:"pointer"}}/> */}
           

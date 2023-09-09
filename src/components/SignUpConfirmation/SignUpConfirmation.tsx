@@ -5,7 +5,7 @@ const ConfirmationSignUp = () => {
   
  
     return (
-       <Row style={{marginTop:"120px"}}>
+       <Row style={{marginTop:"120px",textAlign:"center"}}>
         <Col sm={24} style={{textAlign:"center"}}>
         <img src={confirmationImgae} height={176}  width={176}/>
         </Col>

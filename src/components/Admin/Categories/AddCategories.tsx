@@ -401,9 +401,9 @@ console.log(allOrders)
           >
             <Input
               className="search-input"
-              placeholder="Search by category name"
+              placeholder="Search by status name"
               onChange={(event: any) =>
-              {  debouncedSearch(event.target.value, setSearchName);
+              {  debouncedSearch(event.target.value.toUpperCase(), setSearchName);
                 setPagination({...pagination ,page:1})
               }
               }
