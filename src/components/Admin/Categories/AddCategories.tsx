@@ -49,7 +49,7 @@ const AddCategories = () => {
   const [selectedFilterValue, setSelectedFilterValue] = useState<string | undefined>();
   const [selectedCareHomeFilterValue, setSelectedCareHomeFilterValue] = useState<string | undefined>();
   const [crossAllocationRecord, setCrossAllocationRecord] = useState([]);
-  const {data:getOrders ,isSuccess:isSuccessOrders ,isLoading:isLoadingOrders}=useGetAllOrdersQuery({})
+
   // ============================== Filters ==============================
   const [searchName, setSearchName] = useState<string>("");
 
@@ -69,7 +69,7 @@ const AddCategories = () => {
   if (selectedCareHomeFilterValue) paramsObj["careHomeId"] = selectedCareHomeFilterValue;
 
   const query = "&" + new URLSearchParams(paramsObj).toString();
-
+  const {data:getOrders ,isSuccess:isSuccessOrders ,isLoading:isLoadingOrders}=useGetAllOrdersQuery({query})
   // ============================== ROLES ==============================
   const { role }: any = JSON.parse(localStorage.getItem("careUserData") || "{}");
 
@@ -286,7 +286,7 @@ console.log(allOrders)
               <div
                 className="border-color cursor-pointer"
                 onClick={() => {
-                  setJobID(text._id);
+                  setJobID(text.id);
                   setGetFieldValues(text);
                   handleCrossAllocationValues(text);
                 }}
@@ -307,7 +307,7 @@ console.log(allOrders)
 
       <BreadCrumb breadCrumbItems={[
        {
-        title: "Categories",
+        title: "Orders",
         path: "",
       },
       {

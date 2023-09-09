@@ -27,14 +27,14 @@ const OrdersTabs = () => {
     return(
         <>
         
-        <Row>
-            <Col  sm={12}>
+        <Row style={{padding:"5px 70px"}}>
+            <Col  xs={12}>
          <Link to="/services">   <img src={arrow} width={18} height={18}  style={{cursor:"pointer"}}/></Link>
             </Col>
-            <Col sm={12}>
+            <Col xs={12}>
             <p
             className="fs-28 fw-500 grey-color"
-            style={{ marginTop: "0px", paddingBottom: "58px" }}
+            style={{ marginTop: "0px" }}
           >
           My Orders
           </p>
@@ -43,7 +43,7 @@ const OrdersTabs = () => {
         
          <Row>
             <Col sm={24}>
-            <Tabs defaultActiveKey="1" style={{color:"white",fontSize:"20px",margin:"20px"}} items={items} onChange={onChange} />
+            <Tabs defaultActiveKey="1" style={{color:"white",fontSize:"20px",padding:"10px"}} items={items} onChange={onChange} />
             </Col>
          </Row>
         </>

@@ -63,7 +63,7 @@ const AddProducts = () => {
   if (searchName) paramsObj["name"] = searchName;
 
 
-  const query = "?" + new URLSearchParams(paramsObj).toString();
+  const query = "&" + new URLSearchParams(paramsObj).toString();
 
   // ============================== ROLES ==============================
   const { role }: any = JSON.parse(localStorage.getItem("careUserData") || "{}");
@@ -109,7 +109,7 @@ const AddProducts = () => {
   }
 //get products 
 console.log(jobID)
-const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({})
+const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({query})
     let productsData:any
     if(isSuccessProducts){
         productsData=products

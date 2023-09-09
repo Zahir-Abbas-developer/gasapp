@@ -1,0 +1,33 @@
+@import '../../sass/common.scss';
+
+.notifyDetials{
+    border-bottom:1px solid #E6E6E6;
+    border-radius: 5px;
+    padding-block: 13px;
+    padding-inline: 10px;
+    cursor: default;
+    .notifyPreviewBtn{
+        background-color: $white-color;
+        color: $primary-color;
+        border-color:$primary-color ;
+    }
+    &:hover{
+        background-color: var(--header-bg);
+        .notifyPreviewBtn{
+            background-color: $primary-color;
+            color: $white-color;
+        }
+    }
+    .notifyModalTitle{
+        font-size: 24px;
+        @media only screen and (max-width:768px){
+            font-size: 14px;
+        }
+    }
+    .ant-avatar{
+        background:var(--avatar-bg-color)
+    }
+}
+.custom-modal-class .ant-modal-content {
+    border-radius: 4px;
+  }

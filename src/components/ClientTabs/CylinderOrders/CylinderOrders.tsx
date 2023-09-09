@@ -44,7 +44,8 @@ const [rowData ,setCardRowData]=useState<any>(false)
     const handleCancelOrder= async ()=>{
       try{
         await cancelOrder({id:rowData?.id,payload:{ status: "CANCELLED"}}).unwrap()
-      AppSnackbar({ type: "success", messageHeading: "Successfully Cancel!", message: "Your Order has been cancel successfully" });
+        AppSnackbar({ type: "success", messageHeading: "Successfully Cancel!", message: "Your Order has been cancel successfully" });
+        setIsDeleteModal(false)
       }
       catch (error: any) {
         AppSnackbar({

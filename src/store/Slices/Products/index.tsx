@@ -5,15 +5,15 @@ export const extendedApi = emptySplitApi.injectEndpoints({
     endpoints: (builder: any) => ({
       getOverAllProducts: builder.query({
         query: ({page,limit,query}:any) => ({
-          url: `/products?`,
+          url: `/products?${query}`,
           method: "GET",
         }),
   
         providesTags: ["products"],
       }),
       getAllProducts: builder.query({
-        query: ({page,limit,query}:any) => ({
-          url: `/products`,
+        query: ({query}:any) => ({
+          url: `/products${query}`,
           method: "GET",
         }),
   

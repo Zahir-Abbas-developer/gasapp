@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import {  Button } from "antd";
 import {
   MenuOutlined,
   DownOutlined,
@@ -10,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Badge, Drawer, Dropdown, Popover, Space, Switch } from "antd";
 import { v4 as uuidv4 } from "uuid";
+import Bell from "../../assets/images/Cylinder/bell.png";
 import SearchImg from "../../assets/images/sidebar/Search.png";
 import ClickAwayListener from "react-click-away-listener";
 import { navItems } from "./nav-data";
@@ -19,7 +21,7 @@ import { ReactComponent as ChangePassword } from "../../assets/icons/sidebar/cha
 // import Bell from "../assets/images/header/bell.png";
 import DrawerNavsLinks from "./drawer-navs-links";
 import DrawerComp from "./drawer";
-// import NotifyTabs from "../components/notifications/notification-tabs.component";
+import NotifyTabs from "../../components/notifications/notification-tabs.component";
 import type { MenuProps } from "antd";
 import "./navbar.styles.scss";
 import { useAppSelector } from "../../store";
@@ -156,11 +158,11 @@ const NavBar = () => {
   const overlayStyle = { borderRadius: 0 };
   return (
     <>
-      <div className=" header-main-wrapper-ecommerce header-bg " style={{ position: "sticky", top: "0", zIndex: "100",padding:"0 30px" }}>
+      <div className=" header-main-wrapper-ecommerce header-bg " style={{ position: "sticky", top: "0", zIndex: "100",padding:"10px 30px" }}>
       
    
           <div style={{display:"flex" ,justifyContent:"space-between"}}>
-      <p style={{color:"white"}} className="solace-leather-online">SOLACE LEATHER ONLINE PLATFORM</p>
+      <p style={{color:"white"}} className="solace-leather-online">welcome to LNG APP</p>
       <h1 style={{fontWeight:"500" ,fontSize:"32px",marginTop:"10px" ,marginBottom:"0px"}}>LNG</h1>
       <div className="short_hands">
         {/* <img src={SearchImg}  onClick={handleOpenGlobalSearchDrawer}  style={{cursor:"pointer"}}/> */}
@@ -168,21 +170,33 @@ const NavBar = () => {
           {/* <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleOpenDrawer} /> */}
       
         <div className="adminDetail">
-        <Popover
-          rootClassName="profile-dropdown"
-          content={
-            <div>
-              {profileDropdown.map((item) => (
-                <div
-                  key={uuidv4()}
+   
+        
+          <Space onClick={() => setOpen(!open)}>
+            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>:      <> <p>welcome {username}</p>  <img
+              className="cursor-pointer white-img-theme-class "
+              src={Bell}
+              alt="notification_icon"
+              onClick={() =>
+                setToggleNotifications({
+                  open: true,
+                  placement: "right",
+                  type: "",
+                })
+              }
+            /> <Button
+                  type="primary"
+                  htmlType="submit"
+                  className=" logout-button-gas-app "
+                  block
                   onClick={() => {
-                    if (item?.title === "Logout") {
+                  
                       localStorage.removeItem("user");
                       localStorage.clear();
                       navigate("/login");
                       logOutUser()
                       
-                    }
+                    
                     // if (item?.title === "Change Password") {
                     //   navigate("/change-password");
                     // }
@@ -191,26 +205,12 @@ const NavBar = () => {
                     //   setviewClientModal(true);
                     // }
                   }}
-                  className='profile-item'
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "15px",
-                    marginBlock: "10px",
-                  }}
                 >
-                  {item.icon}
-                  <span className="fs-14 title-color cursor-pointer">{item.title}</span>
-                </div>
-              ))}
-            </div>
-          }
-          trigger="click"
-          open={open}
-          onOpenChange={() => setOpen(false)}
-        >
-          <Space onClick={() => setOpen(!open)}>
-            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>: <img height={50} width={50} src={ `https://ui-avatars.com/api/?rounded=true&name=${username}`}></img>}
+                  Log Out
+                </Button> 
+               
+                {/* <img height={50} width={50} src={ `https://ui-avatars.com/api/?rounded=true&name=${username}`}></img> */}
+                </>}
             <div
               className="details"
               style={{ display: "flex", flexDirection: "column" }}
@@ -223,20 +223,11 @@ const NavBar = () => {
                   flexDirection: "column",
                 }}
               >
-               {role && <> <span style={{ height: "20px" }}>
-                 
-                  <CaretDownOutlined className="fs-16" style={{fontSize: '24px'}} />
-                </span>
-                <span
-                  className="fs-12 fw-400"
-                  style={{ textTransform: "capitalize" }}
-                >
-                {role==="admin"? <p  style={{marginTop:"0px",color:"white"}}>Admin</p> :<p style={{marginTop:"0px",color:"white"}}>User</p>}  
-                </span></>}
+         
               </p>
             </div>
           </Space>
-        </Popover>
+       
         <DrawerComponent/>
         <GlobalSearch/>
       </div>
@@ -305,7 +296,7 @@ const NavBar = () => {
           closable={false}
         >
           <p className="fs-24 fw-600 p-0 m-0 title-color">Notifications</p>
-          {/* <NotifyTabs /> */}
+          <NotifyTabs />
         </Drawer>
         
       )}

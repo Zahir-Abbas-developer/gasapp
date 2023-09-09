@@ -36,8 +36,8 @@ export const extendedApi = emptySplitApi.injectEndpoints({
         invalidatesTags: ["orders"],
       }),
       getAllOrders: builder.query({
-        query: ({page,limit,query}:any) => ({
-          url: `/orders?`,
+        query: ({query}:any) => ({
+          url: `/orders?${query}`,
           method: "GET",
         }),
   
