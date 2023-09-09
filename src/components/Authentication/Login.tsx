@@ -368,7 +368,6 @@ const handlePhoneNumberChange = (value:any) => {
                 <p style={{ color: "red" }}>{errorMessage}</p>
              
                 <p className="fs-16"> <Checkbox defaultChecked onChange={onChange}></Checkbox> By Signing up, I agree to Term of use</p>
-                {!isCheckbox &&   <p style={{ color: "red" }}>Required field</p>}
                   {" "}
                   <Button
                     type="primary"
