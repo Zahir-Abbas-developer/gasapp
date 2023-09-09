@@ -1,6 +1,7 @@
 import { Button, Modal, Spin } from "antd";
 
 import DeleteIcon from "../../assets/icons/unpublishedShift/remove.png";
+import confirmationImgae from "../../assets/icons/Cylinder/check-circle.svg"
 import "./style.scss";
 
 type PropsType = {
@@ -13,10 +14,11 @@ type PropsType = {
   setDeleteModal: (value: boolean) => void;
   onSubmit?:any;
   onCancel?: () => void;
+  modalType?:string
 };
 
 const DeleteModal = (props: PropsType) => {
-  const { deleteModal, title, submitTitle, cancelTitle, setDeleteModal, onSubmit, onCancel, btnReverse, isLoading } =
+  const { deleteModal, title, submitTitle, cancelTitle, setDeleteModal, onSubmit, onCancel, btnReverse, isLoading,modalType } =
     props;
 
   return (
@@ -30,7 +32,7 @@ const DeleteModal = (props: PropsType) => {
       maskClosable={false}
     >
       <div className="modal-content" style={{ textAlign: 'center' }}>
-        <img src={DeleteIcon} alt="publish icon" />
+        <img src={modalType==="delivered"? confirmationImgae:DeleteIcon} alt="publish icon" />
         <p className="fs-30 fw-500">{title}</p>
         <div className={`btn-wrapper ${btnReverse}`}>
           <button className="no-btn" onClick={onCancel}>

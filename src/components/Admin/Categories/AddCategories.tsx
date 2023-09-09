@@ -27,6 +27,7 @@ import editIcon from "../../../assets/icons/edit-blue.svg";
 import crossAllocation from "../../../assets/icons/Setting/crossAllocation.svg";
 import deleteIcon from "../../../assets/icons/delete-icon-outlined.svg";
 import searchIcon from "../../../assets/icons/search.svg";
+import confirmationImgae from "../../../assets/icons/Cylinder/check-circle.svg"
 import coloredCopyIcon from "../../../assets/icons/Report/colored-copy.png";
 import coloredCsvIcon from "../../../assets/icons/Report/colored-csv.png";
 import coloredXlsIcon from "../../../assets/icons/Report/colored-xls.png";
@@ -40,7 +41,7 @@ import CrossAllocationModal from "../../Setting/SettingJobRole/CrossAllocationMo
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import AddCategoryModal from "./AddCategoryModal";
 import { useDeleteCategoriesMutation,  useGetAllCategoriessQuery } from "../../../store/Slices/Products";
-import { useGetAllOrdersQuery } from "../../../store/Slices/Orders";
+import { useCancelOrderMutation, useGetAllOrdersQuery } from "../../../store/Slices/Orders";
 
 
 const AddCategories = () => {
@@ -58,9 +59,9 @@ const AddCategories = () => {
   const [modalType, setModalType] = useState<string>("");
   const [addEditJobRole, setAddEditJobRole] = useState<boolean>(false);
   const [showCrossAllocation, setShowCrossAllocation] = useState<boolean>(false);
-  const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   const [getTableRowValues, setGetFieldValues] = useState({});
-
+  const [rowData ,setCardRowData]=useState<any>({})
+  const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   // ============================== Query Parameters Of Search and Filter ==============================
   const paramsObj: any = {};
   if (searchName) paramsObj["name"] = searchName;
@@ -73,13 +74,13 @@ const AddCategories = () => {
   // ============================== ROLES ==============================
   const { role }: any = JSON.parse(localStorage.getItem("careUserData") || "{}");
 
-
+console.log(rowData)
   // ============================== RTK Query ==============================
   const { data, isSuccess } = useGetJobRequestQuery({ refetchOnMountOrArgChange: true });
   const { data: clientData, isSuccess: isClientDataSuccess } = useGetClientsQuery({ refetchOnMountOrArgChange: true });
   const { data: jobRoleFilterData, isLoading: jobRoleFilterIsLoading } = useGetJobRequestFilterQuery({ refetchOnMountOrArgChange: true, query, pagination });
   const [deleteCategories, { isLoading: isDeleteJobRequestMutation }] = useDeleteCategoriesMutation();
-
+  const [cancelOrder,{isLoading:isLoadingCancel}]=useCancelOrderMutation({})
 
   // ============================== Variables to Assign Values to it ==============================
   let optimizedUserRoleDropdown: any;
@@ -126,26 +127,35 @@ console.log(allOrders)
 
 
   // ============================== Handle Delete Job Role ==============================
-  const handleDeleteSubmit = async () => {
-    try {
-      await deleteCategories({id:jobID}).unwrap();
-      AppSnackbar({
-        type: "success",
-        messageHeading: "Deleted!",
-        message: "Information deleted successfully",
-      });
-      setIsDeleteModal(false);
-      setGetFieldValues({});
-    } catch (error: any) {
+
+  const handleCancelOrder= async ()=>{
+    try{
+      await cancelOrder({id:rowData?.id,payload:{ status: "CANCELLED"}}).unwrap()
+      AppSnackbar({ type: "success", messageHeading: "Successfully Cancel!", message: "Your Order has been cancel successfully" });
+      setIsDeleteModal(false)
+    }
+    catch (error: any) {
       AppSnackbar({
         type: "error",
         messageHeading: "Error",
-        message: error?.data?.message ?? "Something went wrong!",
+        message: error?.data?.message ?? "Something went wrong!"
       });
     }
-  };
-
-
+  }
+  const handleDeliveredOrder= async ()=>{
+    try{
+      await cancelOrder({id:rowData?.id,payload:{ status: "DELIVERED"}}).unwrap()
+      AppSnackbar({ type: "success", messageHeading: "Successfully Delivered!", message: "Your Order has been delivered successfully" });
+      setIsDeleteModal(false)
+    }
+    catch (error: any) {
+      AppSnackbar({
+        type: "error",
+        messageHeading: "Error",
+        message: error?.data?.message ?? "Something went wrong!"
+      });
+    }
+  }
   // ============================== Filter and Remove The Current Allocation For the Cross Alloocation ==============================
   const handleCrossAllocationValues = (data: any) => {
     const filteredJobRoles = JobRole?.data?.result.filter((singleItem: any) => singleItem?._id !== data?._id);
@@ -167,8 +177,8 @@ console.log(allOrders)
       label: (
         <Space
           onClick={() => {
-            setAddEditJobRole(true);
-            setModalType("Edit");
+            setIsDeleteModal(true);
+            setModalType("delivered");
           }}
         >
           <img
@@ -189,6 +199,7 @@ console.log(allOrders)
         <Space
           onClick={() => {
             setIsDeleteModal(true);
+            setModalType("");
           }}
         >
           <img
@@ -275,7 +286,9 @@ console.log(allOrders)
             trigger={["click"]}
             overlayClassName="actionDropDownBlocking my-dropdown-blocking"
             overlayStyle={{ borderRadius: "4px" }}
+            
             onOpenChange={(visible) => {
+              setCardRowData(text)
               if (!visible) {
                 // Do something when the dropdown is closed
                 handleResetFormValues()
@@ -453,10 +466,12 @@ console.log(allOrders)
         deleteModal={isDeleteModal}
         submitTitle="Yes"
         cancelTitle="No"
-        title="Do you want to delete this Details?"
-        onSubmit={handleDeleteSubmit}
+        title= {modalType==="delivered"? "Successfully Delivered":"Do you want to cancel this Order?"}
+        onSubmit={modalType==="delivered"?handleDeliveredOrder:  handleCancelOrder}
         onCancel={() => setIsDeleteModal(false)}
         isLoading={isDeleteJobRequestMutation}
+        modalType={modalType}
+
       />
     </>
   );
