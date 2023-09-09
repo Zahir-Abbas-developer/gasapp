@@ -10,7 +10,7 @@ const ConfirmationSignUp = () => {
         <img src={confirmationImgae} height={176}  width={176}/>
         </Col>
         <Col xs={24} style={{textAlign:"center",marginTop:"40px"}} >
-        <p>Thank you for Signing up with Company Name</p>
+        <p>Thank you for Signing up with LNG</p>
         </Col>
         <Col xs={24} style={{textAlign:"center",marginTop:"40px"}} >
        <Link to="/login">
