@@ -235,7 +235,7 @@ const [rowData ,setCardRowData]=useState<any>(false)
         deleteModal={isDeleteModal}
         submitTitle="Yes"
         cancelTitle="No"
-        title="Do you want to cancel this Order?"
+        title="Do you want to cancel this order?"
         onSubmit={handleCancelOrder}
         onCancel={() => setIsDeleteModal(false)}
         isLoading={isLoadingCancel}

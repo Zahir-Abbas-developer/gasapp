@@ -10,7 +10,7 @@ const NotifyTabs: React.FC = () => {
       key: "1",
       label: (
         <span>
-          General{" "}
+          All{" "}
           <Badge
             style={{
               backgroundColor: activeKey === "1" ? "#FE5C36" : "#b3b1b1",
@@ -22,22 +22,7 @@ const NotifyTabs: React.FC = () => {
       ),
       children: <GeneralNotify name="general" />,
     },
-    {
-      key: "2",
-      label: (
-        <span>
-          Request{" "}
-          <Badge
-            style={{
-              backgroundColor: activeKey === "2" ? "#FE5C36" : "#b3b1b1",
-              borderRadius: "2px",
-            }}
-            count={11}
-          />
-        </span>
-      ),
-      children: <GeneralNotify name="request" />,
-    },
+   
   ];
   const onChange = (key: string) => {
     console.log(key);

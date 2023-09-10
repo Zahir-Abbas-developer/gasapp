@@ -472,7 +472,7 @@ console.log(allOrders)
         deleteModal={isDeleteModal}
         submitTitle="Yes"
         cancelTitle="No"
-        title= {modalType==="delivered"? "Successfully Delivered":"Do you want to cancel this Order?"}
+        title= {modalType==="delivered"? "Successfully Delivered":"Do you want to cancel this order?"}
         onSubmit={modalType==="delivered"?handleDeliveredOrder:  handleCancelOrder}
         onCancel={() => setIsDeleteModal(false)}
         isLoading={isDeleteJobRequestMutation}
