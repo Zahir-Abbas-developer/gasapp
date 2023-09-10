@@ -96,6 +96,7 @@ export const ConfirmationCode = (props: any) => {
   const [isReSend, setIsReSend] = useState(false);
 
   const [validationText, setvalidationText] = useState("");
+  const [loading ,setLoading]=useState(false)
 
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
 
@@ -152,27 +153,51 @@ export const ConfirmationCode = (props: any) => {
     // do nothing
   };
 
-  const handleVerify = (event: any) => {
+  const handleVerify = (event:any) => {
     event.preventDefault();
-    const enteredOtp = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
-    // do validation and submit the OTP
-    console.log(otpValues?.every((item) => item !== ""));
-
-   
-      confirmationResult?.confirm(enteredOtp)?.then(async (res: any) => { console.log(res); getDoc(doc(db, "users", res?.user?.uid)).then((result) => {
-        if (result.exists()) {
-          console.log(result.data())
-          const userData: any = { id: result.id, ...result.data() };
-          console.log(userData)
-          localStorage.setItem("user", JSON.stringify(userData));
-          navigate(renderDashboard(userData?.role || "user"));
-        }
-      });navigate("/services") }).catch((err: any) => { console.log(err, "errrrrrrrr") })
-      // setIsCodeConfirmation(false);
-      // setvalidationText("");
-      // setIsVerified(true);
   
+    // Combine OTP values into one string
+    const enteredOtp = otpValues.join('');
+  
+    // Check if all OTP fields are filled
+    const isOtpValid = otpValues.every((item) => item !== '');
+  
+    if (isOtpValid) {
+      setLoading(true); // Set loading to true before making the API call
+  
+      confirmationResult?.confirm(enteredOtp)
+        .then(async (res:any) => {
+          console.log(res);
+          getDoc(doc(db, 'users', res?.user?.uid))
+            .then((result) => {
+              if (result.exists()) {
+                console.log(result.data());
+                const userData = { id: result.id, ...result.data() };
+                console.log(userData);
+                localStorage.setItem('user', JSON.stringify(userData));
+                navigate(renderDashboard('user'));
+              }
+            })
+            .catch((err) => {
+              console.log(err, 'errrrrrrrr');
+            })
+            .finally(() => {
+              setLoading(false); // Set loading back to false when the API call completes
+            });
+  
+          navigate('/services');
+        })
+        .catch((err:any) => {
+          console.log(err, 'errrrrrrrr');
+          setLoading(false); // Set loading back to false if there's an error
+        });
+    } else {
+      // Set a validation message for incomplete OTP
+      setvalidationText('Please fill in all OTP fields.');
+    }
   };
+  
+  
   useEffect(() => {
 
   }, [otp1])
@@ -277,7 +302,7 @@ export const ConfirmationCode = (props: any) => {
       )}
 
       <div style={{ textAlign: "center", marginTop: "80px" }}>
-        <Button key="Continue" type="primary" style={{ backgroundColor: "#D1372D", width: "229px" }} onClick={handleVerify}>
+        <Button  loading={loading}  disabled={!otpValues.every((item) => item !== "")} key="Continue" type="primary" style={{ backgroundColor: "#D1372D", width: "229px" }} onClick={handleVerify}>
           Confirm
         </Button>
       </div>

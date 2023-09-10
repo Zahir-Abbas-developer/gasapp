@@ -15,6 +15,7 @@ import AddStyles from "./components/Admin/AddStyles/AddStyles";
 import OurCollectionTabDetails from "./components/ClientTabs/OurCollectionTabDetails/OurCollectionTabDetails";
 import OurCustomOrderDetails from "./components/ClientTabs/CustomOrderTabDetails/CustomOrderTabDetails";
 import DashboardLayout from "./layout/Header/dashboard.layout";
+import { ConfirmationCode } from "./components/Otp/otp";
 
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
@@ -231,6 +232,10 @@ export const routes: any = [
         path:"/add-products",
         element:  <RequireAuth allowedRoles={[ROLES.admin || "admin"]}> <AddProductsPage/></RequireAuth>
       },
+      // {
+      //   path:"/otp",
+      //   element:  <ConfirmationCode/>
+      // },
       {
         path:"/jacket-details",
         element:(<JacketDetailsPage/>)
