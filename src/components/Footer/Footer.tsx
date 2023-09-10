@@ -8,7 +8,7 @@ import { DashboardOutlined, HomeOutlined, ShoppingCartOutlined, UsergroupAddOutl
 
 
 const FooterDetails=()=>{
-  const [homeColor, setHomeColor] = useState("#000000");
+  const [homeColor, setHomeColor] = useState("#D1372D");
   const [orderColor, setOrderColor] = useState("#000000");
   const [addToCartColor, setAddToCartColor] = useState("#000000");
   const [usersColor, setUsersColor] = useState("#000000");
