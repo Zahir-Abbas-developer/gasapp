@@ -8,7 +8,6 @@ import { ROLES } from "../../constants/Roles";
 
 export const getSidebarMenues = (role: any, permissions: any) => {
  
-console.log(role)
   function formatString(str: string) {
     str = str.replace(/_/g, ' ');
     return str.replace(/\b\w/g, (c) => c.toUpperCase());
