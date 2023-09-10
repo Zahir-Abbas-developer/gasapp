@@ -250,7 +250,7 @@ const handlePhoneNumberChange = (value:any) => {
                   { validator: validatePhoneNumber },
                 ]}
               >
-                <Input placeholder="Mobile Number (+92*********)" className="input-style" />
+                <Input placeholder="Mobile Number +92*********" className="input-style" />
               </Form.Item>
 
               <p style={{ color: "red" }}>{errorMessage}</p>
