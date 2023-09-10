@@ -84,7 +84,7 @@ console.log(orderData)
        
        <p> <MinusOutlined  style={{color:"red",marginRight:"10px"}}  onClick={handleDecreament}   /> {quantityNumber>0? quantityNumber:1} <PlusOutlined  style={{color:"red",marginLeft:"10px"}} onClick={handleIncrement}  /> </p>  
        
-       <p>Toatl : {orderData?.price * quantityNumber}</p>
+       <p>Total : {orderData?.price * quantityNumber} Rs</p>
        {!role ?<p style={{color:"red",marginBottom:"0px"}}>Please Sign In First</p>:""}
         <Button  onClick={handleConfirmOrder}
                     type="primary"
