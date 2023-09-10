@@ -784,3 +784,9 @@
 .ant-drawer .ant-drawer-content {
   background: var(--main-bg-color);
 }
+
+@media screen and (min-width: 200px) and (max-width: 700px) {
+  .logo-cylinder {
+ display: none !important;
+  }
+}

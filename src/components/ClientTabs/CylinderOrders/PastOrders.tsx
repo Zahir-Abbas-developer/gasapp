@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../store";
 import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
 import { useGetPastOrdersQuery } from "../../../store/Slices/Orders";
+import dayjs from "dayjs";
 const PastOrders = () => {
 
 
@@ -27,7 +28,7 @@ const PastOrders = () => {
   if (isSuccess) {
     pastOrders = data;
   }
-
+console.log(data)
  
   const navigate = useNavigate();
 
@@ -66,7 +67,7 @@ const PastOrders = () => {
         {pastOrders?.length>0 ?
         <Row gutter={[80, 30]}>
           {pastOrders.map((card: any) => (
-            <Col xs={24} md={24} sm={24} lg={24} xl={24} xxl={8} key={card._id}>
+            <Col xs={24} md={24} sm={24} lg={8} xl={8} xxl={8} key={card._id}>
               <Card
                 className="card-hover-color cursor-pointer"
                 style={{
@@ -101,19 +102,22 @@ const PastOrders = () => {
                        
                       }}
                     >
-                         {card?.name.replace("_", ' ')}
+                         {card?.name}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          Type :  {card?.type}
+                          Type :  {card?.productData?.category}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          ETA :  {card?.eta}
+                    ETA :  {dayjs(card?.createdAt?._nanoseconds/ 1000000 + card?.createdAt?._seconds * 1000 ).format('YYYY-MM-DD HH:mm:ss')  }
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          Amount :  {card?.amount}
+                          Amount :  {card?.total}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           Address :  {card?.address}
+                    </p>
+                    <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
+                          Status :  {card?.status}
                     </p>
                    
                   </div>
@@ -122,7 +126,7 @@ const PastOrders = () => {
                   </Col>
                   <Col xs={12} md={12} sm={12} lg={12} xl={12} xxl={12}>
                   <img
-                  src={card?.icon}
+                  src={card?.productData?.thumbnail}
                   alt="icon"
                   className={"add-user-image"}
                   height={card?.name==="Small"? 97.38:card?.name==="Medium"?137.49:145}
@@ -134,7 +138,7 @@ const PastOrders = () => {
                 />
                   </Col>
                   <Col xs={24} style={{textAlign:"center"}}>
-                    <Button
+                    {/* <Button
                  
                     htmlType="submit"
                     
@@ -143,7 +147,7 @@ const PastOrders = () => {
                     block
                   >
                   Cancel  Order
-                  </Button>
+                  </Button> */}
                   </Col>
                 </Row>
                 <div>

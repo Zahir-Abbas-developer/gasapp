@@ -84,7 +84,7 @@ const [rowData ,setCardRowData]=useState<any>(false)
         {currentOrders?.length>0 ?
         <Row gutter={[80, 30]}>
           {currentOrders.map((card: any) => (
-            <Col xs={24} md={8} sm={8} lg={8} xl={8} xxl={8} key={card._id}>
+            <Col xs={24} md={24} sm={24} lg={8} xl={8} xxl={8} key={card._id}>
               <Card
                 className="card-hover-color cursor-pointer"
                 style={{
@@ -120,7 +120,7 @@ const [rowData ,setCardRowData]=useState<any>(false)
                          {card?.name}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
-                          Type :  Regular
+                      Type :  {card?.productData?.category}
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           ETA :  {dayjs(card?.createdAt?._nanoseconds/ 1000000 + card?.createdAt?._seconds * 1000 ).format('YYYY-MM-DD HH:mm:ss')  }
@@ -130,6 +130,9 @@ const [rowData ,setCardRowData]=useState<any>(false)
                     </p>
                     <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
                           Address :  {card?.address}
+                    </p>
+                    <p className="fs-16 fw-400" style={{ color: "#4E4B66" }}>
+                          Status :  {card?.status}
                     </p>
                    
                   </div>
@@ -149,7 +152,7 @@ const [rowData ,setCardRowData]=useState<any>(false)
                   }}
                 />
                   </Col>
-                  <Col xs={24} style={{textAlign:"center"}}>
+                  <Col xs={12} md={12} sm={12} lg={12}  xl={12} xxl={12} style={{textAlign:"center"}}>
                   <Button
                    onClick={()=>{setCardRowData(card);setIsDeleteModal(true)}}
                     htmlType="submit"
