@@ -6,11 +6,13 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { usePostOrdersMutation } from '../../../store/Slices/Orders';
 import AppSnackbar from '../../../utils/AppSnackbar';
 import './SelectServices.scss'
+import { usePostNotificationsMutation } from '../../../store/Slices/Notifications';
 const ProductsDrawer = ({openDrawer,setOpenDrawer,orderData}:any) => {
   const [placement, setPlacement] = useState<DrawerProps['placement']>('right')
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   const [quantityNumber ,setQuantityNumber]=useState(1)
   const [postOrders]=usePostOrdersMutation({})
+  const [postNotifications]=usePostNotificationsMutation({})
 
   const onClose = () => {
     setOpenDrawer(false);
@@ -25,6 +27,7 @@ const handleConfirmOrder=()=>{
   const orderPayload={userId:"26V7YwGVsZubhuMkGaec",productId:orderData?.id,address:"Fazal Town",subtotal:orderData?.price,total:orderData?.price * quantityNumber,quantity:quantityNumber}
  try{
   postOrders({payload:orderPayload}).unwrap()
+  postNotifications({payload:{orderId:orderData?.id,notificationType: "CREATE_ORDER"}})
   AppSnackbar({ type: "success", messageHeading: "Successfully Order", message: "Order Successful!" });
   setOpenDrawer(false)
  }

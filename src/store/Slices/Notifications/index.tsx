@@ -6,11 +6,20 @@ export const extendedApi = emptySplitApi.injectEndpoints({
         url: `/notifications`,
         method: "GET",
       }),
+      providesTags: ["notifications"],
+    }),
+    postNotifications: builder.query({
+      query: ({ payload }: any) => ({
+        url: `/notifications'`,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["notifications"],
     }),
   
   }),
 });
 
 export const {
- useGetOverAllNotificationsQuery
+ useGetOverAllNotificationsQuery,usePostNotificationsMutation
 } = extendedApi;
