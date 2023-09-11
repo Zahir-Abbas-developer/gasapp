@@ -34,15 +34,11 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
     </Suspense>
   );
 
-const ReviewCareHomesPage = Loadable(lazy(() => import("./pages/Ratings")));
-
 
 const DashboardPage = Loadable(lazy(() => import("./pages/Dashboard")));
 const JacketDetailsPage = Loadable(lazy(() => import("./pages/JacketDetails")));
 const OtpPage=Loadable(lazy(()=>import("./pages/Otp")))
-const OverAllRatingsPage = Loadable(
-  lazy(() => import("./pages/OverAllRatings"))
-);
+
 const CylinderOrders = Loadable(lazy(() => import("./pages/CylinderOrders")));
 const ProductDetailsPage = Loadable(
   lazy(() => import("./pages/ProductDetails"))
@@ -85,9 +81,6 @@ const AddOrdersPage = Loadable(
 // Reports and its Child Routes Ends Here
 
 const SettingsPage = Loadable(lazy(() => import("./pages/Settings")));
-const RatingsFeedback = Loadable(
-  lazy(() => import("./pages/RatingAndFeedback"))
-);
 
 
 
@@ -274,37 +267,10 @@ export const routes: any = [
         ),
       },
      
-      {
-        path: "ratings",
-        element: (
-          <RequireAuth allowedRoles={[ROLES.superAdmin]}>
-            <RatingsFeedback />
-          </RequireAuth>
-        ),
-      },
+    
       
    
-      {
-        path: "",
-        children: [
-          {
-            path: "ratings/reviewed",
-            element: (
-              <RequireAuth allowedRoles={[ROLES.carer,ROLES.client,ROLES.coordinator]}>
-                <OverAllRatingsPage />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "ratings/review-care-homes",
-            element: (
-              <RequireAuth allowedRoles={[ROLES.carer,ROLES.client,ROLES.coordinator]}>
-                <ReviewCareHomesPage />
-              </RequireAuth>
-            ),
-          },
-        ],
-      },
+     
       {
         path: "",
         children: [

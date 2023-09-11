@@ -4,7 +4,7 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useGetAllCategoriessQuery, useGetAllColorsQuery, useGetAllMaterialsQuery } from '../../../store/Slices/Products';
 
 import alert from 'antd/es/alert';
-import CollectionHeader from '../../CollectionHeader/CollectionHeader';
+
 
 
 

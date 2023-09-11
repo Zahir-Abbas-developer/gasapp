@@ -8,7 +8,7 @@ export const extendedApi = emptySplitApi.injectEndpoints({
       }),
       providesTags: ["notifications"],
     }),
-    postNotifications: builder.query({
+    postNotifications: builder.mutation({
       query: ({ payload }: any) => ({
         url: `/notifications'`,
         method: "POST",
