@@ -47,7 +47,7 @@ const FooterDetails=()=>{
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <section >
-     {role==="user"? 
+     {!role? 
       <Row className="footer-main">
       <Col xs={12} md={12}>
         <Link to="/services" style={{ color: "#000000", cursor: "pointer" }}>
