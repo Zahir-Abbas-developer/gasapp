@@ -27,10 +27,13 @@ const NotificationsPopup = () => {
         <div key={uuidv4()}>
           <div className="card-title d-flex">
             <span className="fs-14 fw-500" style={{ color: "#14142B" }}>
-              {item?.day}
+              {item?.status}
             </span>
             <span className="fs-14 fw-500" style={{ color: "#65CDF0" }}>
               ({item?.total})
+            </span>
+            <span className="fs-14 fw-500" style={{ color: "#65CDF0" }}>
+              ({item?.address})
             </span>
           </div>
           <div className="detailed-notifications">
