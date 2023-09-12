@@ -34,28 +34,19 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
     </Suspense>
   );
 
-const ReviewCareHomesPage = Loadable(lazy(() => import("./pages/Ratings")));
-
-
 const DashboardPage = Loadable(lazy(() => import("./pages/Dashboard")));
-const JacketDetailsPage = Loadable(lazy(() => import("./pages/JacketDetails")));
+
 const OtpPage=Loadable(lazy(()=>import("./pages/Otp")))
-const OverAllRatingsPage = Loadable(
-  lazy(() => import("./pages/OverAllRatings"))
-);
+
 const CylinderOrders = Loadable(lazy(() => import("./pages/CylinderOrders")));
 const ProductDetailsPage = Loadable(
   lazy(() => import("./pages/ProductDetails"))
 );
-const BillingDetailsPage = Loadable(
-  lazy(() => import("./pages/BillingDetails"))
-);
+
 const ConfirmationPage =Loadable(lazy(()=>import("./pages/ConfirmationPage")))
 
 //Cart Details
-const CartDetailsPage=Loadable(
-  lazy(() => import("./pages/CartDetails"))
-);
+
 //UserVerification page
 const UserVerficationPage=Loadable(
   lazy(() => import("./pages/UserVerification"))
@@ -93,43 +84,11 @@ const RatingsFeedback = Loadable(
 
 const KeyInfo = Loadable(lazy(() => import("./pages/Settings/KeyInfo")));
 const JobRole = Loadable(lazy(() => import("./pages/Settings/JobRole")));
-const ShiftTimeSettings = Loadable(
-  lazy(() => import("./pages/Settings/ShiftTimeSettings"))
-);
+
 const Services=Loadable(
   lazy(() => import("./components/ClientTabs/Services/Services"))
 );
-const StaffSettings = Loadable(
-  lazy(() => import("./pages/Settings/StaffSettings"))
-);
-const BankHolidays = Loadable(
-  lazy(() => import("./pages/Settings/BankHolidays"))
-);
-const DBSConfiguration = Loadable(
-  lazy(() => import("./pages/Settings/DBSConfiguration"))
-);
-const EmailNotification = Loadable(
-  lazy(() => import("./pages/Settings/EmailNotification"))
-);
-const ResetEmailPhone = Loadable(
-  lazy(() => import("./pages/Settings/ResetEmailPhone"))
-);
-const WeekStartDay = Loadable(
-  lazy(() => import("./pages/Settings/WeekStartDay"))
-);
-const ClientTermsCondition = Loadable(lazy(() => import("./pages/Settings/ClientTermsConditionPage")));
-const FestivalDayGreeting = Loadable(
-  lazy(() => import("./pages/Settings/FestivalDayGreeting"))
-);
-const BreakTime = Loadable(lazy(() => import("./pages/Settings/BreakTime")));
-const ChangePassword = Loadable(
-  lazy(() => import("./pages/Settings/ChangePassword"))
-);
-const ElectronicAttendanceMonitoring = Loadable(
-  lazy(() => import("./pages/Settings/ElectronicAttendanceMonitoring"))
-);
 
-const ContactDetailsPage=Loadable((lazy(()=>import("./pages/ContactDetails"))))
 
 export const routes: any = [
   { path: "/", element: <Navigate to="services" /> },
@@ -208,26 +167,17 @@ export const routes: any = [
       {
         path: "dashboard",
         element: (
-          // <RequireAuth allowedRoles={[ROLES.user]}>
+          <RequireAuth allowedRoles={[ROLES.user]}>
             <DashboardPage />
-          //  </RequireAuth>
+           </RequireAuth>
         ),
       },
-      {
-        path:"contact-details",
-        element:<ContactDetailsPage/>
-      },
+     
       {
         path:"productDetails",
         element:<ProductDetailsPage/>
       },
-      {
-   
-        path:"/productDetails/cart-details/checkout-details",
-            
-        element:(  <RequireAuth allowedRoles={[ROLES.user]}><BillingDetailsPage/>
-         </RequireAuth>)
-      },
+      
       {
         path:"/add-products",
         element:  <RequireAuth allowedRoles={[ROLES.admin || "admin"]}> <AddProductsPage/></RequireAuth>
@@ -236,10 +186,7 @@ export const routes: any = [
       //   path:"/otp",
       //   element:  <ConfirmationCode/>
       // },
-      {
-        path:"/jacket-details",
-        element:(<JacketDetailsPage/>)
-      },
+      
       {
         path:"/add-categories",
         element:( <RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddCategoriesPage/></RequireAuth> )
@@ -256,14 +203,7 @@ export const routes: any = [
         path:"/add-styles",
         element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddStyles/></RequireAuth> )
       },
-     
-     
-      {
-        path:"productDetails/cart-details",
-        element:<CartDetailsPage/>
-      },
-      
-
+    
       {
         path: "shoes-products",
         element: (
@@ -283,28 +223,6 @@ export const routes: any = [
         ),
       },
       
-   
-      {
-        path: "",
-        children: [
-          {
-            path: "ratings/reviewed",
-            element: (
-              <RequireAuth allowedRoles={[ROLES.carer,ROLES.client,ROLES.coordinator]}>
-                <OverAllRatingsPage />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "ratings/review-care-homes",
-            element: (
-              <RequireAuth allowedRoles={[ROLES.carer,ROLES.client,ROLES.coordinator]}>
-                <ReviewCareHomesPage />
-              </RequireAuth>
-            ),
-          },
-        ],
-      },
       {
         path: "",
         children: [
@@ -338,125 +256,9 @@ export const routes: any = [
               </RequireAuth>
             ),
           },
-          {
-            path: "settings/shift-time-settings",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin,ROLES.client]}
-              >
-                <ShiftTimeSettings />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/staff-settings",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin,ROLES.client]}
-              >
-                <StaffSettings />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/bank-holidays",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin,ROLES.client]}
-              >
-                <BankHolidays />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/dbs-configuration",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin]}
-              >
-                <DBSConfiguration />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/email-notification",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin]}
-              >
-                <EmailNotification />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/set-email-Phone",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin,ROLES.client]}
-              >
-                <ResetEmailPhone />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/week-start-day",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin, ROLES.coordinator, ROLES.client]}
-              >
-                <WeekStartDay />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/festival-day-greeting",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin,ROLES.client]}
-              >
-                <FestivalDayGreeting />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/client-terms-condition",
-            element: (
-              <RequireAuth allowedRoles={[ROLES.admin, ROLES.coordinator]}>
-                <ClientTermsCondition />
-              </RequireAuth>
-            ),
-          },
-        
-          {
-            path: "settings/break-time-settings",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin, ROLES.coordinator, ROLES.client]}
-              >
-                <BreakTime />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/change-password",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.coordinator]}
-              >
-                <ChangePassword />
-              </RequireAuth>
-            ),
-          },
-          {
-            path: "settings/electronic-attendance-monitoring",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.client]}
-              >
-                <ElectronicAttendanceMonitoring />
-              </RequireAuth>
-            ),
-          },
+         
+         
+
         ],
       },
      

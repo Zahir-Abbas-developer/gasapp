@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card,  Col, Row, Select, Spin } from 'antd';
 import { useGetAllCategoriessQuery, useGetAllColorsQuery, useGetAllMaterialsQuery, useGetAllProductsQuery } from '../../../store/Slices/Products';
-import CollectionTabFilter from '../CollectionTabFilter/CollectionTabFilter';
+
 import { useLocation, useNavigate } from "react-router-dom";
 import Arrow  from "../../../assets/images/OnBoarding/arrow.svg"
 import './OurCollectionDetails.scss'

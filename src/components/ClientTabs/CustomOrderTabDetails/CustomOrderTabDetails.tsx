@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, Card, Col, Modal, Row, Select } from 'antd';
 import { useGetAllProductsQuery } from '../../../store/Slices/Products';
-import CollectionTabFilter from '../CollectionTabFilter/CollectionTabFilter';
 import { useNavigate } from "react-router-dom";
 import Material from "../../../assets/images/Header/material-50.webp"
 import './CustomOrderDetails.scss'

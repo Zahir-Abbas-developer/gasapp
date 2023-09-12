@@ -1,7 +1,5 @@
 import { Col, Row } from "antd"
-import SelectServices from "../SelectServices/SelectServices"
-import SelectServicesDetails from "../SelectServicesDetails/SelectServicesDetails"
-import ShoeProductDetails from "../ShoeProductDetails/ShoeProductDetails"
+
 import SelectGroundTypes from "../SelectServices/SelectServices"
 
 const Services=()=>{
