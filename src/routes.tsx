@@ -76,9 +76,6 @@ const AddOrdersPage = Loadable(
 // Reports and its Child Routes Ends Here
 
 const SettingsPage = Loadable(lazy(() => import("./pages/Settings")));
-const RatingsFeedback = Loadable(
-  lazy(() => import("./pages/RatingAndFeedback"))
-);
 
 
 
@@ -214,14 +211,7 @@ export const routes: any = [
         ),
       },
      
-      {
-        path: "ratings",
-        element: (
-          <RequireAuth allowedRoles={[ROLES.superAdmin]}>
-            <RatingsFeedback />
-          </RequireAuth>
-        ),
-      },
+    
       
       {
         path: "",

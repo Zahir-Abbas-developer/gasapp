@@ -176,7 +176,7 @@ const NavBar = () => {
    
         
           <Space onClick={() => setOpen(!open)}>
-            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>:      <> <p>Welcome {username}</p>  <img
+            {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px'}} /></Link>:      <> <p>Welcome {username}</p>  {role && <img
               className="cursor-pointer white-img-theme-class "
               src={Bell}
               alt="notification_icon"
@@ -187,7 +187,7 @@ const NavBar = () => {
                   type: "",
                 })
               }
-            /> <Button
+            /> }<Button
                   type="primary"
                   htmlType="submit"
                   className=" logout-button-gas-app "

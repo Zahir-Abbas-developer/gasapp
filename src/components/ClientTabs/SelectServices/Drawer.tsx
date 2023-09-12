@@ -6,11 +6,13 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { usePostOrdersMutation } from '../../../store/Slices/Orders';
 import AppSnackbar from '../../../utils/AppSnackbar';
 import './SelectServices.scss'
+import { usePostNotificationsMutation } from '../../../store/Slices/Notifications';
 const ProductsDrawer = ({openDrawer,setOpenDrawer,orderData}:any) => {
   const [placement, setPlacement] = useState<DrawerProps['placement']>('right')
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   const [quantityNumber ,setQuantityNumber]=useState(1)
   const [postOrders]=usePostOrdersMutation({})
+  const [postNotifications]=usePostNotificationsMutation({})
 
   const onClose = () => {
     setOpenDrawer(false);
@@ -25,6 +27,7 @@ const handleConfirmOrder=()=>{
   const orderPayload={userId:"26V7YwGVsZubhuMkGaec",productId:orderData?.id,address:"Fazal Town",subtotal:orderData?.price,total:orderData?.price * quantityNumber,quantity:quantityNumber}
  try{
   postOrders({payload:orderPayload}).unwrap()
+  postNotifications({payload:{orderId:orderData?.id,notificationType: "CREATE_ORDER"}})
   AppSnackbar({ type: "success", messageHeading: "Successfully Order", message: "Order Successful!" });
   setOpenDrawer(false)
  }
@@ -85,10 +88,10 @@ console.log(orderData)
        <p> <MinusOutlined  style={{color:"red",marginRight:"10px"}}  onClick={handleDecreament}   /> {quantityNumber>0? quantityNumber:1} <PlusOutlined  style={{color:"red",marginLeft:"10px"}} onClick={handleIncrement}  /> </p>  
        
        <p>Total : {orderData?.price * quantityNumber} Rs</p>
-       {!role ?<p style={{color:"red",marginBottom:"0px"}}>Please Sign In First</p>:""}
+       {/* {!role ?<p style={{color:"red",marginBottom:"0px"}}>Please Sign In First</p>:""} */}
         <Button  onClick={handleConfirmOrder}
                     type="primary"
-                    disabled={!role}
+                    // disabled={!role}
                     // htmlType="submit"
                     // loading={isLoading}
                     style={{fontSize:"14PX",width:"200.49px",marginTop:"20px"}}

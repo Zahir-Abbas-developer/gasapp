@@ -83,33 +83,34 @@ const Login = () => {
   };
 
   const onFinish = async (values: any, optioanlBoolean?: boolean) => {
-    try {
-      if (!optioanlBoolean) {
-        setIsLoadingSignIn(true)
-        const baseURL = "https://eager-fly-handkerchief.cyclic.app"
-        const { data } = await axios.post(baseURL + "/auth/login", { phoneNumber: values.mobilenumber })
-        console.log("🚀 ~ file: Login.tsx:81 ~ onFinish ~ data:", data)
-        setPhoneNumber(data)
-        setIsLoadingSignIn(false);
-      }
+    navigate("/services")
+    // try {
+    //   if (!optioanlBoolean) {
+    //     setIsLoadingSignIn(true)
+    //     const baseURL = "https://eager-fly-handkerchief.cyclic.app"
+    //     const { data } = await axios.post(baseURL + "/auth/login", { phoneNumber: values.mobilenumber })
+    //     console.log("🚀 ~ file: Login.tsx:81 ~ onFinish ~ data:", data)
+    //     setPhoneNumber(data)
+    //     setIsLoadingSignIn(false);
+    //   }
      
-      onCaptchaVerify();
-      const payload = {
-        phoneNumber: values.mobilenumber,
-      };
-      const appVerifier = (window as any).recaptchaVerifier;
-      signInWithPhoneNumber(auth, payload.phoneNumber, appVerifier).then((result: any) => {
-        setOtpShow(true);  
-        (window as any).confirmationResult = result;
-        console.log("hurray", result)
+    //   onCaptchaVerify();
+    //   const payload = {
+    //     phoneNumber: values.mobilenumber,
+    //   };
+    //   const appVerifier = (window as any).recaptchaVerifier;
+    //   signInWithPhoneNumber(auth, payload.phoneNumber, appVerifier).then((result: any) => {
+    //     setOtpShow(true);  
+    //     (window as any).confirmationResult = result;
+    //     console.log("hurray", result)
         
 
-      }).catch(err => console.log("errrrrrrrr", err))
-    } catch (err: any) {
-      console.log("Errrrr", err?.response?.data)
-      setErrorMessage(err?.response?.data?.message);
+    //   }).catch(err => console.log("errrrrrrrr", err))
+    // } catch (err: any) {
+    //   console.log("Errrrr", err?.response?.data)
+    //   setErrorMessage(err?.response?.data?.message);
 
-    }
+    // }
     // const { error, data }: any = await signInPostRequest({
     //   payload,
     // });
@@ -242,13 +243,13 @@ const handlePhoneNumberChange = (value:any) => {
             <Form name="emailOrUsername" onFinish={onFinish} form={form}>
               <Form.Item
                 name="mobilenumber"
-                rules={[
-                  {
-                    required: true,
-                    message: "Required field",
-                  },
-                  { validator: validatePhoneNumber },
-                ]}
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: "Required field",
+                //   },
+                //   { validator: validatePhoneNumber },
+                // ]}
               >
                 <Input placeholder="Mobile Number +92*********" className="input-style" />
               </Form.Item>
