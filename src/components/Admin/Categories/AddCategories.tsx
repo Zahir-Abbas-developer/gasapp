@@ -24,19 +24,14 @@ import { debouncedSearch } from "../../../utils/utils";
 // Assets
 import actionImg from "../../../assets/icons/Setting/actionImg.svg";
 import editIcon from "../../../assets/icons/edit-blue.svg";
-import crossAllocation from "../../../assets/icons/Setting/crossAllocation.svg";
 import deleteIcon from "../../../assets/icons/delete-icon-outlined.svg";
 import searchIcon from "../../../assets/icons/search.svg";
-import confirmationImgae from "../../../assets/icons/Cylinder/check-circle.svg"
-import coloredCopyIcon from "../../../assets/icons/Report/colored-copy.png";
-import coloredCsvIcon from "../../../assets/icons/Report/colored-csv.png";
-import coloredXlsIcon from "../../../assets/icons/Report/colored-xls.png";
+
 
 
 // Styling
 import "./AddCategories.scss";
 import DeleteModal from "../../../shared/DeleteModal/DeleteModal";
-import CrossAllocationModal from "../../Setting/SettingJobRole/CrossAllocationModal";
 
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import AddCategoryModal from "./AddCategoryModal";
@@ -455,16 +450,6 @@ console.log(allOrders)
         jobID={jobID}
       />
 
-      {/* ============================== Cross Allocation Modal For Job Role ============================== */}
-      <CrossAllocationModal
-        showCrossAllocation={showCrossAllocation}
-        setShowCrossAllocation={setShowCrossAllocation}
-        getTableRowValues={getTableRowValues}
-        setGetFieldValues={setGetFieldValues}
-        role={role}
-        crossAllocationRecord={crossAllocationRecord}
-        handleResetFormValues={handleResetFormValues}
-      />
 
       {/* ============================== Delete Modal For Job Role ============================== */}
       <DeleteModal

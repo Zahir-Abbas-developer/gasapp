@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import NotifyPreviewModal from "./notify-preview-modal.component";
+
 import './notification.styles.scss'
-import { useGetOverAllNotificationsQuery } from "../../store/Slices/Notifications";
+
 import dayjs from "dayjs";
+import { useGetAllNotificationsQuery } from "../../store/Slices/Notifications";
 
 interface Props {
   name: string;
@@ -12,7 +13,7 @@ interface Props {
 const GeneralNotify = (props: Props) => {
   const { name } = props;
   const [open, setOpen] = useState(false);
-  const {data ,isSuccess}=useGetOverAllNotificationsQuery({})
+  const {data ,isSuccess}=useGetAllNotificationsQuery({})
   let notificationsData:any
   if(isSuccess){
     notificationsData=data

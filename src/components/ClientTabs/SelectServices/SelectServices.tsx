@@ -6,9 +6,7 @@ import "./SelectServices.scss";
 import "../../../sass/common.scss";
 // import AddUserTypeModal from "../AddUserTypeModal/AddUserTypeModal";
 import { useEffect, useState } from "react";
-import { useGetAuthUserTypeRequestQuery } from "../../../store/Slices/ManageUser";
-import AddUserType from "../../../assets/icons/ManageUser/add-user-type.svg";
-import BreadCrumb from "../../../layout/BreadCrumb/BreadCrumb";
+
 
 import ApiLoader from "../../ApiLoader/ApiLoader";
 

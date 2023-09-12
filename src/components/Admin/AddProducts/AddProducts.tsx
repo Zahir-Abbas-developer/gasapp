@@ -32,7 +32,6 @@ import searchIcon from "../../../assets/icons/search.svg";
 // Styling
 import "./AddProducts.scss";
 import DeleteModal from "../../../shared/DeleteModal/DeleteModal";
-import CrossAllocationModal from "../../Setting/SettingJobRole/CrossAllocationModal";
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import AddProductsModal from "./AddProductsModal";
 import { useDeleteProductsMutation, useGetAllMaterialsQuery, useGetAllProductsQuery, useGetOverAllProductsQuery } from "../../../store/Slices/Products";
@@ -381,16 +380,6 @@ const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({q
         role={role}
       />
 
-      {/* ============================== Cross Allocation Modal For Job Role ============================== */}
-      <CrossAllocationModal
-        showCrossAllocation={showCrossAllocation}
-        setShowCrossAllocation={setShowCrossAllocation}
-        getTableRowValues={getTableRowValues}
-        setGetFieldValues={setGetFieldValues}
-        role={role}
-        crossAllocationRecord={crossAllocationRecord}
-        handleResetFormValues={handleResetFormValues}
-      />
 
       {/* ============================== Delete Modal For Job Role ============================== */}
       <DeleteModal

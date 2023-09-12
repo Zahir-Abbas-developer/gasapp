@@ -13,8 +13,7 @@ import {
   useSignInPostRequestMutation,
 } from "../../store/Slices/Signin";
 
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { useChangePasswordPostRequestMutation } from "../../store/Slices/ChangePassword";
+
 import { useAuthSignUpMutation } from "../../store/Slices/Products";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../../firebase";
@@ -42,8 +41,7 @@ const Login = () => {
     useNewPasswordRequestMutation();
 
   const [authSignUp] = useAuthSignUpMutation();
-  const [changePasswordPostRequest, { isLoading: changePasswordLoading }] =
-    useChangePasswordPostRequestMutation();
+ 
     const onChange = (e:any) => {
       setIsChecked(e.target.checked);
       setErrorMessage('');

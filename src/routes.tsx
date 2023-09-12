@@ -80,7 +80,7 @@ const SettingsPage = Loadable(lazy(() => import("./pages/Settings")));
 
 
 const KeyInfo = Loadable(lazy(() => import("./pages/Settings/KeyInfo")));
-const JobRole = Loadable(lazy(() => import("./pages/Settings/JobRole")));
+
 
 const Services=Loadable(
   lazy(() => import("./components/ClientTabs/Services/Services"))
@@ -236,16 +236,7 @@ export const routes: any = [
               </RequireAuth>
             ),
           },
-          {
-            path: "settings/job-role",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin, ROLES.coordinator, ROLES.client]}
-              >
-                <JobRole />
-              </RequireAuth>
-            ),
-          },
+          
          
          
 

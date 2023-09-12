@@ -22,14 +22,14 @@ import { ReactComponent as ChangePassword } from "../../assets/icons/sidebar/cha
 import DrawerNavsLinks from "./drawer-navs-links";
 import DrawerComp from "./drawer";
 import NotifyTabs from "../../components/notifications/notification-tabs.component";
-import type { MenuProps } from "antd";
+
 import "./navbar.styles.scss";
-import { useAppSelector } from "../../store";
+
 import Logo from "../../assets/images/Cylinder/cylinder.svg"
-import { openDrawer, openGlobalSearchDrawer } from "../../store/Slices/OpenDrawerSlice";
+
 import { useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../store/Slices/Signin";
-import DrawerComponent from "../../components/ClientTabs/ProductDetails/Drawer";
+
 import GlobalSearch from "../../components/ClientTabs/GlobalSearch/GlobalSearchDrawer";
 
 
@@ -44,17 +44,11 @@ const NavBar = () => {
     placement: "",
     type: "",
   });
-  const [active, setActive] = useState<string>("Dashboard");
-  const [dropDown, setDropDown] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [activeChild, setActiveChild] = useState("");
+
   const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
-  const [isProfileModal, setIsProfileModal] = useState<boolean>(false);
-  const [isExpandedSEarchbar, setIsExpandedSearchbar] = useState<boolean>(false);
-  const [viewClientModal, setviewClientModal] = useState<boolean>(false)
-  const { products }: any = useAppSelector((state) => state.products);
+
   const [logOutUser]:any=useLogoutMutation()
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -68,65 +62,20 @@ const NavBar = () => {
       />
     ),
   };
-  const onLogOut = async () => {
-    setVisible(false);
-    // const { error }: any = await postUserLogout({});
-    
 
-  };
-  const handleMyAccount = () => {
-    setVisible(false);
-    setActive("");
-    setActiveChild("");
-  };
+ 
   useEffect(() => {
-    handleMyAccount();
+   
   }, [pathname.includes("my-account")]);
-  const items: MenuProps["items"] = [
-    {
-      key: "1",
-      label: (
-        <Link
-          to="/my-account"
-          className="m-0 title-color fs-14 d-block links-hover"
-          onClick={handleMyAccount}
-        >
-          My Account
-        </Link>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <p
-          className="m-0 title-color fs-14 d-block links-hover"
-          onClick={onLogOut}
-        >
-          Sign Out
-        </p>
-      ),
-    },
-  ];
+ 
 
   // const userData: any = JSON.parse(localStorage.getItem("UserData") || "{}");
   const { role,username }: any = JSON.parse(
     localStorage.getItem("user") || "{}"
   );
-  const handleOpenDrawer=()=>{
-    dispatch(openDrawer())
-  }
-  const handleOpenGlobalSearchDrawer=()=>{
-    dispatch(openGlobalSearchDrawer())
-  }
-  const handleRole = (item: any) => {
-    if (role === "EMPLOYEE" && item.title === "Reports") {
-      navigate("reports/project-task/1");
-      setActive("Reports");
-    } else {
-      navigate(item.path);
-      setActive(item.title);
-    }
-  };
+ 
+  
+
   // ========================== Profile Dropdown ==========================
   const profileDropdown = [
     {
@@ -142,20 +91,7 @@ const NavBar = () => {
     );
   }, [isDarkMode]);
 
-  useEffect(() => {
-    navItems?.map((e: any) => {
-      if (e?.path.includes(pathname)) {
-        setActive(e?.title);
-        setActiveChild("");
-      }
-      e?.subItems?.map((subitem: any) => {
-        if (`/${subitem?.path}` === pathname) {
-          setActive(e.title);
-          setActiveChild(subitem.title);
-        }
-      });
-    });
-  }, [pathname]);
+ 
   const overlayStyle = { borderRadius: 0 };
   return (
     <>
@@ -231,7 +167,7 @@ const NavBar = () => {
             </div>
           </Space>
        
-        <DrawerComponent/>
+    
         <GlobalSearch/>
       </div>
 {/* 

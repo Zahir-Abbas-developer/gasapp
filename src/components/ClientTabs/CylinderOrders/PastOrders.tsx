@@ -2,21 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ManageUsersData } from "../../../mock/ManageUserData";
 import { Button, Card, Col, Layout, Row } from "antd";
-import arrow from "../../../assets/images/Cylinder/arrow.svg"
+
 import "./CylinderOrders.scss";
 import "../../../sass/common.scss";
-// import AddUserTypeModal from "../AddUserTypeModal/AddUserTypeModal";
-import { useEffect, useState } from "react";
-import { useGetAuthUserTypeRequestQuery } from "../../../store/Slices/ManageUser";
-import AddUserType from "../../../assets/icons/ManageUser/add-user-type.svg";
-import BreadCrumb from "../../../layout/BreadCrumb/BreadCrumb";
+
 
 import ApiLoader from "../../ApiLoader/ApiLoader";
 
-import { useDispatch } from "react-redux";
 
-import { useAppSelector } from "../../../store";
-import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
 import { useGetPastOrdersQuery } from "../../../store/Slices/Orders";
 import dayjs from "dayjs";
 const PastOrders = () => {

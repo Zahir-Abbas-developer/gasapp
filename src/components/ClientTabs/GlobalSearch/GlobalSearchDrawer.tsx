@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Card, Col, Drawer, Input, Row, Spin } from 'antd';
+import {  Card, Col, Drawer, Input, Row, Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../store';
-import { closeGlobalSearchDrawer } from '../../../store/Slices/OpenDrawerSlice';
+
 import searchIcon from "../../../assets/icons/search.svg";
 import { useGlobalSearchQuery } from '../../../store/Slices/Products';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,12 +10,8 @@ import { debouncedSearch } from '../../../utils/utils';
 import './GlobalSearch.scss'
 const GlobalSearch = () => {
   const [globalSearch ,setGlobalSearch]=useState("")
-  const dispatch = useDispatch();
 
-  const isOpen = useAppSelector((state) => state.drawer.isOpenGlobalSearchDrawer);
-  const onClose = () => {
-    dispatch(closeGlobalSearchDrawer());
-  }
+
   const paramsObj: any = {};
   if (globalSearch) paramsObj["name"] = globalSearch;
   const navigate = useNavigate();
@@ -35,7 +31,7 @@ const GlobalSearch = () => {
   return (
     <>
      
-      <Drawer title="" width={"100%"} placement="right" className='drawer-main' onClose={onClose} open={isOpen} >
+      <Drawer title="" width={"100%"} placement="right" className='drawer-main'  >
     <Row>
       <Col sm={24}>
       <Input

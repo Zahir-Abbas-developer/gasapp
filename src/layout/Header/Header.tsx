@@ -6,14 +6,6 @@ import { useNavigate } from "react-router";
 import { Avatar, Popover, Space } from "antd";
 import { CaretDownOutlined, DownOutlined, MenuOutlined, ShoppingCartOutlined, UpOutlined, UserOutlined } from "@ant-design/icons";
 
-
-
-
-
-// RTK Hooks
-import { useGetRequestByIdQuery } from "../../store/Slices/OnBoarding";
-
-
 // Utils and Packages
 import { v4 as uuidv4 } from "uuid";
 
@@ -32,8 +24,7 @@ import { ROLES } from "../../constants/Roles";
 import { useGetRoleLabel } from "../../utils/useGetRole";
 import { useLogoutMutation } from "../../store/Slices/Signin";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../store";
-import { openDrawer, openGlobalSearchDrawer } from "../../store/Slices/OpenDrawerSlice";
+
 import { Link } from "react-router-dom";
 import { navItems } from "./nav-data";
 import { Fragment } from "@fullcalendar/core/preact";
@@ -45,7 +36,6 @@ const TopHeader = ({ setIsOpen }: any) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { products }: any = useAppSelector((state) => state.products);
   const [open, setOpen] = useState<boolean>(false);
   const [active, setActive] = useState<string>("Dashboard");
   const [isProfileModal, setIsProfileModal] = useState<boolean>(false);
@@ -69,13 +59,10 @@ const TopHeader = ({ setIsOpen }: any) => {
   };
 
   // ========================== RTK Query ==========================
-  const { data, isSuccess } = useGetRequestByIdQuery({ id, detail: "ABOUT" })
+
   const [logOutUser]:any=useLogoutMutation()
 
-  let carerProfile: any;
-  if (isSuccess) {
-    carerProfile = data
-  }
+ 
 
   // ========================== Profile Dropdown ==========================
   const profileDropdown = [
@@ -90,12 +77,7 @@ const TopHeader = ({ setIsOpen }: any) => {
     },
   ];
 
-const handleOpenDrawer=()=>{
-  dispatch(openDrawer())
-}
-const handleOpenGlobalSearchDrawer=()=>{
-  dispatch(openGlobalSearchDrawer())
-}
+
 const handleRole = (item: any) => {
   if (role === "EMPLOYEE" && item.title === "Reports") {
     navigate("reports/project-task/1");
@@ -209,10 +191,8 @@ const handleRole = (item: any) => {
           </ul>
         </nav>
       </div>
-      <img src={SearchImg} onClick={handleOpenGlobalSearchDrawer}  />
-    <Badge   count={products?.products?.length} showZero style={{color:"white"}}>
-        <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleOpenDrawer} />
-      </Badge>
+
+   
     {/* <NotificationsPopup /> */}
     
     <div className="adminDetail">
@@ -260,11 +240,7 @@ const handleRole = (item: any) => {
         <Space onClick={() => setOpen(!open)}>
           {!role ? <Link to="/login"><UserOutlined style={{fontSize: '24px' ,color:"black"}} /></Link>:
           <Avatar style={{ verticalAlign: "middle" }} size="large">
-            <img src={
-              carerProfile?.data?.userprofile?.profilePhoto
-                ? `https://rnd-s3-public-dev-001.s3.eu-west-2.amazonaws.com/${carerProfile?.data?.userprofile?.profilePhoto?.mediaId}.${carerProfile?.data?.userprofile?.profilePhoto?.mediaMeta?.extension}`
-                : `https://ui-avatars.com/api/?rounded=true&name=${carerProfile?.data?.userprofile?.firstName} ${carerProfile?.data?.userprofile?.firstName}`
-            } alt="userimg" width={40} />
+            
           </Avatar>}
           <div
             className="details"
@@ -279,9 +255,7 @@ const handleRole = (item: any) => {
               }}
             >
              {role && <> <span style={{ height: "20px" }}>
-                {
-                  carerProfile?.data?.userprofile?.firstName ? (carerProfile?.data?.userprofile?.firstName + " " + carerProfile?.data?.userprofile?.lastName) : carerProfile?.data?.userprofile?.clientName
-                }
+               
                 <CaretDownOutlined className="fs-16" style={{fontSize: '24px'}} />
               </span>
               <span

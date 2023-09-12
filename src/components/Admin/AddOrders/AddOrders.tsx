@@ -27,16 +27,13 @@ import editIcon from "../../../assets/icons/edit-blue.svg";
 import crossAllocation from "../../../assets/icons/Setting/crossAllocation.svg";
 import deleteIcon from "../../../assets/icons/delete-icon-outlined.svg";
 import searchIcon from "../../../assets/icons/search.svg";
-import coloredCopyIcon from "../../../assets/icons/Report/colored-copy.png";
-import coloredCsvIcon from "../../../assets/icons/Report/colored-csv.png";
-import coloredXlsIcon from "../../../assets/icons/Report/colored-xls.png";
+
 
 
 // Styling
 import "./AddOrders.scss";
 import DeleteModal from "../../../shared/DeleteModal/DeleteModal";
-import CrossAllocationModal from "../../Setting/SettingJobRole/CrossAllocationModal";
-import AddModal from "../../Setting/SettingJobRole/AddModal";
+
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import { useGetOrdersQuery } from "../../../store/Slices/Products";
 
@@ -449,26 +446,8 @@ const AddOrders = () => {
         </div>
       </div>
 
-      {/* ============================== Add Modal For Job Role ============================== */}
-      <AddModal
-        addEditJobRole={addEditJobRole}
-        setAddEditJobRole={setAddEditJobRole}
-        modalType={modalType}
-        setGetFieldValues={setGetFieldValues}
-        getTableRowValues={getTableRowValues}
-        role={role}
-      />
 
-      {/* ============================== Cross Allocation Modal For Job Role ============================== */}
-      <CrossAllocationModal
-        showCrossAllocation={showCrossAllocation}
-        setShowCrossAllocation={setShowCrossAllocation}
-        getTableRowValues={getTableRowValues}
-        setGetFieldValues={setGetFieldValues}
-        role={role}
-        crossAllocationRecord={crossAllocationRecord}
-        handleResetFormValues={handleResetFormValues}
-      />
+     
 
       {/* ============================== Delete Modal For Job Role ============================== */}
       <DeleteModal

@@ -1,25 +1,22 @@
 import { emptySplitApi } from "../../Services";
-export const extendedApi = emptySplitApi.injectEndpoints({
-  endpoints: (builder: any) => ({
-    getOverAllNotifications: builder.query({
+export const Notifications = emptySplitApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getAllNotifications: builder.query({
       query: () => ({
-        url: `/notifications`,
+        url: `profile/admin-dashboard`,
         method: "GET",
       }),
-      providesTags: ["notifications"],
     }),
     postNotifications: builder.mutation({
-      query: ({ payload }: any) => ({
-        url: `/notifications'`,
-        method: "POST",
-        body: payload,
-      }),
-      invalidatesTags: ["notifications"],
-    }),
+        query: ({ payload ,id }: any) => ({
+          url: `products`,
+          method: "POST",
+          body: payload,
+        }),
   
+        invalidatesTags: ["products"],
+      }),
   }),
 });
 
-export const {
- useGetOverAllNotificationsQuery,usePostNotificationsMutation
-} = extendedApi;
+export const { usePostNotificationsMutation ,useGetAllNotificationsQuery} = Notifications;
