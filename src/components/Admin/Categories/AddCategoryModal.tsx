@@ -5,21 +5,20 @@ import {
   Form,
   Row,
   Col,
-  Select,
+
 } from "antd";
-import arrowDown from "../../../assets/icons/arrow-down-icon.svg"
-import { usePostJobRequestMutation, useUpdateJobRequestMutation } from "../../../store/Slices/Setting/JobRole";
+
+
 import AppSnackbar from "../../../utils/AppSnackbar";
-import { ROLES } from "../../../constants/Roles";
-import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
+
+
 import { handleInputTrimStart } from "../../../utils/useInputTrim";
 import { usePostCategoriesMutation, useUpdateCategoriesMutation } from "../../../store/Slices/Products";
 
 function AddCategoryModal(props: any) {
   const [form] = Form.useForm();
   const { addEditJobRole, setAddEditJobRole, modalType, getTableRowValues, setGetFieldValues, role ,jobID} = props;
-  const { data: clientData, isSuccess: isClientDataSuccess, } = useGetClientsQuery({ refetchOnMountOrArgChange: true });
-  const [postJobRequest, { isLoading: isPostJobRequestMutation }] = usePostJobRequestMutation();
+ 
   const [updateCategories, { isLoading: isUpdateJobRequestMutation }] = useUpdateCategoriesMutation();
   const [postCategories]=usePostCategoriesMutation()
 
@@ -28,15 +27,6 @@ function AddCategoryModal(props: any) {
   let userRoleDropdown: any;
   let clientAPIData: any;
 
-
-  if (isClientDataSuccess) {
-    clientAPIData = clientData;
-    // Making new array for dropdown from data
-    userRoleDropdown = clientAPIData?.data?.result?.map((item: any) => ({
-      value: item?._id,
-      label: item?.clientName,
-    }));
-  }
 
   
   if (modalType !== "Add") {
@@ -144,7 +134,7 @@ function AddCategoryModal(props: any) {
         <Form.Item>
 
           {/* {apiErrorMessage !== undefined && <p className="fs-14 fw-400 line-height-18 error-color  m-0" style={{ marginBottom: "1rem" }}>{apiErrorMessage?.status === 400 ? 'Request not fulfilled! Try again after some time.' : 'Something went wrong.'}</p>} */}
-          <Button type="primary" htmlType="submit" loading={isPostJobRequestMutation || isUpdateJobRequestMutation}>
+          <Button type="primary" htmlType="submit" loading={ isUpdateJobRequestMutation}>
             {modalType === 'Edit' ? 'Update' : "Save"}
           </Button>
         </Form.Item>

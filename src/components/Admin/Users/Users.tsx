@@ -2,24 +2,17 @@ import { useEffect, useState } from "react";
 
 
 // Ant Components
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Select, Space, Table, Input, Row, Col } from "antd";
+import {  MenuProps,  Space, Table,  } from "antd";
 
 
 // Components
 import BreadCrumb from "../../../layout/BreadCrumb/BreadCrumb";
 
 
-// RTK Query
-import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
-import { useDeleteJobRequestMutation, useGetJobRequestFilterQuery, useGetJobRequestQuery } from "../../../store/Slices/Setting/JobRole";
 
 
 // Utils, Constant and Packages
-import { ROLES } from "../../../constants/Roles";
 import AppSnackbar from "../../../utils/AppSnackbar";
-import { debouncedSearch } from "../../../utils/utils";
-
 
 // Assets
 
@@ -40,27 +33,21 @@ import { db } from "../../../firebase";
 const UsersData= () => {
 
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
-  const [selectedFilterValue, setSelectedFilterValue] = useState<string | undefined>();
-  const [selectedCareHomeFilterValue, setSelectedCareHomeFilterValue] = useState<string | undefined>();
-  const [crossAllocationRecord, setCrossAllocationRecord] = useState([]);
+
 
   // ============================== Filters ==============================
   const [searchName, setSearchName] = useState<string>("");
 
   // ============================== ACTION MODALS ==============================
   const [jobID, setJobID] = useState<string>("");
-  const [modalType, setModalType] = useState<string>("");
-  const [addEditJobRole, setAddEditJobRole] = useState<boolean>(false);
-  const [showCrossAllocation, setShowCrossAllocation] = useState<boolean>(false);
+
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
-  const [getTableRowValues, setGetFieldValues] = useState({});
+
  const [usersData ,setUsersData]=useState([])
   // ============================== Query Parameters Of Search and Filter ==============================
   const paramsObj: any = {};
   if (searchName) paramsObj["name"] = searchName;
-  if (selectedFilterValue) paramsObj["userRole"] = selectedFilterValue;
-  if (selectedFilterValue === "All") paramsObj["userRole"] = "";
-  if (selectedCareHomeFilterValue) paramsObj["careHomeId"] = selectedCareHomeFilterValue;
+
 
   const query = "&" + new URLSearchParams(paramsObj).toString();
 
@@ -69,9 +56,7 @@ const UsersData= () => {
 
 
   // ============================== RTK Query ==============================
-  const { data, isSuccess } = useGetJobRequestQuery({ refetchOnMountOrArgChange: true });
-  const { data: clientData, isSuccess: isClientDataSuccess } = useGetClientsQuery({ refetchOnMountOrArgChange: true });
-  const { data: jobRoleFilterData, isLoading: jobRoleFilterIsLoading } = useGetJobRequestFilterQuery({ refetchOnMountOrArgChange: true, query, pagination });
+ 
   const [deleteMaterials, { isLoading: isDeleteJobRequestMutation }] = useDeleteMaterialsMutation();
   const {data:getMaterials ,isSuccess:isSuccessMaterials}=useGetAllMaterialsQuery({})
 
@@ -94,38 +79,10 @@ const UsersData= () => {
  useEffect(()=>{
   fetchUsers()
  },[usersData])
-  if (isSuccess) {
-    JobRole = jobRoleFilterData;
-    unchangeUserData = data;
 
-    // if (isNullOrEmpty(unchangeUserData)) {
-    // Making new array for dropdown from data
-    let userRoleDropdown = unchangeUserData?.data?.result?.map((item: any) => ({
-      value: item?.userRole,
-      label: item?.userRole,
-    }));
-
-    // removing duplicates from dropdowns
-    optimizedUserRoleDropdown = Array.from(
-      new Set(userRoleDropdown.map((option: any) => option.label))
-    ).map((label: any) =>
-      userRoleDropdown.find((option: any) => option.label === label)
-    );
-
-    optimizedUserRoleDropdown.push({ value: "All", label: "All" });
-    // }
-  }
 
   let careHomeDataDropdown: any;
-  if (isClientDataSuccess) {
-    clientAPIData = clientData;
-    // Making new array for dropdown from data
-    careHomeDataDropdown = clientAPIData?.data?.result?.map((item: any) => ({
-      value: item?._id,
-      label: item?.clientName,
-    }));
-
-  }
+ 
 
 
   // ============================== Handle Delete Job Role ==============================
@@ -138,7 +95,7 @@ const UsersData= () => {
         message: "Information deleted successfully",
       });
       setIsDeleteModal(false);
-      setGetFieldValues({});
+
     } catch (error: any) {
       AppSnackbar({
         type: "error",
@@ -149,19 +106,6 @@ const UsersData= () => {
   };
 
 
-  // ============================== Filter and Remove The Current Allocation For the Cross Alloocation ==============================
-  const handleCrossAllocationValues = (data: any) => {
-    const filteredJobRoles = JobRole?.data?.result.filter((singleItem: any) => singleItem?._id !== data?._id);
-    if (filteredJobRoles) {
-      setCrossAllocationRecord(filteredJobRoles)
-    }
-  }
-
-  // ============================== Reset back to Initial States ==============================
-  const handleResetFormValues = () => {
-    setGetFieldValues({});
-    setJobID("")
-  }
 
 
   // ============================== Table Action Dropdowns Items ==============================
@@ -169,10 +113,7 @@ const UsersData= () => {
     {
       label: (
         <Space
-          onClick={() => {
-            setAddEditJobRole(true);
-            setModalType("Edit");
-          }}
+       
         >
           <img
             src={editIcon}
@@ -289,8 +230,7 @@ const UsersData= () => {
             scroll={{ x: 768 }}
             columns={columns}
             dataSource={usersData}
-            locale={{ emptyText: !jobRoleFilterIsLoading ? "No Data" : " " }}
-            loading={jobRoleFilterIsLoading}
+         
             pagination={{
               current: pagination.page,
               pageSize: pagination.limit,

@@ -1,4 +1,3 @@
-import { ROLES } from "../constants/Roles";
 
 export const renderDashboard = (role: string) => {
   if (role === "user") {

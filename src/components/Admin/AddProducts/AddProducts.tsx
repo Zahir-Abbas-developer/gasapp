@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 // Ant Components
 import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Select, Space, Table, Input, Row, Col } from "antd";
+import { Button, Dropdown, MenuProps,  Space, Table, Input,  } from "antd";
 
 
 // Components
 import BreadCrumb from "../../../layout/BreadCrumb/BreadCrumb";
 
 
-// RTK Query
-import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
-import {  useGetJobRequestFilterQuery, useGetJobRequestQuery } from "../../../store/Slices/Setting/JobRole";
-
-
 // Utils, Constant and Packages
-import { ROLES } from "../../../constants/Roles";
 import AppSnackbar from "../../../utils/AppSnackbar";
 import { debouncedSearch } from "../../../utils/utils";
 
@@ -34,17 +28,13 @@ import "./AddProducts.scss";
 import DeleteModal from "../../../shared/DeleteModal/DeleteModal";
 import { renderDashboard } from "../../../utils/useRenderDashboard";
 import AddProductsModal from "./AddProductsModal";
-import { useDeleteProductsMutation, useGetAllMaterialsQuery, useGetAllProductsQuery, useGetOverAllProductsQuery } from "../../../store/Slices/Products";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { useDeleteProductsMutation, useGetAllMaterialsQuery,  useGetOverAllProductsQuery } from "../../../store/Slices/Products";
 
 
 const AddProducts = () => {
 
   const [pagination, setPagination] = useState({ limit: 6, page: 1 });
-  const [selectedFilterValue, setSelectedFilterValue] = useState<string | undefined>();
-  const [selectedCareHomeFilterValue, setSelectedCareHomeFilterValue] = useState<string | undefined>();
-  const [crossAllocationRecord, setCrossAllocationRecord] = useState([]);
+
 
   // ============================== Filters ==============================
   const [searchName, setSearchName] = useState<string>("");
@@ -53,7 +43,6 @@ const AddProducts = () => {
   const [jobID, setJobID] = useState<string>("");
   const [modalType, setModalType] = useState<string>("");
   const [addEditJobRole, setAddEditJobRole] = useState<boolean>(false);
-  const [showCrossAllocation, setShowCrossAllocation] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   const [getTableRowValues, setGetFieldValues] = useState({});
 
@@ -69,60 +58,26 @@ const AddProducts = () => {
 
 
   // ============================== RTK Query ==============================
-  const { data, isSuccess } = useGetJobRequestQuery({ refetchOnMountOrArgChange: true });
-  const { data: clientData, isSuccess: isClientDataSuccess } = useGetClientsQuery({ refetchOnMountOrArgChange: true });
-  const { data: jobRoleFilterData, isLoading: jobRoleFilterIsLoading } = useGetJobRequestFilterQuery({ refetchOnMountOrArgChange: true, query, pagination });
+ 
   const [deleteProducts, { isLoading: isDeleteJobRequestMutation }] = useDeleteProductsMutation();
   const {data:getMaterials ,isSuccess:isSuccessMaterials}=useGetAllMaterialsQuery({refetchOnMountOrArgChange: true, query, pagination})
 
   // ============================== Variables to Assign Values to it ==============================
-  let optimizedUserRoleDropdown: any;
   let JobRole: any;
-  let unchangeUserData: any;
-  let clientAPIData: any;
+
   let allMaterials:any
   if(isSuccessMaterials){
     allMaterials=getMaterials
   }
 
-  if (isSuccess) {
-    JobRole = jobRoleFilterData;
-    unchangeUserData = data;
 
-    // if (isNullOrEmpty(unchangeUserData)) {
-    // Making new array for dropdown from data
-    let userRoleDropdown = allMaterials?.map((item: any) => ({
-      value: item?._id,
-      label: item?.userRole,
-    }));
 
-    // removing duplicates from dropdowns
-    optimizedUserRoleDropdown = Array.from(
-      new Set(userRoleDropdown.map((option: any) => option.label))
-    ).map((label: any) =>
-      userRoleDropdown.find((option: any) => option.label === label)
-    );
-
-    optimizedUserRoleDropdown.push({ value: "All", label: "All" });
-    // }
-  }
-//get products 
-console.log(jobID)
 const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({query})
     let productsData:any
     if(isSuccessProducts){
         productsData=products
     }
-  let careHomeDataDropdown: any;
-  if (isClientDataSuccess) {
-    clientAPIData = clientData;
-    // Making new array for dropdown from data
-    careHomeDataDropdown = clientAPIData?.data?.result?.map((item: any) => ({
-      value: item?._id,
-      label: item?.clientName,
-    }));
-
-  }
+ 
 
   // ============================== Handle Delete Job Role ==============================
   const handleDeleteSubmit = async () => {
@@ -145,13 +100,6 @@ const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({q
   };
 
 
-  // ============================== Filter and Remove The Current Allocation For the Cross Alloocation ==============================
-  const handleCrossAllocationValues = (data: any) => {
-    const filteredJobRoles = JobRole?.data?.result.filter((singleItem: any) => singleItem?._id !== data?._id);
-    if (filteredJobRoles) {
-      setCrossAllocationRecord(filteredJobRoles)
-    }
-  }
 
   // ============================== Reset back to Initial States ==============================
   const handleResetFormValues = () => {
@@ -273,7 +221,7 @@ const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({q
                 onClick={() => {
                   setJobID(text.id);
                   setGetFieldValues(text);
-                  handleCrossAllocationValues(text);
+              
                 }}
               >
                 <img src={actionImg} alt="ElpiseIcon" />
@@ -357,15 +305,14 @@ const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({q
             scroll={{ x: 768 }}
             columns={columns}
             dataSource={productsData}
-            locale={{ emptyText: !jobRoleFilterIsLoading ? "No Data" : " " }}
-            loading={jobRoleFilterIsLoading}
+          
             pagination={{
               current: pagination.page,
               pageSize: pagination.limit,
               total: JobRole?.data?.metadata?.total,
               onChange: (page, limit) => setPagination({ limit, page }),
             }}
-            className="common-setting-table"
+            className="common-table"
           />
         </div>
       </div>

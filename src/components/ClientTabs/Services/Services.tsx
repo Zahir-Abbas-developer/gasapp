@@ -1,15 +1,14 @@
 import { Col, Row } from "antd"
 
-import SelectGroundTypes from "../SelectServices/SelectServices"
+import SelectServices from "../SelectServices/SelectServices";
 
 const Services=()=>{
-    console.log(window.location.origin + "/reset-password");
-    
+
     return(
     
     <Row>
 <Col xs={24}>
- <SelectGroundTypes/>
+ <SelectServices/>
 </Col>
 {/* <Col xs={24} md={24} style={{marginTop:"15px"}}>
  <SelectServicesDetails/>

@@ -11,7 +11,6 @@ import arrowDown from "../../../assets/icons/arrow-down-icon.svg"
 import { useState } from 'react';
 import AppSnackbar from "../../../utils/AppSnackbar";
 
-import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
 import { handleInputTrimSpaces, handleInputTrimStart } from "../../../utils/useInputTrim";
 import { useGetAllCategoriessQuery, useGetAllColorsQuery, useGetAllMaterialsQuery, useGetAllProductsQuery, usePostProductsMutation, useUpdateProductsMutation } from "../../../store/Slices/Products";
 
@@ -28,7 +27,7 @@ function AddProductsModal(props: any) {
   const [fields, setFields] = useState([{ quantity: "", size: "" }]);
 
   const { addEditJobRole, setAddEditJobRole, modalType, getTableRowValues, setGetFieldValues, role } = props;
-  const { data: clientData, isSuccess: isClientDataSuccess, } = useGetClientsQuery({ refetchOnMountOrArgChange: true });
+ 
   const [postProducts, { isLoading: isPostJobRequestMutation }] = usePostProductsMutation();
   const [updateProducts, { isLoading: isUpdateJobRequestMutation }] = useUpdateProductsMutation();
 
@@ -36,10 +35,10 @@ function AddProductsModal(props: any) {
   const { data: getCategories, isSuccess: isSuccessCategories } = useGetAllCategoriessQuery({})
   const { data: getColors, isSuccess: isSuccessColors } = useGetAllColorsQuery({})
   // ------------------ Error cases Variable ------------------
-  let userRoleDropdown: any;
+
   let selectColor: any;
   let selectCategory: any
-  let clientAPIData: any;
+
 
   let allMaterials: any
   if (isSuccessCategories) {
@@ -58,22 +57,8 @@ function AddProductsModal(props: any) {
     }));
 
   }
-  if (isSuccessMaterials) {
-    allMaterials = getMaterials
-    userRoleDropdown = allMaterials?.map((item: any) => ({
-      value: item?._id,
-      label: item?.name,
-    }));
+ 
 
-  }
-  if (isClientDataSuccess) {
-    clientAPIData = clientData;
-    // Making new array for dropdown from data
-    userRoleDropdown = allMaterials?.map((item: any) => ({
-      value: item?._id,
-      label: item?.name,
-    }));
-  }
 
   const uploadCertificateId = (url: any) => {
     setCertificateUrl(url)
@@ -162,7 +147,7 @@ function AddProductsModal(props: any) {
       onOk={() => handleFormClear()}
       onCancel={() => handleFormClear()}
       centered
-      className="add-Manage-Job-Role"
+      className="add-product"
       footer={false}
       width="888px"
       maskClosable={false}

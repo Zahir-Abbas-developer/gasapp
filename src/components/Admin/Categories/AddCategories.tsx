@@ -2,21 +2,15 @@ import { useState } from "react";
 
 
 // Ant Components
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Select, Space, Table, Input, Row, Col } from "antd";
+
+import {  Dropdown, MenuProps,  Space, Table, Input, Row, } from "antd";
 
 
 // Components
 import BreadCrumb from "../../../layout/BreadCrumb/BreadCrumb";
 
 
-// RTK Query
-import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
-import { useDeleteJobRequestMutation, useGetJobRequestFilterQuery, useGetJobRequestQuery } from "../../../store/Slices/Setting/JobRole";
-
-
 // Utils, Constant and Packages
-import { ROLES } from "../../../constants/Roles";
 import AppSnackbar from "../../../utils/AppSnackbar";
 import { debouncedSearch } from "../../../utils/utils";
 
@@ -42,9 +36,6 @@ import { useCancelOrderMutation, useGetAllOrdersQuery } from "../../../store/Sli
 const AddCategories = () => {
 
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
-  const [selectedFilterValue, setSelectedFilterValue] = useState<string | undefined>();
-  const [selectedCareHomeFilterValue, setSelectedCareHomeFilterValue] = useState<string | undefined>();
-  const [crossAllocationRecord, setCrossAllocationRecord] = useState([]);
 
   // ============================== Filters ==============================
   const [searchName, setSearchName] = useState<string>("");
@@ -53,16 +44,14 @@ const AddCategories = () => {
   const [jobID, setJobID] = useState<string>("");
   const [modalType, setModalType] = useState<string>("");
   const [addEditJobRole, setAddEditJobRole] = useState<boolean>(false);
-  const [showCrossAllocation, setShowCrossAllocation] = useState<boolean>(false);
+
   const [getTableRowValues, setGetFieldValues] = useState({});
   const [rowData ,setCardRowData]=useState<any>({})
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   // ============================== Query Parameters Of Search and Filter ==============================
   const paramsObj: any = {};
   if (searchName) paramsObj["status"] = searchName;
-  if (selectedFilterValue) paramsObj["userRole"] = selectedFilterValue;
-  if (selectedFilterValue === "All") paramsObj["userRole"] = "";
-  if (selectedCareHomeFilterValue) paramsObj["careHomeId"] = selectedCareHomeFilterValue;
+
 
   const query = "&" + new URLSearchParams(paramsObj).toString();
   const {data:getOrders ,isSuccess:isSuccessOrders ,isLoading:isLoadingOrders}=useGetAllOrdersQuery({query})
@@ -71,9 +60,7 @@ const AddCategories = () => {
 
 console.log(rowData)
   // ============================== RTK Query ==============================
-  const { data, isSuccess } = useGetJobRequestQuery({ refetchOnMountOrArgChange: true });
-  const { data: clientData, isSuccess: isClientDataSuccess } = useGetClientsQuery({ refetchOnMountOrArgChange: true });
-  const { data: jobRoleFilterData, isLoading: jobRoleFilterIsLoading } = useGetJobRequestFilterQuery({ refetchOnMountOrArgChange: true, query, pagination });
+ 
   const [deleteCategories, { isLoading: isDeleteJobRequestMutation }] = useDeleteCategoriesMutation();
   const [cancelOrder,{isLoading:isLoadingCancel}]=useCancelOrderMutation({})
 
@@ -85,39 +72,6 @@ console.log(rowData)
   let allOrders:any
   if(isSuccessOrders){
     allOrders=getOrders
-  }
-console.log(allOrders)
-  if (isSuccess) {
-    JobRole = jobRoleFilterData;
-    unchangeUserData = data;
-
-    // if (isNullOrEmpty(unchangeUserData)) {
-    // Making new array for dropdown from data
-    let userRoleDropdown = unchangeUserData?.data?.result?.map((item: any) => ({
-      value: item?.userRole,
-      label: item?.userRole,
-    }));
-
-    // removing duplicates from dropdowns
-    optimizedUserRoleDropdown = Array.from(
-      new Set(userRoleDropdown.map((option: any) => option.label))
-    ).map((label: any) =>
-      userRoleDropdown.find((option: any) => option.label === label)
-    );
-
-    optimizedUserRoleDropdown.push({ value: "All", label: "All" });
-    // }
-  }
-
-  let careHomeDataDropdown: any;
-  if (isClientDataSuccess) {
-    clientAPIData = clientData;
-    // Making new array for dropdown from data
-    careHomeDataDropdown = clientAPIData?.data?.result?.map((item: any) => ({
-      value: item?._id,
-      label: item?.clientName,
-    }));
-
   }
 
 
@@ -151,13 +105,7 @@ console.log(allOrders)
       });
     }
   }
-  // ============================== Filter and Remove The Current Allocation For the Cross Alloocation ==============================
-  const handleCrossAllocationValues = (data: any) => {
-    const filteredJobRoles = JobRole?.data?.result.filter((singleItem: any) => singleItem?._id !== data?._id);
-    if (filteredJobRoles) {
-      setCrossAllocationRecord(filteredJobRoles)
-    }
-  }
+ 
 
   // ============================== Reset back to Initial States ==============================
   const handleResetFormValues = () => {
@@ -302,7 +250,6 @@ console.log(allOrders)
                 onClick={() => {
                   setJobID(text.id);
                   setGetFieldValues(text);
-                  handleCrossAllocationValues(text);
                 }}
               >
                 <img src={actionImg} alt="ElpiseIcon" />
@@ -401,15 +348,14 @@ console.log(allOrders)
             scroll={{ x: 768 }}
             columns={columns}
             dataSource={allOrders}
-            locale={{ emptyText: !jobRoleFilterIsLoading ? "No Data" : " " }}
-            loading={isLoadingOrders}
+          
             pagination={{
               current: pagination.page,
               pageSize: pagination.limit,
               total: JobRole?.data?.metadata?.total,
               onChange: (page, limit) => setPagination({ limit, page }),
             }}
-            className="common-setting-table"
+            className="common-table"
           />
         </div>
       </div>

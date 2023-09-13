@@ -8,7 +8,7 @@ import Unathorized from "./components/Authentication/Unathorized";
 
 import RequireAuth from "./components/Authentication/RequireAuth";
 import LoadingSvg from "../src/assets/Login/loader-icon.gif";
-import { ROLES } from "./constants/Roles";
+
 import AddStyles from "./components/Admin/Users/Users";
 import DashboardLayout from "./layout/Header/dashboard.layout";
 
@@ -45,7 +45,7 @@ const UserVerficationPage=Loadable(
 );
 
 const StaffAllocationPage = Loadable(
-  lazy(() => import("./pages/StaffAllocation"))
+  lazy(() => import("./pages/AdminDashboard"))
 );
 
 
@@ -59,13 +59,7 @@ const AddCategoriesPage = Loadable(
 const UsersData = Loadable(
   lazy(() => import("./pages/AddStyles"))
 );
-const AddOrdersPage = Loadable(
-  lazy(() => import("./pages/AddOrders"))
-);
 
-// Reports and its Child Routes Ends Here
-
-const SettingsPage = Loadable(lazy(() => import("./pages/Settings")));
 
 const Services=Loadable(
   lazy(() => import("./components/ClientTabs/Services/Services"))
@@ -121,7 +115,7 @@ export const routes: any = [
       {
         path: "admin-dashboard",
         element: (
-          <RequireAuth allowedRoles={[ROLES.admin || "admin"]}>
+          <RequireAuth allowedRoles={["admin"]}>
             <StaffAllocationPage />
             </RequireAuth>
         ),
@@ -139,7 +133,7 @@ export const routes: any = [
       
       {
         path:"/add-products",
-        element:  <RequireAuth allowedRoles={[ROLES.admin || "admin"]}> <AddProductsPage/></RequireAuth>
+        element:  <RequireAuth allowedRoles={[ "admin"]}> <AddProductsPage/></RequireAuth>
       },
       // {
       //   path:"/otp",
@@ -148,19 +142,16 @@ export const routes: any = [
       
       {
         path:"/add-categories",
-        element:( <RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddCategoriesPage/></RequireAuth> )
+        element:( <RequireAuth allowedRoles={["admin"]}><AddCategoriesPage/></RequireAuth> )
       },
-      {
-        path:"/add-orders",
-        element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddOrdersPage/></RequireAuth> )
-      },
+     
       {
         path:"/users-list",
-        element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><UsersData/></RequireAuth> )
+        element:(<RequireAuth allowedRoles={["admin"]}><UsersData/></RequireAuth> )
       },
       {
         path:"/add-styles",
-        element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddStyles/></RequireAuth> )
+        element:(<RequireAuth allowedRoles={["admin"]}><AddStyles/></RequireAuth> )
       },
     
      

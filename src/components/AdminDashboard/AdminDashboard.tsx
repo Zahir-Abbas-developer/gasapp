@@ -5,8 +5,7 @@ import markIcon from "../../assets/icons/StaffAllocation/mark.svg";
 import { Dropdown, Row, Space } from "antd";
 import SingleCard from "./SingleCard";
 import "./StaffAllocation.scss";
-import StaffAllocationFilters from "./StaffAllocationFilters/StaffAllocationFilters";
-import StaffAllocationTable from "./StaffAllocationTable/StaffAllocationTable";
+
 import { ColumnsType } from "antd/es/table";
 
 import viewCareHome from "../../assets/icons/StaffAllocation/view-care.svg";
@@ -14,15 +13,8 @@ import allocateCarePerson from "../../assets/icons/StaffAllocation/allocate-care
 import deleteCare from "../../assets/icons/StaffAllocation/delete-care.svg";
 
 import threeDots from "../../assets/icons/three-dots.svg";
-import ViewCarerHomeModal from "./staffAllocationModals/ViewCarerHomeModal";
-import DeleteModal from "../../shared/DeleteModal/DeleteModal";
-import {
-  useGetStaffListQuery,
-  useGetCarerWidgetsDataQuery,
-  useGetStaffAllocationListQuery,
-  useDeleteStaffMutation,
-  useGetAllClientQuery,
-} from "../../store/Slices/StaffAllocation";
+
+
 import dayjs from "dayjs";
 
 import AppSnackbar from "../../utils/AppSnackbar";
@@ -30,12 +22,11 @@ import BreadCrumb from "../../layout/BreadCrumb/BreadCrumb";
 import { useGetAllCategoriessQuery, useGetAllMaterialsQuery, useGetAllProductsQuery, useGetOrdersQuery, useGetOverAllProductsQuery } from "../../store/Slices/Products";
 import { useGetAllOrdersQuery } from "../../store/Slices/Orders";
 
-const StaffAllocation = () => {
+const AdminDashboard = () => {
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [rowStatus, setRowStatus] = useState("");
   const [pagination, setPagination] = useState({ limit: 5, page: 1 });
-  const [selectedRows, setSelectedRows] = useState<any>([]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   //Filter States
@@ -45,23 +36,8 @@ const StaffAllocation = () => {
     userType: "",
   });
 
-  const [isAllocateCarerModal, setIsAllocateCarerModal] = useState(false);
-  const [isViewCarerHomeModal, setIsViewCarerHomeModal] = useState(false);
 
-  const [isDeleteModal, setIsDeleteModal] = useState(false);
-  const [isProfileModal, setIsProfileModal] = useState(false);
 
-  const handleCancelSubmit = () => {
-    setIsDeleteModal(false);
-  };
-
-  //Get Carer Widgets Data
-  const { data: widgetsData }: any = useGetCarerWidgetsDataQuery({});
-
-  //Get all care Homes
-  const { data: careHomes }: any = useGetStaffListQuery({});
-  const defaultCareHome = careHomes?.data?.result[0]?._id;
-  const defaultId = filterValues.careHome ? filterValues.careHome : defaultCareHome;
 
   //query parameters of search and filter
   const paramsObj: any = {};
@@ -70,25 +46,6 @@ const StaffAllocation = () => {
     paramsObj["allocationStatus"] = filterValues?.allocationStatus;
   if (filterValues?.userType) paramsObj["userType"] = filterValues?.userType;
   const query = "&" + new URLSearchParams(paramsObj).toString();
-
-  //Get Staff List
-  const { data: staffList, isLoading: staffLoad }: any = useGetStaffAllocationListQuery({
-    id: defaultId,
-    query,
-    pagination,
-  });
-
-  //Delete Staff
-  const [deleteStaff] = useDeleteStaffMutation();
-
-  const handleDeleteSubmit = async () => {
-    const payload: any = {
-      staffId: [selectedRecord?._id],
-    };
-    const { data }: any = await deleteStaff({ id: defaultId, payload });
-    if (data) setIsDeleteModal(false);
-    AppSnackbar({ type: "success", message: data?.message });
-  };
 
 
   const {data:getMaterials ,isSuccess:isSuccessMaterials}=useGetAllMaterialsQuery({refetchOnMountOrArgChange: true})
@@ -107,22 +64,13 @@ const StaffAllocation = () => {
   if(isSuccessOrders){
     getOrders=isGetOrders
   }
-  console.log(getOrders?.length)
-  const careHomeOptions = careHomes?.data?.result?.map((item: any) => {
-    return {
-      value: item?._id,
-      label: item?.clientName,
-    };
-  });
+ 
   const {data:products ,isSuccess:isSuccessProducts}=useGetOverAllProductsQuery({})
   let productsData:any
   if(isSuccessProducts){
       productsData=products
   }
-  const { data: nonAllocateCareHomes }: any = useGetAllClientQuery({
-    id: selectedRecord?._id,
-  });
-
+ 
 
 
   const cardData = [
@@ -157,7 +105,7 @@ const StaffAllocation = () => {
     {
       label: (
         <div
-          onClick={() => setIsViewCarerHomeModal(true)}
+   
           style={{ display: "flex", gap: "10px", height: "fit-content" }}
           className={`set-restricted-styles 
                 ${rowStatus === "new" ? "class-restricted" : ""}`}
@@ -179,7 +127,7 @@ const StaffAllocation = () => {
     {
       label: (
         <div
-          onClick={() => setIsAllocateCarerModal(true)}
+
           style={{ display: "flex", gap: "10px", height: "fit-content" }}
         >
           <Space>
@@ -202,7 +150,7 @@ const StaffAllocation = () => {
           style={{ display: "flex", gap: "10px", height: "fit-content" }}
           className={`set-restricted-styles 
                 ${rowStatus === "non-allocated" || rowStatus === "new" ? "class-restricted" : ""}`}
-          onClick={() => setIsDeleteModal(true)}
+
         >
           <Space>
             <img
@@ -238,7 +186,7 @@ const StaffAllocation = () => {
       render: (carerName: any) => (
         <span
           className="fs-14 fw-400 m-0 text-left line-height-22 title-color"
-          onClick={() => setIsProfileModal(true)}
+   
           style={{ color: "#1890FF" }}
         >
           {carerName}
@@ -355,4 +303,4 @@ const StaffAllocation = () => {
   );
 };
 
-export default StaffAllocation;
+export default AdminDashboard;

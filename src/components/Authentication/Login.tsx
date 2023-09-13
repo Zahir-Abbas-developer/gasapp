@@ -1,11 +1,9 @@
 import { Checkbox, Col, Row } from "antd";
-import CareLibraryIcon from "../../assets/icons/logo.jpg";
 import PhoneInput from "react-phone-input-2";
 import { useState } from "react";
 import { Form, Input, Button } from "antd";
-import SignUp from "../../assets/Login/Sign-up.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from 'axios'
+
 import "./SignIn.scss";
 import {
   useForgetPasswordRequestMutation,
@@ -22,8 +20,7 @@ import { ConfirmationCode } from "../Otp/otp";
 //comment for testing
 const Login = () => {
 
-  const [changePasswordErrorMessage, setChangePasswordErrorMessage] =
-    useState("");
+
   let navigate = useNavigate();
   const [form] = Form.useForm();
   const location = useLocation();
@@ -34,11 +31,6 @@ const Login = () => {
   const [isCheckbox ,setIsCheckbox]=useState(false)
   const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [signInPostRequest, { isLoading }] = useSignInPostRequestMutation();
-  const [forgetPasswordRequest, { isLoading: isLoadingForgetPassword }] =
-    useForgetPasswordRequestMutation();
-  const [resetPasswordRequest, { isLoading: isLoadingNewPassword }] =
-    useNewPasswordRequestMutation();
 
   const [authSignUp] = useAuthSignUpMutation();
  
@@ -70,13 +62,9 @@ const Login = () => {
       if (!error) {
         navigate("/confirmation-signup");
       } else {
-        setChangePasswordErrorMessage(error?.data?.message);
+     
         setIsLoadingSignUp(false)
       }
-    } else {
-      setChangePasswordErrorMessage(
-        "New Password and Confirm New Password Should Be Equal"
-      );
     }
   };
 
@@ -277,7 +265,7 @@ const handlePhoneNumberChange = (value:any) => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={isLoading}
+                 
                     className=" login-button-gas-app "
                     block
                   >
