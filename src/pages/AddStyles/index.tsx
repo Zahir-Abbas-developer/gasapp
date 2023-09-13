@@ -1,5 +1,5 @@
 
-import AddStyles from "../../components/Admin/AddStyles/AddStyles"
+import AddStyles from "../../components/Admin/Users/Users"
 
 const AddStylesPage=()=>{
   return <AddStyles/>

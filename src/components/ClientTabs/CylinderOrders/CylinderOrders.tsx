@@ -1,20 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { ManageUsersData } from "../../../mock/ManageUserData";
+import {  useNavigate } from "react-router-dom";
+
 import { Button, Card, Col, Layout, Row } from "antd";
-import arrow from "../../../assets/images/Cylinder/arrow.svg"
+
 import "./CylinderOrders.scss";
 import "../../../sass/common.scss";
 // import AddUserTypeModal from "../AddUserTypeModal/AddUserTypeModal";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 
 import ApiLoader from "../../ApiLoader/ApiLoader";
 
-import { useDispatch } from "react-redux";
-
-import { useAppSelector } from "../../../store";
-import { OrdersylinderData, selectUserType } from "../../../mock/SelectCylinderTypes";
 
 import dayjs from "dayjs";
 import { useCancelOrderMutation, useGetOverAllOrdersQuery } from "../../../store/Slices/Orders";

@@ -1,22 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { ManageUsersData } from "../../../mock/ManageUserData";
 import { Button, Card, Col, Layout, Row } from "antd";
 import "./SelectServices.scss";
 import "../../../sass/common.scss";
 // import AddUserTypeModal from "../AddUserTypeModal/AddUserTypeModal";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 
 import ApiLoader from "../../ApiLoader/ApiLoader";
 
-import { useDispatch } from "react-redux";
-
-import { useAppSelector } from "../../../store";
-import { selectUserType } from "../../../mock/SelectCylinderTypes";
 import ProductsDrawer from "./Drawer";
 import { useGetAllProductsQuery } from "../../../store/Slices/Products";
-const SelectGroundTypes = () => {
+const SelectServices = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [orderData ,setOrderData]=useState({})
@@ -193,4 +186,4 @@ const SelectGroundTypes = () => {
   );
 };
 
-export default SelectGroundTypes;
+export default SelectServices;

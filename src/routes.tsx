@@ -9,7 +9,7 @@ import ResetPassword from "./components/Authentication/ResetPassword";
 import RequireAuth from "./components/Authentication/RequireAuth";
 import LoadingSvg from "../src/assets/Login/loader-icon.gif";
 import { ROLES } from "./constants/Roles";
-import AddStyles from "./components/Admin/AddStyles/AddStyles";
+import AddStyles from "./components/Admin/Users/Users";
 import OurCollectionTabDetails from "./components/ClientTabs/OurCollectionTabDetails/OurCollectionTabDetails";
 import OurCustomOrderDetails from "./components/ClientTabs/CustomOrderTabDetails/CustomOrderTabDetails";
 import DashboardLayout from "./layout/Header/dashboard.layout";
@@ -201,42 +201,7 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
-     
-    
-      
-      {
-        path: "",
-        children: [
-          {
-            path: "settings",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin, ROLES.coordinator, ROLES.client]}
-              >
-                <SettingsPage />
-              </RequireAuth>
-            ),
-          },
-         
-          
-        ],
-      },
-     
-      //client
-      {
-        path: "",
-        children: [
-          {
-            path: "client-booking-calendar",
-            element: (
-              <RequireAuth allowedRoles={[ROLES.user]}>
-                 <OurCustomOrderDetails /> 
-              </RequireAuth>
-            ),
-          },
-          
-        ],
-      },
+  
      
     ],
   },

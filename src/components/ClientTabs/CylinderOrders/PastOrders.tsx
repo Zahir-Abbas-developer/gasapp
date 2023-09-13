@@ -1,7 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { ManageUsersData } from "../../../mock/ManageUserData";
-import { Button, Card, Col, Layout, Row } from "antd";
+import {  useNavigate } from "react-router-dom";
+
+import {  Card, Col, Layout, Row } from "antd";
 
 import "./CylinderOrders.scss";
 import "../../../sass/common.scss";

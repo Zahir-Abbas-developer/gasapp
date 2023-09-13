@@ -32,7 +32,6 @@ import deleteIcon from "../../../assets/icons/delete-icon-outlined.svg";
 import "./AddStyles.scss";
 import DeleteModal from "../../../shared/DeleteModal/DeleteModal";
 import { renderDashboard } from "../../../utils/useRenderDashboard";
-import AddStyleModal from "./AddStylesModal";
 import { useDeleteMaterialsMutation, useGetAllMaterialsQuery } from "../../../store/Slices/Products";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
@@ -303,18 +302,7 @@ const UsersData= () => {
         </div>
       </div>
 
-      {/* ============================== Add Modal For Job Role ============================== */}
-      <AddStyleModal
-        addEditJobRole={addEditJobRole}
-        setAddEditJobRole={setAddEditJobRole}
-        modalType={modalType}
-        setGetFieldValues={setGetFieldValues}
-        getTableRowValues={getTableRowValues}
-        role={role}
-        jobID={jobID}
-      />
-
-
+  
       {/* ============================== Delete Modal For Job Role ============================== */}
       <DeleteModal
         setDeleteModal={setIsDeleteModal}

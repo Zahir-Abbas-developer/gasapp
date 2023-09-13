@@ -359,32 +359,7 @@ console.log(allOrders)
               </div>
             </Col> */}
 
-            {role === ROLES.coordinator && (
-              <Col xs={24} md={10} lg={8} xl={6} xxl={4}>
-                <p className='fs-14 fw-600 title-color line-height-17 m-0' style={{ marginBottom: "0.563rem" }}>Care Home</p>
-                <div className="filter-column">
-                  <Select
-                    size="large"
-                    placeholder="Select care home"
-                    optionFilterProp="children"
-                    defaultValue="All"
-                    className="app-select-wrap-class"
-                    popupClassName="app-select-popup-wrap-class"
-                    style={{ width: "100%" }}
-                    onChange={(value: string) => {
-                      if (selectedCareHomeFilterValue === value) {
-                        setSelectedCareHomeFilterValue("")
-                    
-                      } else {
-                        setSelectedCareHomeFilterValue(value)
-                      }
-                    }}
-                    value={selectedCareHomeFilterValue}
-                    options={careHomeDataDropdown}
-                  />
-                </div>
-              </Col>
-            )}
+            
           </Row>
 
         </div>

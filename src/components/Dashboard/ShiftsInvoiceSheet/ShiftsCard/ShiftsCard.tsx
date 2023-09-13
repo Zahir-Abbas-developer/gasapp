@@ -1,6 +1,5 @@
 import { Card, Col, Layout, Row, Spin } from 'antd';
-import { shiftsGraphData } from '../../../../mock/AdminDashboard/AdminDashboardData';
-import { ShiftsCardGragh } from './ShiftsCardGraph';
+
 import { ShiftsGragh } from '../../Graphs/ShiftsGraph';
 import { LoadingOutlined } from '@ant-design/icons';
 //Main

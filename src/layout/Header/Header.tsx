@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 // Ant Components
 import { Avatar, Popover, Space } from "antd";
-import { CaretDownOutlined, DownOutlined, MenuOutlined, ShoppingCartOutlined, UpOutlined, UserOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, DownOutlined, MenuOutlined,  UpOutlined, UserOutlined } from "@ant-design/icons";
 
 // Utils and Packages
 import { v4 as uuidv4 } from "uuid";
@@ -12,16 +12,14 @@ import { v4 as uuidv4 } from "uuid";
 
 // Assets
 import ClickAwayListener from "react-click-away-listener";
-import SearchImg from "../../assets/images/sidebar/Search.png";
-import { ReactComponent as User } from "../../assets/icons/sidebar/user.svg";
+
 import { ReactComponent as Logout } from "../../assets/icons/sidebar/logout.svg";
 import { ReactComponent as ChangePassword } from "../../assets/icons/sidebar/changePassword.svg";
 import { Badge } from 'antd';
 
 // Styles
 import "./Header.scss";
-import { ROLES } from "../../constants/Roles";
-import { useGetRoleLabel } from "../../utils/useGetRole";
+
 import { useLogoutMutation } from "../../store/Slices/Signin";
 import { useDispatch } from "react-redux";
 
@@ -47,11 +45,6 @@ const TopHeader = ({ setIsOpen }: any) => {
   const [activeChild, setActiveChild] = useState("");
   // ========================== CONSTANTS ==========================
   const { role, id }: any = JSON.parse(localStorage.getItem("careUserData") || "{}");
-  let roleName: { name: string, label: string } | undefined;
-  roleName = useGetRoleLabel(role);
-  
-
-
   const handleExpand = () => {
     const search: any = document.querySelector(".search-input");
     search.classList.toggle("search-expanded");

@@ -1,5 +1,5 @@
 import { Card, Col, Layout, Row, Spin } from 'antd';
-import { invoiceGraphData } from '../../../../mock/AdminDashboard/AdminDashboardData';
+
 import { InvoiceGraph } from '../../Graphs/InvoiceGraph';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -15,7 +15,6 @@ export const InvoiceCard = ({ isLoading }: any) => {
             </Col>
           </Row>
         </div>
-        {isLoading ? <div style={{ textAlign: "center", paddingTop: "30px" }}><Spin indicator={<LoadingOutlined style={{ fontSize: 36 }} spin />} /></div> : <InvoiceGraph graphLegendData={invoiceGraphData} />}
       </Card>
     </Layout>
   );

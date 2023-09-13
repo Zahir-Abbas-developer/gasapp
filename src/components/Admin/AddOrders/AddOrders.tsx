@@ -22,7 +22,6 @@ import { debouncedSearch } from "../../../utils/utils";
 
 
 // Assets
-import actionImg from "../../../assets/icons/Setting/actionImg.svg";
 import editIcon from "../../../assets/icons/edit-blue.svg";
 import crossAllocation from "../../../assets/icons/Setting/crossAllocation.svg";
 import deleteIcon from "../../../assets/icons/delete-icon-outlined.svg";
@@ -91,35 +90,14 @@ const AddOrders = () => {
     unchangeUserData = data;
 
     // if (isNullOrEmpty(unchangeUserData)) {
-    // Making new array for dropdown from data
-    let userRoleDropdown = unchangeUserData?.data?.result?.map((item: any) => ({
-      value: item?.userRole,
-      label: item?.userRole,
-    }));
+  
+  
 
-    // removing duplicates from dropdowns
-    optimizedUserRoleDropdown = Array.from(
-      new Set(userRoleDropdown.map((option: any) => option.label))
-    ).map((label: any) =>
-      userRoleDropdown.find((option: any) => option.label === label)
-    );
+  
 
     optimizedUserRoleDropdown.push({ value: "All", label: "All" });
     // }
   }
-
-  let careHomeDataDropdown: any;
-  if (isClientDataSuccess) {
-    clientAPIData = clientData;
-    // Making new array for dropdown from data
-    careHomeDataDropdown = clientAPIData?.data?.result?.map((item: any) => ({
-      value: item?._id,
-      label: item?.clientName,
-    }));
-
-  }
-
-
   // ============================== Handle Delete Job Role ==============================
   const handleDeleteSubmit = async () => {
     try {
@@ -264,18 +242,7 @@ const AddOrders = () => {
       dataIndex: "subtotal",
       align: "center"
     },
-    ...(role === ROLES.coordinator ?
-      [{
-        title: "Care Home",
-        align: "center",
-
-        dataIndex: "careHomeData",
-        key: "careHomeData",
-        render: (_: any, text: any) => (
-          <span className='fs-14 fw-400 m-0 line-height-22 title-color' style={{ textTransform: "capitalize" }}>{text?.careHomeData?.clientName}</span>
-        )
-      }] : []
-    ),
+   
     // {
     //   title: "Action",
     //   dataIndex: "action",
@@ -366,32 +333,7 @@ const AddOrders = () => {
               </div>
             </Col>
 
-            {role === ROLES.coordinator && (
-              <Col xs={24} md={10} lg={8} xl={6} xxl={4}>
-                <p className='fs-14 fw-600 title-color line-height-17 m-0' style={{ marginBottom: "0.563rem" }}>Care Home</p>
-                <div className="filter-column">
-                  <Select
-                    size="large"
-                    placeholder="Select care home"
-                    optionFilterProp="children"
-                    defaultValue="All"
-                    className="app-select-wrap-class"
-                    popupClassName="app-select-popup-wrap-class"
-                    style={{ width: "100%" }}
-                    onChange={(value: string) => {
-                      if (selectedCareHomeFilterValue === value) {
-                        setSelectedCareHomeFilterValue("")
-                    
-                      } else {
-                        setSelectedCareHomeFilterValue(value)
-                      }
-                    }}
-                    value={selectedCareHomeFilterValue}
-                    options={careHomeDataDropdown}
-                  />
-                </div>
-              </Col>
-            )}
+           
           </Row>
 
         </div>

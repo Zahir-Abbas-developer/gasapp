@@ -12,7 +12,7 @@ import { usePostJobRequestMutation, useUpdateJobRequestMutation } from "../../..
 import AppSnackbar from "../../../utils/AppSnackbar";
 import { ROLES } from "../../../constants/Roles";
 import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
-import { handleInputTrimSpaces, handleInputTrimStart } from "../../../utils/useInputTrim";
+import { handleInputTrimStart } from "../../../utils/useInputTrim";
 import { usePostCategoriesMutation, useUpdateCategoriesMutation } from "../../../store/Slices/Products";
 
 function AddCategoryModal(props: any) {
@@ -137,24 +137,7 @@ function AddCategoryModal(props: any) {
               />
             </Form.Item>
           </Col>
-          {role === ROLES.coordinator && (
-            <Col lg={12} xs={24} style={{ marginBottom: "20px" }}>
-              <label className="fs-14 fw-600">Select Care Home</label>
-              <Form.Item
-                name="careHomeId"
-                rules={[{ required: true, message: "Required field " }]}
-                style={{ marginBottom: "8px" }}
-              >
-                <Select
-                  suffixIcon={<img src={arrowDown} alt='arrow down' />}
-                  className="d-flex"
-                  placeholder="Select care home"
-                  options={userRoleDropdown}
-                  defaultValue={getTableRowValues?.careHomeData?.clientName}
-                />
-              </Form.Item>
-            </Col>
-          )}
+          
 
         </Row>
 
