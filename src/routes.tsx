@@ -4,18 +4,16 @@ import { Navigate } from "react-router-dom";
 
 import Login from "./components/Authentication/Login";
 import NotFound from "./components/Authentication/NotFound";
-import SignUp from "./components/Authentication/SignUp";
 import Unathorized from "./components/Authentication/Unathorized";
 import ResetPassword from "./components/Authentication/ResetPassword";
 import RequireAuth from "./components/Authentication/RequireAuth";
 import LoadingSvg from "../src/assets/Login/loader-icon.gif";
 import { ROLES } from "./constants/Roles";
-import path from "path";
 import AddStyles from "./components/Admin/AddStyles/AddStyles";
 import OurCollectionTabDetails from "./components/ClientTabs/OurCollectionTabDetails/OurCollectionTabDetails";
 import OurCustomOrderDetails from "./components/ClientTabs/CustomOrderTabDetails/CustomOrderTabDetails";
 import DashboardLayout from "./layout/Header/dashboard.layout";
-import { ConfirmationCode } from "./components/Otp/otp";
+
 
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
@@ -63,9 +61,7 @@ const AddProductsPage = Loadable(
 const AddCategoriesPage = Loadable(
   lazy(() => import("./pages/AddCategories"))
 );
-const AddColorsPage = Loadable(
-  lazy(() => import("./pages/AddColors"))
-);
+
 const UsersData = Loadable(
   lazy(() => import("./pages/AddStyles"))
 );
@@ -76,11 +72,6 @@ const AddOrdersPage = Loadable(
 // Reports and its Child Routes Ends Here
 
 const SettingsPage = Loadable(lazy(() => import("./pages/Settings")));
-
-
-
-const KeyInfo = Loadable(lazy(() => import("./pages/Settings/KeyInfo")));
-
 
 const Services=Loadable(
   lazy(() => import("./components/ClientTabs/Services/Services"))
@@ -226,20 +217,8 @@ export const routes: any = [
               </RequireAuth>
             ),
           },
-          {
-            path: "settings/Key-info",
-            element: (
-              <RequireAuth
-                allowedRoles={[ROLES.admin,ROLES.client]}
-              >
-                <KeyInfo />
-              </RequireAuth>
-            ),
-          },
+         
           
-         
-         
-
         ],
       },
      
