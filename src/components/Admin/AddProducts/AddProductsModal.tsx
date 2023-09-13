@@ -10,12 +10,11 @@ import {
 import arrowDown from "../../../assets/icons/arrow-down-icon.svg"
 import { useState } from 'react';
 import AppSnackbar from "../../../utils/AppSnackbar";
-import { ROLES } from "../../../constants/Roles";
+
 import { useGetClientsQuery } from "../../../store/Slices/Setting/StaffSettings/RegisterationConfiguration";
 import { handleInputTrimSpaces, handleInputTrimStart } from "../../../utils/useInputTrim";
 import { useGetAllCategoriessQuery, useGetAllColorsQuery, useGetAllMaterialsQuery, useGetAllProductsQuery, usePostProductsMutation, useUpdateProductsMutation } from "../../../store/Slices/Products";
-import UploadImage from "../../Setting/SettingKeyInfo/UploadImage/UploadImage";
-import { PlusCircleOutlined } from "@ant-design/icons";
+
 import Thumbnail from "../../Setting/SettingKeyInfo/UploadImage/Thumbnail";
 
 

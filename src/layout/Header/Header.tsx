@@ -15,7 +15,7 @@ import ClickAwayListener from "react-click-away-listener";
 
 import { ReactComponent as Logout } from "../../assets/icons/sidebar/logout.svg";
 import { ReactComponent as ChangePassword } from "../../assets/icons/sidebar/changePassword.svg";
-import { Badge } from 'antd';
+
 
 // Styles
 import "./Header.scss";
@@ -24,7 +24,7 @@ import { useLogoutMutation } from "../../store/Slices/Signin";
 import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { navItems } from "./nav-data";
+
 import { Fragment } from "@fullcalendar/core/preact";
 import NavBar from "./navbar.layout";
 
@@ -103,86 +103,7 @@ const handleRole = (item: any) => {
     <div
         className={role === "user" ? "employeeMenu" : "menus"}
       >
-        <nav className="nav">
-          <ul className="nav-title">
-            {navItems.map((item: any) => {
-              return (
-                <div key={uuidv4()}>
-                  {(item.toshowforrole.includes(role ?role: "newUser")) && (
-                    <div>
-                      <li
-                        className={`nav-link ${active === item.title && "activeNav"
-                          }`}
-                      >
-                        <img
-                          className="nav-img"
-                          src={isDarkMode ? item.darkIcon : item.lightIcon}
-                          alt={"icon"}
-                          onClick={() => {
-                            handleRole(item);
-                          }}
-                        />
-                        <span
-                          className="fs-12 nav-text title-color"
-                          style={{
-                            color: active === item.title ? "#e76f51" : "",
-                            fontSize:"large"
-                          }}
-                          onClick={() => {
-                            item.subItems
-                              ? setDropDown(true)
-                              : navigate(item.path);
-                            setActive(item.title);
-                          }}
-                        >
-                          {item.title}{" "}
-                          {item.subItems &&
-                            (dropDown && active && active === item.title ? (
-                              <UpOutlined style={{ fontSize: "10px" }} />
-                            ) : (
-                              <DownOutlined style={{ fontSize: "10px" }} />
-                            ))}
-                        </span>
-                      </li>
-                      {item.subItems && dropDown && active === item.title && (
-                        <ClickAwayListener
-                          onClickAway={() => setDropDown(false)}
-                        >
-                          <div className="dropDown select-theme">
-                            {item.subItems.map(
-                              (subNav: any) =>
-                                subNav.toshowforrole.includes(
-                                  role ?role: "newUser"
-                                ) && (
-                                  <Fragment key={uuidv4()}>
-                                    <p
-                                      onClick={() => {
-                                        navigate(subNav.path);
-                                        setActiveChild(subNav.title);
-                                        setDropDown(false);
-                                      }}
-                                      style={{
-                                        color:
-                                          activeChild === subNav.title
-                                            ? "#e76f51"
-                                            : "",
-                                      }}
-                                    >
-                                      {subNav.title}
-                                    </p>
-                                  </Fragment>
-                                )
-                            )}
-                          </div>
-                        </ClickAwayListener>
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </ul>
-        </nav>
+     
       </div>
 
    

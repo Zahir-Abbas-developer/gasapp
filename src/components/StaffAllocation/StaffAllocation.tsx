@@ -1,8 +1,7 @@
 import { useState } from "react";
 import personIcon from "../../assets/icons/StaffAllocation/person.svg";
 import markIcon from "../../assets/icons/StaffAllocation/mark.svg";
-import underPerformIcon from "../../assets/icons/StaffAllocation/underperform.svg";
-import bookIcon from "../../assets/icons/StaffAllocation/book.svg";
+
 import { Dropdown, Row, Space } from "antd";
 import SingleCard from "./SingleCard";
 import "./StaffAllocation.scss";

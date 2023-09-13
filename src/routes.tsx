@@ -5,13 +5,11 @@ import { Navigate } from "react-router-dom";
 import Login from "./components/Authentication/Login";
 import NotFound from "./components/Authentication/NotFound";
 import Unathorized from "./components/Authentication/Unathorized";
-import ResetPassword from "./components/Authentication/ResetPassword";
+
 import RequireAuth from "./components/Authentication/RequireAuth";
 import LoadingSvg from "../src/assets/Login/loader-icon.gif";
 import { ROLES } from "./constants/Roles";
 import AddStyles from "./components/Admin/Users/Users";
-import OurCollectionTabDetails from "./components/ClientTabs/OurCollectionTabDetails/OurCollectionTabDetails";
-import OurCustomOrderDetails from "./components/ClientTabs/CustomOrderTabDetails/CustomOrderTabDetails";
 import DashboardLayout from "./layout/Header/dashboard.layout";
 
 
@@ -32,14 +30,10 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
     </Suspense>
   );
 
-const DashboardPage = Loadable(lazy(() => import("./pages/Dashboard")));
 
 const OtpPage=Loadable(lazy(()=>import("./pages/Otp")))
 
 const CylinderOrders = Loadable(lazy(() => import("./pages/CylinderOrders")));
-const ProductDetailsPage = Loadable(
-  lazy(() => import("./pages/ProductDetails"))
-);
 
 const ConfirmationPage =Loadable(lazy(()=>import("./pages/ConfirmationPage")))
 
@@ -85,20 +79,12 @@ export const routes: any = [
     path: "login",
     element: <Login />,
   },
-  {path:"forget-password", element: <Login />,
-},
-  {
-    path: "change-password",
-    element: <Login />,
-  },
+
   {
     path:"user-verification",
     element:<UserVerficationPage/>
   },
-  {
-    path: "reset-password",
-    element: <Login />,
-  },
+ 
   {
     path: "sign-up",
     element: <Login />,
@@ -107,10 +93,7 @@ export const routes: any = [
     path: "unauthorized",
     element: <Unathorized />,
   },
-  {
-    path: "reset-password",
-    element: <ResetPassword />,
-  },
+  
   {
     path:"confirmation-signup",
     element:<ConfirmationPage/>
@@ -152,19 +135,7 @@ export const routes: any = [
         ),
       },
       
-      {
-        path: "dashboard",
-        element: (
-          <RequireAuth allowedRoles={[ROLES.user]}>
-            <DashboardPage />
-           </RequireAuth>
-        ),
-      },
-     
-      {
-        path:"productDetails",
-        element:<ProductDetailsPage/>
-      },
+    
       
       {
         path:"/add-products",
@@ -192,16 +163,6 @@ export const routes: any = [
         element:(<RequireAuth allowedRoles={[ROLES.admin || "admin"]}><AddStyles/></RequireAuth> )
       },
     
-      {
-        path: "shoes-products",
-        element: (
-          <RequireAuth allowedRoles={[ROLES.user]}>
-          
-            <OurCollectionTabDetails/>
-          </RequireAuth>
-        ),
-      },
-  
      
     ],
   },

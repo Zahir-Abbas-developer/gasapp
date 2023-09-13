@@ -1,6 +1,6 @@
 import { Button, Modal, Spin } from "antd";
 
-import DeleteIcon from "../../assets/icons/unpublishedShift/remove.png";
+import DeleteIcon from "../../assets/icons/DeleteIcon/remove.png";
 import confirmationImgae from "../../assets/icons/Cylinder/check-circle.svg"
 import "./style.scss";
 

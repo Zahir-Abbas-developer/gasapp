@@ -1,25 +1,16 @@
-import { Fragment, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {  Button } from "antd";
 import {
   MenuOutlined,
-  DownOutlined,
-  UpOutlined,
+
   UserOutlined,
-  ShoppingCartOutlined,
-  CaretDownOutlined,
+
 } from "@ant-design/icons";
-import { Avatar, Badge, Drawer, Dropdown, Popover, Space, Switch } from "antd";
-import { v4 as uuidv4 } from "uuid";
+import {  Drawer,  Space, } from "antd";
+
 import Bell from "../../assets/images/Cylinder/bell.png";
-import SearchImg from "../../assets/images/sidebar/Search.png";
-import ClickAwayListener from "react-click-away-listener";
-import { navItems } from "./nav-data";
-import { ReactComponent as Logout } from "../../assets/icons/sidebar/logout.svg";
-import { ReactComponent as ChangePassword } from "../../assets/icons/sidebar/changePassword.svg";
-// import Logo from "../../src/assets/images/brands/Final-Clock.gif";
-// import Bell from "../assets/images/header/bell.png";
-import DrawerNavsLinks from "./drawer-navs-links";
+
 import DrawerComp from "./drawer";
 import NotifyTabs from "../../components/notifications/notification-tabs.component";
 
@@ -46,22 +37,12 @@ const NavBar = () => {
   });
 
   const navigate = useNavigate();
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
 
   const [logOutUser]:any=useLogoutMutation()
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const renderComponent: any = {
-    navbar: (
-      <DrawerNavsLinks
-        setToggleDrawer={setToggleDrawer}
-        toggleDrawer={toggleDrawer}
-        setIsDarkMode={setIsDarkMode}
-        isDarkMode={isDarkMode}
-      />
-    ),
-  };
+ 
 
  
   useEffect(() => {
@@ -73,26 +54,9 @@ const NavBar = () => {
   const { role,username }: any = JSON.parse(
     localStorage.getItem("user") || "{}"
   );
- 
-  
 
-  // ========================== Profile Dropdown ==========================
-  const profileDropdown = [
-    {
-      title: "Logout",
-      icon: <Logout />,
-    },
-  ];
-  // ###################### Effect to get theme mode #####################
-  useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      isDarkMode ? "dark" : "light"
-    );
-  }, [isDarkMode]);
 
  
-  const overlayStyle = { borderRadius: 0 };
   return (
     <>
       <div className=" header-main-wrapper-ecommerce header-bg " style={{ position: "sticky", top: "0", zIndex: "100",padding:"10px 30px" }}>
@@ -207,7 +171,7 @@ const NavBar = () => {
           }
           width={270}
         >
-          {renderComponent[toggleDrawer.type]}
+       
         </DrawerComp>
       )}
       {toggleNotifications && (
