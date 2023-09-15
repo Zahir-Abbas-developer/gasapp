@@ -3,7 +3,7 @@ import PhoneInput from "react-phone-input-2";
 import { useState } from "react";
 import { Form, Input, Button } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import "./SignIn.scss";
 import {
   useForgetPasswordRequestMutation,
@@ -13,9 +13,11 @@ import {
 
 
 import { useAuthSignUpMutation } from "../../store/Slices/Products";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { auth } from "../../firebase";
+import { RecaptchaVerifier, signInWithEmailAndPassword, signInWithPhoneNumber } from "firebase/auth";
+import { auth, db } from "../../firebase";
 import { ConfirmationCode } from "../Otp/otp";
+import { renderDashboard } from "../../utils/useRenderDashboard";
+import { doc, getDoc } from "firebase/firestore";
 
 //comment for testing
 const Login = () => {
@@ -31,6 +33,7 @@ const Login = () => {
   const [isCheckbox ,setIsCheckbox]=useState(false)
   const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [signInLoading ,setIsSignInLoading]=useState(false)
 
   const [authSignUp] = useAuthSignUpMutation();
  
@@ -40,14 +43,14 @@ const Login = () => {
     };
   
   const onFinishSignUp = async (values: any) => {
-    if (!isChecked) {
-      setErrorMessage('You must agree to the terms of use.');
-      return;
-    }
-    delete values?.confirmpassWord;
+    // if (!isChecked) {
+    //   setErrorMessage('You must agree to the terms of use.');
+    //   return;
+    // }
+    // delete values?.confirmpassWord;
   
     setIsLoadingSignUp(true)
-    if (values?.password === values?.confirmPassword) {
+    if (values?.password) {
       const payload = {
         email: values.email,
         password: values.password,
@@ -68,35 +71,32 @@ const Login = () => {
     }
   };
 
-  const onFinish = async (values: any, optioanlBoolean?: boolean) => {
-    navigate("/services")
-    // try {
-    //   if (!optioanlBoolean) {
-    //     setIsLoadingSignIn(true)
-    //     const baseURL = "https://eager-fly-handkerchief.cyclic.app"
-    //     const { data } = await axios.post(baseURL + "/auth/login", { phoneNumber: values.mobilenumber })
-    //     console.log("🚀 ~ file: Login.tsx:81 ~ onFinish ~ data:", data)
-    //     setPhoneNumber(data)
-    //     setIsLoadingSignIn(false);
-    //   }
-     
-    //   onCaptchaVerify();
-    //   const payload = {
-    //     phoneNumber: values.mobilenumber,
-    //   };
-    //   const appVerifier = (window as any).recaptchaVerifier;
-    //   signInWithPhoneNumber(auth, payload.phoneNumber, appVerifier).then((result: any) => {
-    //     setOtpShow(true);  
-    //     (window as any).confirmationResult = result;
-    //     console.log("hurray", result)
-        
+  const onFinish = async (values: any) => {
+    const payload = {
+      emailOrUsername: values?.emailOrUsername, // values.username,
+      password: values?.password, //values.password,
+    };
 
-    //   }).catch(err => console.log("errrrrrrrr", err))
-    // } catch (err: any) {
-    //   console.log("Errrrr", err?.response?.data)
-    //   setErrorMessage(err?.response?.data?.message);
+    signInWithEmailAndPassword(auth, values.emailOrUsername, values.password)
+      .then((response) => {
+        setIsSignInLoading(true)
+        if (!response?.user?.emailVerified) {
+          setErrorMessage("Email is not Verified");
+          return;
+        }
+        getDoc(doc(db, "users", response.user.uid)).then((result) => {
+          if (result.exists()) {
+            const userData: any = { id: result.id, ...result.data() };
+            localStorage.setItem("user", JSON.stringify(userData));
+            navigate(renderDashboard(userData?.role || "user"));
+          }
+        });
+        setIsSignInLoading(true)
+      })
+      .catch((err) => {
+        setErrorMessage(err?.message);
+      });
 
-    // }
     // const { error, data }: any = await signInPostRequest({
     //   payload,
     // });
@@ -104,7 +104,7 @@ const Login = () => {
     // let token
     // const role = data?.data?.user?.roleData?.name;
 
-    // console.log("test data", data?.data?.session)
+    // // console.log("test data", data?.data?.session)
 
     // if (data?.data?.session) {
     //   navigate(`/reset-password`, {
@@ -129,23 +129,7 @@ const Login = () => {
     // }
   };
 
-  const onCaptchaVerify = () => {
-    if (!(window as any).recaptchaVerifier) {
-      (window as any).recaptchaVerifier = new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response: any) => {
-            console.log("window 132231")
-            onFinish({ mobilenumber: form.getFieldValue("mobilenumber") }, true)
-          },
-          "expired-callback": () => { },
-        }
-      );
-    }
-  };
-
+ 
 
   const myParam = useLocation().search;
 
@@ -227,7 +211,35 @@ const handlePhoneNumberChange = (value:any) => {
 
             <h2 className="sign-in-gas-app">Sign In</h2>
             <Form name="emailOrUsername" onFinish={onFinish} form={form}>
-              <Form.Item
+            <Form.Item
+                  name="emailOrUsername"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Required field",
+                    },
+                    { validator: validateEmail },
+                  ]}
+                >
+                  <Input placeholder="Username" className="input-style" />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Required field",
+                    },
+                  ]}
+                >
+                  {/* <Input.Password placeholder="Password" /> */}
+                  <Input.Password
+                    placeholder="Password"
+                    className="input-style"
+                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                  />
+                </Form.Item>
+              {/* <Form.Item
                 name="mobilenumber"
                 // rules={[
                 //   {
@@ -238,7 +250,7 @@ const handlePhoneNumberChange = (value:any) => {
                 // ]}
               >
                 <Input placeholder="Mobile Number +92*********" className="input-style" />
-              </Form.Item>
+              </Form.Item> */}
 
               <p style={{ color: "red" }}>{errorMessage}</p>
 
@@ -348,7 +360,23 @@ const handlePhoneNumberChange = (value:any) => {
                     inputStyle={{background: "rgba(238, 46, 126, 0.05)",height:"50px",border:"1px solid black"}}
                   />
                 </Form.Item>
-
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Required field",
+                    },
+                  ]}
+                >
+                  {/* <Input.Password placeholder="Password" /> */}
+                  <Input.Password
+                    placeholder="Password"
+                    className="input-style"
+                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                  />
+                </Form.Item>
+             
                 <Form.Item
                   name="address"
                   rules={[

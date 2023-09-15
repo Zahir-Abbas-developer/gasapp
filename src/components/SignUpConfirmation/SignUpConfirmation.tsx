@@ -13,7 +13,7 @@ const ConfirmationSignUp = () => {
         <p>Thank you for Signing up with LNG</p>
         </Col>
         <Col xs={24} style={{textAlign:"center",marginTop:"40px"}} >
-       <Link to="/services">
+       <Link to="/login">
        <Button
                   type="primary"
                   htmlType="submit"
