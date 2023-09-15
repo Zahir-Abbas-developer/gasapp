@@ -1,10 +1,8 @@
 import { Col, Row } from "antd"
-import './Footer.scss'
-import Orders from '../../assets/icons/Cylinder/clipboard-list.svg'
-import Home from '../../assets/icons/Cylinder/homeicon.svg'
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { DashboardOutlined, HomeOutlined, ShoppingCartOutlined, UsergroupAddOutlined } from "@ant-design/icons"
+import './Footer.scss'
 
 
 const FooterDetails=()=>{
@@ -47,7 +45,7 @@ const FooterDetails=()=>{
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <section >
-     {!role? 
+     {role==="user"? 
       <Row className="footer-main">
       <Col xs={12} md={12}>
         <Link to="/services" style={{ color: "#000000", cursor: "pointer" }}>
